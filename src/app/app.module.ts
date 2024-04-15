@@ -9,10 +9,12 @@ import { InfobarComponent } from './components/infobar/infobar.component';
 import { SummaryPipe } from './pipes/summary.pipe';
 import { DetailComponent } from './components/detail/detail.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-import {  HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { ListingComponent } from './components/listing/listing.component';
 import { IlanComponent } from './components/ilan/ilan.component';
+import { HouseListingComponent } from './components/house-listing/house-listing.component';
+import { PriceFormatPipe } from './pipes/price-format.pipe';
+
 
 @NgModule({
   declarations: [
@@ -22,15 +24,16 @@ import { IlanComponent } from './components/ilan/ilan.component';
     InfobarComponent,
     SummaryPipe,
     DetailComponent,
-    ListingComponent,
     IlanComponent,
+    HouseListingComponent,
+    PriceFormatPipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgxPaginationModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

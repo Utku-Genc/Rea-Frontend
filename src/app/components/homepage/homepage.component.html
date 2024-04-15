@@ -13,38 +13,49 @@
                             <button class="btn btn-light btn-lg" type="button" id="button-addon2"><i
                                     class="fa-solid fa-magnifying-glass fs-lg"></i></button>
                         </div>
-                        <div class="position-absolute top-100 start-0" style="width: 25%;">
-                            <div class="card text-bg-dark border-0 ">
-                                <img src="../../assets/img/home.jpg" class="card-img">
-                                <div class="card-img-overlay">
-                                    <h2
-                                        class="position-absolute top-50 start-50 translate-middle text-center div-text-rea" >
-                                        <strong>EV</strong></h2>
+
+                        <a routerLink="/houselisting">
+                            <div class="position-absolute top-100 start-0" style="width: 25%;">
+                                <div class="card text-bg-dark border-0 ">
+                                    <img src="../../assets/img/home.jpg" class="card-img">
+                                    <div class="card-img-overlay">
+                                        <h2
+                                            class="position-absolute top-50 start-50 translate-middle text-center div-text-rea">
+                                            <strong>EV</strong>
+                                        </h2>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <a routerLink="/ilan">
-                        <div class="position-absolute top-100 start-50 translate-middle-x" style="width: 25%;">
-                            <div class="card text-bg-dark border-0 ">
-                                <img src="../../assets/img/homeAndLand.jpg" class="card-img">
-                                <div class="card-img-overlay">
-                                    <h2
-                                        class="position-absolute top-50 start-50 translate-middle text-center div-text-rea">
-                                        <strong>Tüm <br>İlanlar</strong></h2>
+                        </a>
+
+                        <a routerLink="/listing">
+                            <div class="position-absolute top-100 start-50 translate-middle-x" style="width: 25%;">
+                                <div class="card text-bg-dark border-0 ">
+                                    <img src="../../assets/img/homeAndLand.jpg" class="card-img">
+                                    <div class="card-img-overlay">
+                                        <h2
+                                            class="position-absolute top-50 start-50 translate-middle text-center div-text-rea">
+                                            <strong>Tüm <br>İlanlar</strong>
+                                        </h2>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>
-                        <div class="position-absolute top-100 end-0 " style="width: 25%;">
-                            <div class="card text-bg-dark border-0 ">
-                                <img src="../../assets/img/land.jpg" class="card-img">
-                                <div class="card-img-overlay">
-                                    <h2
-                                        class="position-absolute top-50 start-50 translate-middle text-center div-text-rea">
-                                        <strong>ARSA</strong></h2>
+                        </a>
+
+                        <a routerLink="/listing">
+                            <div class="position-absolute top-100 end-0 " style="width: 25%;">
+                                <div class="card text-bg-dark border-0 ">
+                                    <img src="../../assets/img/land.jpg" class="card-img">
+                                    <div class="card-img-overlay">
+                                        <h2
+                                            class="position-absolute top-50 start-50 translate-middle text-center div-text-rea">
+                                            <strong>ARSA</strong>
+                                        </h2>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
+
                     </div>
                 </div>
             </div>
@@ -62,7 +73,8 @@
                                 <div class="card-body">
                                     <h5 class="card-title">{{item.title}}</h5>
                                     <p class="card-text">{{item.description | summary:50}}</p>
-                                    <p class="card-text"><small class="text-body-secondary">{{item.date | summary:10}}</small>
+                                    <p class="card-text"><small class="text-body-secondary">{{item.date |
+                                            summary:10}}</small>
                                     </p>
                                 </div>
                             </div>

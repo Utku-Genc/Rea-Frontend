@@ -1,0 +1,28 @@
+.slide-div {
+    width: 63vh;
+    height: 38.4vh;
+    object-fit: contain;
+    background-color: rgb(43, 48, 53);
+}
+
+.slide-style {
+    width: 63vh;
+    height: 38.4vh;
+    object-fit: contain;
+    background-color: rgb(43, 48, 53);
+}
+.slide-bottom{
+    width: 12vh;
+    height: 12vh;
+    background-color: rgb(43, 48, 53);
+    object-fit: scale-down;
+    object-position: center;
+}
+
+.slide-bottom-btn{
+    background-color: rgb(43, 48, 53);
+    color: rgb(255,188,0);
+    border: none;
+    width: 1.5vh;
+    font-size: 1vh;
+}

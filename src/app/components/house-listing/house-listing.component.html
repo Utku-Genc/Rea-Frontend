@@ -1,0 +1,48 @@
+<div class="container d-flex flex-wrap ">
+    <div class="card d-flex flex-wrap mb-3 mx-2" style="width: 19.2rem;" *ngFor="let item of houseListings">
+        <div routerLink="/houselisting/detail/{{item.listingTypeName}}/{{ item.listingId }}">
+            <img src="../../../assets/img/1.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title" style="min-height: 3rem;">{{item.title | summary:50 }}</h5>
+                <p class="card-text">{{item.description | summary:120}}</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li
+                    class="list-group-item bg-info bg-opacity-10 border border-info border border-1 border-end-0 border-start-0">
+                    <div class="mb-2 col-8 mx-auto">
+                        <h5 class="card-title text-center ">
+                            <ul class="list-group list-group-horizontal" style="max-height: 3rem;">
+                                <li class="list-group-item border-0 bg-transparent">
+                                    <i class="fa-solid fa-bed"></i>
+                                    <p>{{item.roomCount}}</p>
+                                </li>
+                                <li class="list-group-item border-0 bg-transparent">
+                                    <i class="fa-solid fa-couch"></i>
+                                    <p>{{item.livingRoomCount}}</p>
+                                </li>
+                                <li class="list-group-item border-0 bg-transparent">
+                                    <i class="fa-solid fa-shower"></i>
+                                    <p>{{item.bathroomCount}}</p>
+                                </li>
+                            </ul>
+                        </h5>
+                    </div>
+                </li>
+                <li class="list-group-item bg-info bg-opacity-10 border border-info border border-0 text-center">
+                    <h5>
+                        {{item.cityName}}
+                        <small class="text-body-secondary">
+                            - {{item.districtName}}
+                        </small>
+                    </h5>
+                </li>
+            </ul>
+            <div class="card-body">
+                <div class="d-grid gap-2 col-15 mx-auto">
+                    <button routerLink="/listings/detail/{{ item.listingTypeName }}/{{ item.id }}"
+                            class="btn btn-info btn-lg" type="button">{{ item.price | priceFormat: 'TRY' }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
