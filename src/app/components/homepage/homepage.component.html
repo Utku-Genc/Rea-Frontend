@@ -1,0 +1,75 @@
+<div class="container-xxl">
+    <div class="row justify-content-center">
+        <div>
+            <div class="card text-bg-dark border-0 rounded-5">
+                <img src="../../assets/img/1.jpg" class="card-img rounded-5" alt="..." style="filter: opacity(0.2);">
+                <div class="card-img-overlay">
+                    <img src="../../assets/img/reaEmlak.png" alt="" class="card-img">
+                    <div class="position-absolute top-50 start-50 translate-middle" style="width: 80%;">
+                        <div class="input-group mb-3 ">
+                            <input type="text" class="form-control input-lg"
+                                placeholder="Hayalinde ki ev ve arsa bir adım uzağında"
+                                aria-label="Recipient's username" aria-describedby="button-addon2">
+                            <button class="btn btn-light btn-lg" type="button" id="button-addon2"><i
+                                    class="fa-solid fa-magnifying-glass fs-lg"></i></button>
+                        </div>
+                        <div class="position-absolute top-100 start-0" style="width: 25%;">
+                            <div class="card text-bg-dark border-0 ">
+                                <img src="../../assets/img/home.jpg" class="card-img">
+                                <div class="card-img-overlay">
+                                    <h2
+                                        class="position-absolute top-50 start-50 translate-middle text-center div-text-rea" >
+                                        <strong>EV</strong></h2>
+                                </div>
+                            </div>
+                        </div>
+                        <a routerLink="/ilan">
+                        <div class="position-absolute top-100 start-50 translate-middle-x" style="width: 25%;">
+                            <div class="card text-bg-dark border-0 ">
+                                <img src="../../assets/img/homeAndLand.jpg" class="card-img">
+                                <div class="card-img-overlay">
+                                    <h2
+                                        class="position-absolute top-50 start-50 translate-middle text-center div-text-rea">
+                                        <strong>Tüm <br>İlanlar</strong></h2>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                        <div class="position-absolute top-100 end-0 " style="width: 25%;">
+                            <div class="card text-bg-dark border-0 ">
+                                <img src="../../assets/img/land.jpg" class="card-img">
+                                <div class="card-img-overlay">
+                                    <h2
+                                        class="position-absolute top-50 start-50 translate-middle text-center div-text-rea">
+                                        <strong>ARSA</strong></h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="display-2 mt-5 mb-3 ">Son İlanlar</h2>
+            <div class="row">
+                <div class="col-md-6 mb-3" *ngFor="let item of listings; let i = index;">
+                    <div class="card" style="min-width: 100%;">
+                        <div class="row g-0">
+                            <div class="col-md-4">
+                                <img src="../../assets/img/1.jpg" class="img-fluid rounded-start "
+                                    style="object-fit: cover; width: 100%; height: 100%;">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{item.title}}</h5>
+                                    <p class="card-text">{{item.description | summary:50}}</p>
+                                    <p class="card-text"><small class="text-body-secondary">{{item.date | summary:10}}</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

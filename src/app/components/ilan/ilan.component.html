@@ -1,0 +1,18 @@
+<div class="container d-flex flex-wrap ">
+<div class="card d-flex flex-wrap mb-3 mx-2" style="width: 18rem;" *ngFor="let item of listings">
+    <img src="../../../assets/img/1.jpg" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">{{item.title}}</h5>
+        <p class="card-text">{{item.description}}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">{{item.squareMeter}}</li>
+        <li class="list-group-item">{{item.date}}</li>
+        <li class="list-group-item">A third item</li>
+    </ul>
+    <div class="card-body">
+        <a routerLink="/detail/{{item.typeName}}/{{ item.id }}" class="card-link">{{item.price}}</a>
+
+    </div>
+</div>
+</div>
