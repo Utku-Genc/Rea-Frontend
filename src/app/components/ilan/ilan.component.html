@@ -1,6 +1,8 @@
 <div class="container d-flex flex-wrap ">
 <div class="card d-flex flex-wrap mb-3 mx-2" style="width: 18rem;" *ngFor="let item of listings">
-    <img src="../../../assets/img/1.jpg" class="card-img-top" alt="...">
+    <div class="pt-3 text-center"><p>{{item.listingTypeName}}</p></div>
+
+    <img [src]="getListingImagePath(item)" class="card-img-top aspect-ratio-16x9" alt="...">
     <div class="card-body">
         <h5 class="card-title" style="min-height: 3rem;">{{item.title | summary:50 }}</h5>
         <p class="card-text">{{item.description | summary:150}}</p>
@@ -8,11 +10,11 @@
     <ul class="list-group list-group-flush">
         <li class="list-group-item">{{item.squareMeter}}</li>
         <li class="list-group-item">{{item.date | date:'dd/MM/YYYY'}}</li>
-        <li class="list-group-item">A third item</li>
+        <li class="list-group-item">{{item.propertyTypeName}}</li>
     </ul>
     <div class="card-body">
         <div class="d-grid gap-2 col-15 mx-auto">
-            <button routerLink="/listings/detail/{{ item.typeName }}/{{ item.id }}"
+            <button routerLink="/listings/detail/{{ item.id }}"
                     class="btn btn-info btn-lg" type="button">{{ item.price | priceFormat: 'TRY' }}</button>
         </div>
     </div>

@@ -1,4 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { HouseListing } from '../../models/houseListing';
 
 @Component({
   selector: 'detail',
@@ -70,4 +71,7 @@ export class DetailComponent {
       });
     }
   }
+
+
+
 }

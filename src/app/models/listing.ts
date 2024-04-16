@@ -4,7 +4,8 @@ export interface Listing {
   description: string;
   cityName: string;
   districtName: string;
-  typeName: string;
+  listingTypeName: string;
+  propertyTypeName: string;
   price: number;
   date: string; 
   squareMeter: number;

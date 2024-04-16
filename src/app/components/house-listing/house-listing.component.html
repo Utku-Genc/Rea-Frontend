@@ -1,7 +1,11 @@
 <div class="container d-flex flex-wrap ">
     <div class="card d-flex flex-wrap mb-3 mx-2" style="width: 19.2rem;" *ngFor="let item of houseListings">
-        <div routerLink="/houselisting/detail/{{item.listingTypeName}}/{{ item.listingId }}">
-            <img src="../../../assets/img/1.jpg" class="card-img-top" alt="...">
+
+        <div routerLink="/houselisting/detail/{{ item.listingId }}">
+
+            <div class="pt-3 text-center"><p>{{item.listingTypeName}}</p></div>
+
+            <img [src]="getHouseListingImagePath(item)" class="card-img-top rounded-bottom aspect-ratio-16x9" alt="...">
             <div class="card-body">
                 <h5 class="card-title" style="min-height: 3rem;">{{item.title | summary:50 }}</h5>
                 <p class="card-text">{{item.description | summary:120}}</p>
@@ -28,7 +32,12 @@
                         </h5>
                     </div>
                 </li>
-                <li class="list-group-item bg-info bg-opacity-10 border border-info border border-0 text-center">
+                <li class="list-group-item bg-info bg-opacity-10 border border-info border border-1 border-end-0 border-start-0 border-top-0 text-center">
+                    <h5>
+                        {{item.houseTypeName}}
+                    </h5>
+                </li>
+                <li class="list-group-item bg-info bg-opacity-10 border border-info border border-1 border-end-0 border-start-0 border-top-0 text-center">
                     <h5>
                         {{item.cityName}}
                         <small class="text-body-secondary">

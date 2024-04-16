@@ -24,4 +24,13 @@ constructor(private httpClient: HttpClient){}
         this.listings = response.data;
       });
   }
+
+  getListingImagePath(listing: Listing): string {
+    if (listing.imagePath && listing.imagePath.length > 0) {
+      return 'https://localhost:44318/Uploads/ListingImages/' + listing.imagePath;
+    } else {
+      // Default resim yolu
+      return 'https://localhost:44318/Uploads/ListingImages/DefaultImage.png';
+    }
+  }
 }

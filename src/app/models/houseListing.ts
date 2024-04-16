@@ -12,4 +12,5 @@ export interface HouseListing {
     cityName: string;
     districtName: string;
     imagePath: string;
+    date: string;
 }

@@ -23,5 +23,13 @@ constructor(private httpClient: HttpClient){}
         this.houseListings = response.data;
       });
   }
+  getHouseListingImagePath(houseListing: HouseListing): string {
+    if (houseListing.imagePath && houseListing.imagePath.length > 0) {
+      return 'https://localhost:44318/Uploads/ListingImages/' + houseListing.imagePath;
+    } else {
+      // Default resim yolu
+      return 'https://localhost:44318/Uploads/ListingImages/DefaultImage.png';
+    }
+  }
 }
 

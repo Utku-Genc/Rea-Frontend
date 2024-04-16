@@ -10,7 +10,7 @@ import { HouseListingComponent } from './components/house-listing/house-listing.
 const routes: Routes = [
   { path: '', redirectTo: '/homepage', pathMatch: 'full' },
   { path: 'homepage', component: HomepageComponent },
-  { path: ':listingName/detail/:typeName/:id', component: DetailComponent },
+  { path: ':listingName/detail/:id', component: DetailComponent },
   { path: 'listing', component: IlanComponent },
   { path: 'houselisting', component: HouseListingComponent},
 
