@@ -2,3 +2,6 @@
     width: 100%;
     backdrop-filter: blur(5px);
 }
+.aspect-ratio-16x9 {
+    aspect-ratio: 16/9;
+}

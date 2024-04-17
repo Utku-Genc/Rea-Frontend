@@ -26,7 +26,7 @@ constructor(private httpClient: HttpClient){}
   }
 
   getListingImagePath(listing: Listing): string {
-    if (listing.imagePath && listing.imagePath.length > 0) {
+    if (listing.imagePath) {
       return 'https://localhost:44318/Uploads/ListingImages/' + listing.imagePath;
     } else {
       // Default resim yolu

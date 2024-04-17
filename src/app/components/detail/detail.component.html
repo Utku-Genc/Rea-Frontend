@@ -1,33 +1,171 @@
-<div>
-    <div class="container d-flex flex-wrap">
-        <div id="carouselExampleRide" class="carousel slide slide-div mb-3" data-bs-ride="true">
-            <div class="carousel-inner">
-                <div class="carousel-item"  *ngFor="let image of images; let isFirst = first" [ngClass]="{ 'active': isFirst }">
-                    <img [src]="image" class="d-block w-100 slide-style">
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleRide"
-                data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleRide"
-                data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
+<div class="container">
+  <div class="row align-items-start">
+
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title d-flex justify-content-between">{{ houseDetail.title }} <small class=" text-end">{{
+            houseDetail.listingId }}</small></h5>
+
+      </div>
     </div>
 
-    <div class="container d-flex flex-wrap slide-bottom-div" #imageContainer>
+    <div class="col">
+
+      <div class="container d-flex flex-wrap ">
+        <div *ngIf="imageListing.data.length>0" id="carouselExampleRide" class="carousel slide slide-div mb-3 "
+          data-bs-ride="true">
+          <div class="carousel-inner ">
+            <div class="carousel-item " *ngFor="let image of imageListing.data; let isFirst = first"
+              [ngClass]="{ 'active': isFirst }">
+              <img [src]="getHouseListingImagePath(image)" class="d-block w-100 slide-style ">
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bxs-target="#carouselExampleRide"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleRide"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="container d-flex flex-wrap">
+        <div *ngIf="imageListing.data.length<=0" id="carouselExampleAutoplaying" class="carousel slide slide-div mb-3"
+          data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="../../../assets/img/defaultHouse.png" class="d-block w-100 slide-style-default" alt="...">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="imageListing.data.length>0" class="container d-flex flex-wrap slide-bottom-div " #imageContainer>
         <button (click)="previous()" class="slide-bottom-btn"><i class="fa-solid fa-chevron-left"></i></button>
 
-        <ng-container *ngFor="let image of visibleImages; let i = index">
-            <img [src]="image" class="d-block border-end border-start slide-bottom" (click)="showImageInCarousel(i)">
+        <ng-container *ngFor="let image of imageListing.data;; let i = index">
+          <img [src]="getHouseListingImagePath(image)" class="d-block border-end border-start slide-bottom"
+            (click)="showImageInCarousel(i)">
         </ng-container>
 
         <button (click)="next()" class="slide-bottom-btn"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+
+
+      <div class="container  mt-2 padding-down">
+        <div class="row user-card">
+          <div class="col-14">
+            <p class="ilan">İlan Sahibi</p>
+          </div>
+          <div class="col-3 mb-3 ms-3">
+            <img src="../../../assets/img/user.png" class="user-image">
+          </div>
+          <div class="col-8">
+            <div class="user-details">
+              <h3 class="user-name">{{houseDetail.firstName}} {{houseDetail.lastName}}</h3>
+              <p class="user-email">{{houseDetail.userEmail}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
     </div>
-    
+
+    <div class="col">
+      <div>
+
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title d-flex justify-content-between">
+              İlan Bilgileri
+              <small class="float-end">{{ houseDetail.date | date:'dd/MM/YYYY' }}</small>
+            </h5>
+            <ul class="list-group list-group-flush">
+              <div class="price mt-3">
+                <li class="list-group-item">{{ houseDetail.price | priceFormat}}</li>
+              </div>
+
+              <div>
+                <li class="list-group-item border border-0 d-flex justify-content-between">
+                  <h4>{{ houseDetail.listingTypeName }}</h4>
+                  <h5>{{houseDetail.houseTypeName }}</h5>
+                  <h5>{{houseDetail.cityName}} <br>
+                    <small class="text-body-secondary">{{houseDetail.districtName}}</small>
+                  </h5>
+                </li>
+              </div>
+              <div class="card mb-2 border border-0 ">
+                <div class="card-body">
+                  <h5 class="card-title">{{ houseDetail.description }}</h5>
+                </div>
+              </div>
+              <div class="d-flex  count-li text-center">
+                <div class="col ">
+                  <li class="list-group-item border border-0 "><i class="fa-solid fa-bed"></i> <br>
+                    <p>{{ houseDetail.roomCount }}</p>
+                  </li>
+                </div>
+                <div class="col">
+                  <li class="list-group-item border border-0"><i class="fa-solid fa-couch"></i> <br>
+                    <p>{{ houseDetail.livingRoomCount }}</p>
+                </div>
+                <div class="col">
+                  <li class="list-group-item border border-0"><i class="fa-solid fa-bath"></i> <br>
+                    <p>{{ houseDetail.bathroomCount }}</p>
+                  </li>
+                </div>
+              </div>
+
+              <div class="d-flex">
+                <div class="col">
+                  <li class="list-group-item">Kaç Katlı: {{ houseDetail.floorCount }}</li>
+                </div>
+                <div class="col">
+                  <li class="list-group-item">Bulunduğu Kat: {{ houseDetail.currentFloor }}</li>
+                </div>
+                <div class="col">
+                  <li class="list-group-item">Yapı Yaşı: {{ houseDetail.buildingAge }}</li>
+                </div>
+              </div>
+
+              <div class="d-flex">
+                <div class="col">
+                  <li class="list-group-item">Bahçeli: <i
+                      class="fa-solid {{ houseDetail.hasGarden ? 'fa-check text-success' : 'fa-xmark text-danger' }}"></i>
+                  </li>
+                  <li class="list-group-item">Balkonlu: <i
+                      class="fa-solid {{ houseDetail.hasBalcony ? 'fa-check text-success' : 'fa-xmark text-danger' }}"></i>
+                  </li>
+                  <li class="list-group-item">Asansörlü: <i
+                      class="fa-solid {{ houseDetail.hasElevator ? 'fa-check text-success' : 'fa-xmark text-danger' }}"></i>
+                  </li>
+                </div>
+                <div class="col">
+                  <li class="list-group-item">Park Alanı: <i
+                      class="fa-solid {{ houseDetail.hasParking ? 'fa-check text-success' : 'fa-xmark text-danger' }}"></i>
+                  </li>
+                  <li class="list-group-item">Mobilyalı: <i
+                      class="fa-solid {{ houseDetail.hasFurniture ? 'fa-check text-success' : 'fa-xmark text-danger' }}"></i>
+                  </li>
+                  <li class="list-group-item">Site İçinde: <i
+                      class="fa-solid {{ houseDetail.isInGatedCommunity ? 'fa-check text-success' : 'fa-xmark text-danger' }}"></i>
+                  </li>
+                </div>
+              </div>
+              <li class="list-group-item">Adres: {{ houseDetail.address }}</li>
+
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
 
 </div>

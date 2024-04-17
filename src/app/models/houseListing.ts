@@ -14,3 +14,5 @@ export interface HouseListing {
     imagePath: string;
     date: string;
 }
+
+  

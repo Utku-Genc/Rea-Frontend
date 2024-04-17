@@ -3,7 +3,7 @@
 
         <div routerLink="/houselisting/detail/{{ item.listingId }}">
 
-            <div class="pt-3 text-center"><p>{{item.listingTypeName}}</p></div>
+            <li class="list-group-item border-0 bg-transparent text-center"><p>{{item.listingTypeName}}</p></li>
 
             <img [src]="getHouseListingImagePath(item)" class="card-img-top rounded-bottom aspect-ratio-16x9" alt="...">
             <div class="card-body">
@@ -25,7 +25,7 @@
                                     <p>{{item.livingRoomCount}}</p>
                                 </li>
                                 <li class="list-group-item border-0 bg-transparent">
-                                    <i class="fa-solid fa-shower"></i>
+                                    <i class="fa-solid fa-bath"></i>
                                     <p>{{item.bathroomCount}}</p>
                                 </li>
                             </ul>

@@ -1,44 +1,57 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { HouseListing } from '../../models/houseListing';
+import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router'; // ActivatedRoute ekleyin
+import { HouseDetail } from '../../models/houseDetail';
+import { HouseDetailResponseModel } from '../../models/HouseDetailResponseModel';
+import { HttpClient } from '@angular/common/http';
+import { ListingImage } from '../../models/listingImage';
+import { ListingImageResponseModel } from '../../models/listingImageResponseModel';
 
 @Component({
   selector: 'detail',
   templateUrl: './detail.component.html',
-  styleUrl: './detail.component.css'
+  styleUrls: ['./detail.component.css']
 })
-export class DetailComponent {
+export class DetailComponent implements OnInit {
   @ViewChild('imageContainer') imageContainer!: ElementRef;
-  images: string[] = [
-    '../../../assets/img/1.jpg',
-    '../../../assets/img/2.jpg',
-    '../../../assets/img/3.jpg',
-    '../../../assets/img/4.jpg',
-    '../../../assets/img/5.jpg',
-    '../../../assets/img/6.jpg',
-    '../../../assets/img/7.jpg',
-    '../../../assets/img/8.jpg',
-    '../../../assets/img/9.jpg',
-    '../../../assets/img/10.png',
-    '../../../assets/img/4.jpg',
-    '../../../assets/img/5.jpg',
-    '../../../assets/img/6.jpg',
-    '../../../assets/img/7.jpg',
-    '../../../assets/img/8.jpg',
-    '../../../assets/img/9.jpg',
-    '../../../assets/img/10.png',
-  ];
+  imageListing!: ListingImageResponseModel; // Resimler buraya atanacak
   startIndex = 0;
   endIndex = 5;
   visibleImages: string[] = [];
 
-  constructor() { }
+
+  houseDetail!: HouseDetail;
+  apiUrl = "https://localhost:44318/api/HouseListings/getdetails?listingId=";
+  apiUrlImg = "https://localhost:44318/api/ListingImages/getbylistingid?listingId="
+
+  constructor(private httpClient: HttpClient, private route: ActivatedRoute) { } // ActivatedRoute ekleyin
 
   ngOnInit() {
+    const listingId = this.route.snapshot.paramMap.get('id'); // URL'den listingId'yi al
+    this.getHouseDetail(listingId); // Parametre olarak listingId'yi geçir
+    this.gethouseImage(listingId);
     this.showImages();
+
+  }
+
+  gethouseImage(listingId: string | null ){
+     if (!listingId) return;
+     this.httpClient.get<ListingImageResponseModel>(this.apiUrlImg+listingId).subscribe((response)=> {
+      this.imageListing = response;
+      console.log(response);
+     })
+  }
+  getHouseDetail(listingId: string | null) { // listingId parametresini ekleyin
+    // listingId yoksa işlem yapma
+    if (!listingId) return;
+
+    this.httpClient.get<HouseDetailResponseModel>(this.apiUrl+listingId) // listingId'ye göre ilanı getir
+      .subscribe((response) => {
+        this.houseDetail = response.data;
+      });
   }
 
   next() {
-    if (this.endIndex < this.images.length) {
+    if (this.endIndex < this.imageListing.data.length) {
       this.startIndex += 5;
       this.endIndex += 5;
       this.showImages();
@@ -54,17 +67,19 @@ export class DetailComponent {
   }
 
   showImages() {
-    this.visibleImages = this.images.slice(this.startIndex, this.endIndex);
-    this.imageContainer.nativeElement.scrollLeft = 0; // Her seferinde scroll pozisyonunu sıfırla
+    this.visibleImages = this.imageListing.data
+      .slice(this.startIndex, this.endIndex)
+      .map(listingImage => listingImage.imagePath);
+    this.imageContainer.nativeElement.scrollLeft = 0;
   }
+  
+
   showImageInCarousel(index: number) {
     const carousel = document.getElementById('carouselExampleRide');
     const carouselItems = carousel?.querySelectorAll('.carousel-item');
     if (carouselItems && index >= 0 && index < carouselItems.length) {
       carouselItems.forEach((element, i) => {
-        // Tüm resimlerden 'active' sınıfını kaldır
         element.classList.remove('active');
-        // Tıklanan resmin slaydını 'active' yap
         if (i === index) {
           element.classList.add('active');
         }
@@ -72,6 +87,14 @@ export class DetailComponent {
     }
   }
 
-
-
+  getHouseListingImagePath(item: ListingImage): string {
+    if (item.imagePath && item.imagePath.length > 0 && this.imageListing.data.length>0 )   {
+      console.log('https://localhost:44318/Uploads/ListingImages/' + item.imagePath)
+      return 'https://localhost:44318/Uploads/ListingImages/' + item.imagePath;
+    } else {
+      // Default resim yolu
+      console.log("test")
+      return 'https://localhost:44318/Uploads/ListingImages/DefaultImage.png';
+    }
+  }
 }
