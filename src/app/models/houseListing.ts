@@ -13,6 +13,13 @@ export interface HouseListing {
     districtName: string;
     imagePath: string;
     date: string;
-}
-
+    squareMeter: number;
+    buildingAge: number;
+    hasGarden: boolean;
+    hasElevator: boolean;
+    hasFurniture: boolean;
+    hasParking: boolean;
+    hasBalcony: boolean;
+    isInGatedCommunity: boolean;
+  }
   

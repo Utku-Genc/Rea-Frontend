@@ -4,6 +4,8 @@ import { HomepageComponent } from './components/homepage/homepage.component';
 import { DetailComponent } from './components/detail/detail.component';
 import { IlanComponent } from './components/ilan/ilan.component';
 import { HouseListingComponent } from './components/house-listing/house-listing.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
 
 
 
@@ -13,6 +15,8 @@ const routes: Routes = [
   { path: ':listingName/detail/:id', component: DetailComponent },
   { path: 'listing', component: IlanComponent },
   { path: 'houselisting/:id', component: HouseListingComponent},
+  { path: 'login', component: LoginComponent},
+  { path: 'register', component: RegisterComponent},
 
 ];  
 @NgModule({

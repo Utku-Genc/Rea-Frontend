@@ -1,0 +1,140 @@
+<div class="card">
+    <div class="card-header">
+        Filtrele
+    </div>
+    <div class="card-body">
+        <form (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+                <label for="searchText" class="form-label">Arama Metni</label>
+                <input type="text" class="form-control" id="searchText" name="searchText" [(ngModel)]="filterObject.searchText">
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="roomCount" class="form-label">Oda Sayısı</label>
+                    <select class="form-select" id="roomCount" name="roomCount" [(ngModel)]="filterObject.roomCount">
+                        <option value="">Seçiniz</option>
+                        <option value="1">1+1</option>
+                        <option value="2">2+1</option>
+                        <option value="3">3+1</option>
+                        <option value="4">4+1</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="bathroomCount" class="form-label">Banyo Sayısı</label>
+                    <select class="form-select" id="bathroomCount" name="bathroomCount" [(ngModel)]="filterObject.bathroomCount">
+                        <option value="">Seçiniz</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="livingRoomCount" class="form-label">Salon Sayısı</label>
+                    <select class="form-select" id="livingRoomCount" name="livingRoomCount" [(ngModel)]="filterObject.livingRoomCount">
+                        <option value="">Seçiniz</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="listingTypeName" class="form-label">İlan Türü</label>
+                    <input type="text" class="form-control" id="listingTypeName" name="listingTypeName" [(ngModel)]="filterObject.listingTypeName">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="houseTypeName" class="form-label">Ev Türü</label>
+                    <input type="text" class="form-control" id="houseTypeName" name="houseTypeName" [(ngModel)]="filterObject.houseTypeName">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="cityName" class="form-label">Şehir</label>
+                    <input type="text" class="form-control" id="cityName" name="cityName" [(ngModel)]="filterObject.cityName">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="districtName" class="form-label">İlçe</label>
+                    <input type="text" class="form-control" id="districtName" name="districtName" [(ngModel)]="filterObject.districtName">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="maxPrice" class="form-label">Maksimum Fiyat</label>
+                    <input type="number" class="form-control" id="maxPrice" name="maxPrice" [(ngModel)]="filterObject.maxPrice">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="minPrice" class="form-label">Minimum Fiyat</label>
+                    <input type="number" class="form-control" id="minPrice" name="minPrice" [(ngModel)]="filterObject.minPrice">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="maxBuildAge" class="form-label">Maksimum Bina Yaşı</label>
+                    <input type="number" class="form-control" id="maxBuildAge" name="maxBuildAge" [(ngModel)]="filterObject.maxBuildAge">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="minSquareMeter" class="form-label">Minimum Metrekare</label>
+                    <input type="number" class="form-control" id="minSquareMeter" name="minSquareMeter" [(ngModel)]="filterObject.minSquareMeter">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="maxSquareMeter" class="form-label">Maksimum Metrekare</label>
+                    <input type="number" class="form-control" id="maxSquareMeter" name="maxSquareMeter" [(ngModel)]="filterObject.maxSquareMeter">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="hasGarden" name="hasGarden" [(ngModel)]="filterObject.hasGarden">
+                        <label class="form-check-label" for="hasGarden">
+                            Bahçe
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="hasElevator" name="hasElevator" [(ngModel)]="filterObject.hasElevator">
+                        <label class="form-check-label" for="hasElevator">
+                            Asansör
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="hasFurniture" name="hasFurniture" [(ngModel)]="filterObject.hasFurniture">
+                        <label class="form-check-label" for="hasFurniture">
+                            Mobilya
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="hasParking" name="hasParking" [(ngModel)]="filterObject.hasParking">
+                        <label class="form-check-label" for="hasParking">
+                            Otopark
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="hasBalcony" name="hasBalcony" [(ngModel)]="filterObject.hasBalcony">
+                        <label class="form-check-label" for="hasBalcony">
+                            Balkon
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="isInGatedCommunity" name="isInGatedCommunity" [(ngModel)]="filterObject.isInGatedCommunity">
+                        <label class="form-check-label" for="isInGatedCommunity">
+                            Site İçinde
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Filtrele</button>
+        </form>
+    </div>
+</div>

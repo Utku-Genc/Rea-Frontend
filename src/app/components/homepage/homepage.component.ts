@@ -12,8 +12,6 @@ import { HouseListing } from '../../models/houseListing';
 
 
 export class HomepageComponent {
-  items = [1, 2, 3, 4, 5, 6, 7, 8]; // veya dizi uzunluğuna göre herhangi bir veri
-
   listings: Listing[] = [];
   apiUrl = "https://localhost:44318/api/Listings/getalldetails"
 
