@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { UserImage } from '../../models/userImage';
 import { UserImageService } from '../../services/user-image.service';
+import { User } from '../../models/user';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'navbar',
@@ -11,16 +13,24 @@ import { UserImageService } from '../../services/user-image.service';
 export class NavbarComponent implements OnInit {
   isLoggedIn = false; 
   userImg: UserImage[] = [];
+  user!:User
 
-  constructor(private authService:AuthService, private userImageService:UserImageService) { }
+  constructor(private authService:AuthService, private userImageService:UserImageService,private userService:UserService) { }
 
   ngOnInit(): void {
     console.log(this.isLoggedIn + " Navbar");
     this.isLoggedIn = this.authService.isAuthenticated();
     if (this.isLoggedIn){
-      this.getUserImageByToken()
+      this.getUser();
+      this.getUserImageByToken();
     }
 
+  }
+
+  getUser(){
+    this.userService.getUserByToken().subscribe(response=>{
+      this.user = response.data;
+    })
   }
 
   getUserImageByToken() {
