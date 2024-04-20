@@ -20,7 +20,7 @@
                 <img *ngIf="userImg.length>0" [src]="getUserImagePath(userImg[0])" alt="Profil Fotoğrafı" class="rounded-circle me-2" style="width: 32px; height: 32px;">
 
                 <img *ngIf="userImg.length<=0" src="../../../assets/img/user.png" alt="Profil Fotoğrafı" class="rounded-circle me-2" style="width: 32px; height: 32px;">
-                Utku Genç
+                {{user.firstName}} {{user.lastName}}
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li><a class="dropdown-item" routerLink="/ilan-ekle">İlan Ekle</a></li>
