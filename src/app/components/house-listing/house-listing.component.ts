@@ -16,13 +16,16 @@ import { DistrictService } from '../../services/district.service';
 })
 export class HouseListingComponent {
   houseListings: HouseListing[] = [];
+  value: number=0;
 
-  filternumber: number[]=[1,2,3,4,5,6,7,8,9];
+  squareMeter: number=0;
+  price: number=0;
   filterObject: any = {};
   filterApiUrl = "https://localhost:44318/api/HouseListings/getallbyfilter"
 
   city: City[] = [];
   districts: District[] = [];
+
 
 
   constructor(private houseListingService: HouseListingService, private cityService: CityService, private districService: DistrictService, private router: Router, private httpClient: HttpClient) { }
@@ -71,7 +74,18 @@ onCityChange(event: any) {
   }
 
   onSubmit() {
-    // Form verilerini API'ye gönder
+    if(this.filterObject.minSquareMeter > this.filterObject.maxSquareMeter){
+      this.squareMeter = this.filterObject.minSquareMeter;
+      this.filterObject.minSquareMeter = this.filterObject.maxSquareMeter;
+      this.filterObject.maxSquareMeter = this.squareMeter;
+    }
+
+    if(this.filterObject.minPrice > this.filterObject.maxPrice){
+      this.price = this.filterObject.minPrice;
+      this.filterObject.minPrice = this.filterObject.maxPrice;
+      this.filterObject.maxPrice = this.price;
+    }
+
     this.httpClient.post<any>(this.filterApiUrl, this.filterObject)
       .subscribe(response => {
         this.houseListings = response.data
@@ -81,6 +95,16 @@ onCityChange(event: any) {
         console.error('API iletişim hatası:', error);
       });
   }
+  // lower(){
+  //   if(this.value>0){
+  //     this.value= this.value-4
+  //   }
+  // }
+  // upper(){
+  //   if(this.value>0){
+  //     this.value= this.value+4
+  //   }
+  // }
 
 
   getHouseListingImagePath(houseListing: HouseListing): string {

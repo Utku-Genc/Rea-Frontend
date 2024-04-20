@@ -13,12 +13,32 @@
                         <input type="text" class="form-control" id="searchText" name="searchText"
                             [(ngModel)]="filterObject.searchText">
                     </div>
-                    
+
+                    <div class="mb-3">
+                        <label class="form-label">Gayrimenkul Türü</label>
+                        <div class="col d-flex">
+                            <div class="form-check col">
+                                <input class="form-check-input" type="radio" name="propertyType" id="ev" value="Ev"
+                                    [(ngModel)]="filterObject.propertyType">
+                                <label class="form-check-label" for="ev">Ev</label>
+                            </div>
+                            <div class="form-check col">
+                                <input class="form-check-input" type="radio" name="propertyType" id="arsa" value="Arsa"
+                                    [(ngModel)]="filterObject.propertyType">
+                                <label class="form-check-label" for="arsa">Arsa</label>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col mb-3">
                             <label for="listingTypeName" class="form-label">İlan Türü</label>
-                            <input type="text" class="form-control" id="listingTypeName" name="listingTypeName"
+                            <select class="form-select" id="propertyType" name="propertyType"
                                 [(ngModel)]="filterObject.listingTypeName">
+                                <option value="">Seçiniz</option>
+                                <option value="Kiralık">Kiralık</option>
+                                <option value="Satılık">Satılık</option>
+                            </select>
                         </div>
 
                     </div>
@@ -50,7 +70,7 @@
                             <input type="number" class="form-control" id="maxPrice" name="maxPrice"
                                 [(ngModel)]="filterObject.maxPrice">
                         </div>
-                        
+
                     </div>
                     <div class="row">
                         <div class="col mb-3">
@@ -84,6 +104,7 @@
 
     <div class="d-flex flex-wrap col-9">
         <div class="card d-flex flex-wrap mb-3 mx-2" style="width: 18rem;" *ngFor="let item of listings">
+            <div routerLink="/houselisting/detail/{{ item.id }}">
             <div class="pt-3 text-center">
                 <p>{{item.listingTypeName}}</p>
             </div>
@@ -106,4 +127,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>

@@ -16,7 +16,8 @@ export class IlanComponent implements OnInit {
 
   listings: Listing[] = [];
 
-  filternumber: number[]=[1,2,3,4,5,6,7,8,9];
+  squareMeter: number=0;
+  price: number=0;
   filterObject: any = {};
   filterApiUrl = "https://localhost:44318/api/Listings/getallbyfilter"
 
@@ -37,6 +38,18 @@ constructor(private listingService:ListingService,private httpClient: HttpClient
   }
 
   onSubmit() {
+
+    if(this.filterObject.minSquareMeter > this.filterObject.maxSquareMeter){
+      this.squareMeter = this.filterObject.minSquareMeter;
+      this.filterObject.minSquareMeter = this.filterObject.maxSquareMeter;
+      this.filterObject.maxSquareMeter = this.squareMeter;
+    }
+
+    if(this.filterObject.minPrice > this.filterObject.maxPrice){
+      this.price = this.filterObject.minPrice;
+      this.filterObject.minPrice = this.filterObject.maxPrice;
+      this.filterObject.maxPrice = this.price;
+    }
     // Form verilerini API'ye gönder
     this.httpClient.post<any>(this.filterApiUrl, this.filterObject)
       .subscribe(response => {

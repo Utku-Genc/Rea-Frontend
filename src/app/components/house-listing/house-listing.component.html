@@ -1,5 +1,6 @@
 <div class="container col d-flex">
-    <div class=" d-flex flex-wrap justify-content-between col-3" style="height: max-content; position: sticky; top: 65px; z-index: 1000;">
+    <div class=" d-flex flex-wrap justify-content-between col-3"
+        style="height: max-content; position: sticky; top: 65px; z-index: 1000;">
         <div class="card">
             <div class="card-header">
                 Filtrele
@@ -8,84 +9,102 @@
                 <form (ngSubmit)="onSubmit()" (reset)="getHouseListing()">
                     <div class="mb-3">
                         <label for="searchText" class="form-label">Arama Metni</label>
-                        <input type="text" class="form-control" id="searchText" name="searchText" [(ngModel)]="filterObject.searchText">
+                        <input type="text" class="form-control" id="searchText" name="searchText"
+                            [(ngModel)]="filterObject.searchText">
                     </div>
                     <div class="row">
                         <div class="d-flex ">
-                        <div class="col mb-3 me-3">
-                            <label for="roomCount" class="form-label">Oda Sayısı</label>
-                            <select class="form-select" id="roomCount" name="roomCount" aria-placeholder="oda" [(ngModel)]="filterObject.roomCount">
-                                <option value="">Seçiniz</option>
-                                <option *ngFor="let filternumber of filternumber" [value]="filternumber">{{ filternumber }}</option>
-                            </select>
-                        </div>
+                            <div class="col mb-3 me-3">
+                                <label for="roomCount" class="form-label">Oda Sayısı</label>
+                                <input type="number" class="form-control" id="roomCount" name="roomCount" min="0"
+                                [(ngModel)]="filterObject.roomCount">
+                            </div>
 
-                        <div class="col mb-3 ms-3">
-                            <label for="livingRoomCount" class="form-label">Salon Sayısı</label>
-                            <select class="form-select" id="livingRoomCount" name="livingRoomCount" [(ngModel)]="filterObject.livingRoomCount">
-                                <option value="">Seçiniz</option>
-                                <option *ngFor="let filternumber of filternumber" [value]="filternumber">{{ filternumber }}</option>
-                            </select>
+                            <div class="col mb-3 ms-3">
+                                <label for="livingRoomCount" class="form-label">Salon Sayısı</label>
+                                <input type="number" class="form-control" id="livingRoomCount" name="livingRoomCount" min="0"
+                                [(ngModel)]="filterObject.livingRoomCount">
+                            </div>
                         </div>
-                    </div>
                         <div class=" mb-3">
                             <label for="bathroomCount" class="form-label">Banyo Sayısı</label>
-                            <select class="form-select" id="bathroomCount" name="bathroomCount" [(ngModel)]="filterObject.bathroomCount">
-                                <option value="">Seçiniz</option>
-                                <option *ngFor="let filternumber of filternumber" [value]="filternumber">{{ filternumber }}</option>
-                            </select>
+                            <input type="number" class="form-control" id="bathroomCount" name="bathroomCount" min="0"
+                                [(ngModel)]="filterObject.bathroomCount">
                         </div>
 
                     </div>
                     <div class="row">
+
                         <div class="col mb-3">
                             <label for="listingTypeName" class="form-label">İlan Türü</label>
-                            <input type="text" class="form-control" id="listingTypeName" name="listingTypeName" [(ngModel)]="filterObject.listingTypeName">
+                            <select class="form-select" id="propertyType" name="propertyType"
+                                [(ngModel)]="filterObject.listingTypeName">
+                                <option value="">Seçiniz</option>
+                                <option value="Kiralık">Kiralık</option>
+                                <option value="Satılık">Satılık</option>
+                            </select>
                         </div>
                         <div class="col mb-3">
                             <label for="houseTypeName" class="form-label">Ev Türü</label>
-                            <input type="text" class="form-control" id="houseTypeName" name="houseTypeName" [(ngModel)]="filterObject.houseTypeName">
+                            <select class="form-select" id="propertyType" name="propertyType"
+                                [(ngModel)]="filterObject.houseTypeName">
+                                <option value="">Seçiniz</option>
+                                <option value="Apartman">Apartman</option>
+                                <option value="Dublex">Dublex</option>
+                                <option value="Triplex">Triplex</option>
+                                <option value="Müstakil">Müstakil</option>
+                                <option value="Prefabrik">Prefabrik</option>
+                                <option value="Villa">Villa</option>
+                            </select>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="livingRoomCount" class="form-label">Şehir</label>
-                        <select class="form-select" id="city" name="city" (change)="onCityChange($event)"  [(ngModel)]="filterObject.cityName">
+                        <select class="form-select" id="city" name="city" (change)="onCityChange($event)"
+                            [(ngModel)]="filterObject.cityName">
                             <option value="">Şehir Seçin</option>
                             <option *ngFor="let city of city" [value]="city.cityName">{{ city.cityName }}</option>
                         </select>
-                        
+
                         <label for="livingRoomCount" class="form-label">İlçe</label>
-                        <select class="form-select" id="district" name="district" [(ngModel)]="filterObject.districtName">
+                        <select class="form-select" id="district" name="district"
+                            [(ngModel)]="filterObject.districtName">
                             <option value=NULL>İlçe Seçin</option>
-                            <option *ngFor="let district of districts" [value]="district.districtName">{{ district.districtName }}</option>
+                            <option *ngFor="let district of districts" [value]="district.districtName">{{
+                                district.districtName }}</option>
                         </select>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col mb-3">
                             <label for="minPrice" class="form-label">Minimum Fiyat</label>
-                            <input type="number" class="form-control" id="minPrice" name="minPrice" [(ngModel)]="filterObject.minPrice">
+                            <input type="number" class="form-control" id="minPrice" name="minPrice" min="0"
+                                [(ngModel)]="filterObject.minPrice">
                         </div>
                         <div class="col mb-3">
                             <label for="maxPrice" class="form-label">Maksimum Fiyat</label>
-                            <input type="number" class="form-control" id="maxPrice" name="maxPrice" [(ngModel)]="filterObject.maxPrice">
+                            <input type="number" class="form-control" id="maxPrice" name="maxPrice" min="0"
+                                [(ngModel)]="filterObject.maxPrice">
                         </div>
-                        
+
                     </div>
                     <div class="row">
                         <div class="col mb-3">
                             <label for="minSquareMeter" class="form-label">Minimum Metrekare</label>
-                            <input type="number" class="form-control" id="minSquareMeter" name="minSquareMeter" [(ngModel)]="filterObject.minSquareMeter">
+                            <input type="number" class="form-control" id="minSquareMeter" name="minSquareMeter" min="0"
+                                [(ngModel)]="filterObject.minSquareMeter">
                         </div>
                         <div class="col mb-3">
                             <label for="maxSquareMeter" class="form-label">Maksimum Metrekare</label>
-                            <input type="number" class="form-control" id="maxSquareMeter" name="maxSquareMeter" [(ngModel)]="filterObject.maxSquareMeter">
+                            <input type="number" class="form-control" id="maxSquareMeter" name="maxSquareMeter" min="0"
+                                [(ngModel)]="filterObject.maxSquareMeter">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col mb-3">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="hasGarden" name="hasGarden" [(ngModel)]="filterObject.hasGarden">
+                                <input class="form-check-input" type="checkbox" id="hasGarden" name="hasGarden"
+                                    [(ngModel)]="filterObject.hasGarden">
                                 <label class="form-check-label" for="hasGarden">
                                     Bahçe
                                 </label>
@@ -93,7 +112,8 @@
                         </div>
                         <div class="col mb-3">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="hasElevator" name="hasElevator" [(ngModel)]="filterObject.hasElevator">
+                                <input class="form-check-input" type="checkbox" id="hasElevator" name="hasElevator"
+                                    [(ngModel)]="filterObject.hasElevator">
                                 <label class="form-check-label" for="hasElevator">
                                     Asansör
                                 </label>
@@ -103,7 +123,8 @@
                     <div class="row">
                         <div class="col mb-3">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="hasParking" name="hasParking" [(ngModel)]="filterObject.hasParking">
+                                <input class="form-check-input" type="checkbox" id="hasParking" name="hasParking"
+                                    [(ngModel)]="filterObject.hasParking">
                                 <label class="form-check-label" for="hasParking">
                                     Otopark
                                 </label>
@@ -111,19 +132,21 @@
                         </div>
                         <div class="col mb-3">
 
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="isInGatedCommunity" name="isInGatedCommunity" [(ngModel)]="filterObject.isInGatedCommunity">
-                            <label class="form-check-label" for="isInGatedCommunity">
-                                Site İçinde
-                            </label>
-                        </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="isInGatedCommunity"
+                                    name="isInGatedCommunity" [(ngModel)]="filterObject.isInGatedCommunity">
+                                <label class="form-check-label" for="isInGatedCommunity">
+                                    Site İçinde
+                                </label>
+                            </div>
                         </div>
                     </div>
-                       <div>
+                    <div>
                         <div class="row">
                             <div class="col mb-3">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="hasFurniture" name="hasFurniture" [(ngModel)]="filterObject.hasFurniture">
+                                    <input class="form-check-input" type="checkbox" id="hasFurniture"
+                                        name="hasFurniture" [(ngModel)]="filterObject.hasFurniture">
                                     <label class="form-check-label" for="hasFurniture">
                                         Mobilya
                                     </label>
@@ -131,31 +154,32 @@
                             </div>
                             <div class="col mb-3">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="hasBalcony" name="hasBalcony" [(ngModel)]="filterObject.hasBalcony">
+                                    <input class="form-check-input" type="checkbox" id="hasBalcony" name="hasBalcony"
+                                        [(ngModel)]="filterObject.hasBalcony">
                                     <label class="form-check-label" for="hasBalcony">
                                         Balkon
                                     </label>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                     <div class="row">
                         <div class="col d-grid"><button type="submit" class="btn btn-primary ">Filtrele</button></div>
-                        <div class="col d-grid"><button type="reset" class="btn btn-primary" >Sıfırla</button></div>
-                    
-                    
+                        <div class="col d-grid"><button type="reset" class="btn btn-primary">Sıfırla</button></div>
+
+
                     </div>
 
                 </form>
             </div>
         </div>
-        
+
     </div>
 
 
     <div class=" d-flex flex-wrap col-9">
-        <div class="card d-flex flex-wrap mb-3 mx-2" style="width: 19.2rem;" *ngFor="let item of houseListings">
+        <div class="card d-flex flex-wrap mb-3 mx-2" style="width: 19.2rem;" *ngFor="let item of houseListings.slice(value,(value+4))">
             <div routerLink="/houselisting/detail/{{ item.listingId }}">
 
                 <li class="list-group-item border-0 bg-transparent text-center">
@@ -216,3 +240,6 @@
         </div>
     </div>
 </div>
+<!-- <button class="btn btn-info" [value]="lower()">Geri</button>
+
+<button class="btn btn-info" [value]="upper()">ileri</button> -->

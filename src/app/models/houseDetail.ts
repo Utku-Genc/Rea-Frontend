@@ -26,4 +26,5 @@ export interface HouseDetail {
   userId: number;
   houseTypeName: string;
   listingTypeName: string;
+  squareMeter: number;
 }
