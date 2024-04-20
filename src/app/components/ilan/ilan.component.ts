@@ -6,6 +6,7 @@ import { DistrictService} from '../../services/district.service';
 import { CityService } from '../../services/city.service';
 import { City } from '../../models/city';
 import { District } from '../../models/district';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'ilan',
@@ -24,12 +25,18 @@ export class IlanComponent implements OnInit {
   city: City[] = [];
   districts: District[] = [];
 
+  
+  currentPage = 1; 
+  listingsPerPage = 12;  
 
-constructor(private listingService:ListingService,private httpClient: HttpClient, private cityService: CityService, private districService: DistrictService,){}
+constructor(private listingService:ListingService,private httpClient: HttpClient, private cityService: CityService, private districService: DistrictService, private route: ActivatedRoute,private router: Router){}
 
   ngOnInit(): void {
     this.getListing()
     this.getCity()
+    this.route.queryParams.subscribe(params => {
+      this.currentPage = params['page'] || 1;
+    });
   }
   getListing = () => {
       this.listingService.getListing().subscribe((response) => {
@@ -50,12 +57,11 @@ constructor(private listingService:ListingService,private httpClient: HttpClient
       this.filterObject.minPrice = this.filterObject.maxPrice;
       this.filterObject.maxPrice = this.price;
     }
-    // Form verilerini API'ye gönder
+
     this.httpClient.post<any>(this.filterApiUrl, this.filterObject)
       .subscribe(response => {
         this.listings = response.data
         console.log(response);
-        // Burada alınan verileri kullanabilirsin, örneğin bir liste gösterebilirsin.
       }, error => {
         console.error('API iletişim hatası:', error);
       });
@@ -92,4 +98,39 @@ onCityChange(event: any) {
       return 'https://localhost:44318/Uploads/ListingImages/DefaultImage.png';
     }
   }
+
+
+  get startIndex(): number {
+    return (this.currentPage - 1) * this.listingsPerPage;
+  }
+  
+  get endIndex(): number {
+    return this.startIndex + this.listingsPerPage;
+  }
+  
+  onPageChange(newPage: number) {
+    this.currentPage = newPage;
+    console.log(this.currentPage)
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: this.currentPage },
+      queryParamsHandling: 'merge'
+    });
+  }
+
+  
+  get totalPages(): number {
+    return Math.ceil(this.listings.length / this.listingsPerPage);
+  }
+  
+  get totalPagesArray(): number[] {
+    return Array(this.totalPages).fill(0).map((x, i) => i + 1);
+  }
+  get visiblePages(): number[] {
+    const start = Math.max(1, this.currentPage - 1);
+    const end = Math.min(start + 3, this.totalPagesArray.length);
+
+    return Array(end - start + 1).fill(0).map((_, index) => start + index);
+}
+
 }

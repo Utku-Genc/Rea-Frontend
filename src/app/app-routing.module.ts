@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'homepage', component: HomepageComponent },
   { path: ':listingName/detail/:id', component: DetailComponent },
   { path: 'listing', component: IlanComponent },
-  { path: 'houselisting/:id', component: HouseListingComponent},
+  { path: 'houselisting', component: HouseListingComponent},
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
   { path: 'profile/:id', component: ProfileComponent}

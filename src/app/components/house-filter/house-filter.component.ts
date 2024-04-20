@@ -8,17 +8,14 @@ import { HouseFilter } from '../../models/houseFilter';
   styleUrls: ['./house-filter.component.css']
 })
 export class HouseFilterComponent {
-  filterObject: any = {}; // Bu, filtre nesnesini temsil eder. Formdaki alanlar buraya bağlanacak.
+  filterObject: any = {}; 
 
   constructor(private http: HttpClient) {}
 
   onSubmit() {
-    // Form verilerini API'ye gönder
     this.http.post<any>('https://localhost:44318/api/HouseListings/getallbyfilter', this.filterObject)
       .subscribe(response => {
-        // API yanıtını işle
         console.log(response);
-        // Burada alınan verileri kullanabilirsin, örneğin bir liste gösterebilirsin.
       }, error => {
         console.error('API iletişim hatası:', error);
       });

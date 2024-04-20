@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { HouseListing } from '../../models/houseListing';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HouseListingService } from '../../services/house-listing.service';
 import { HttpClient } from '@angular/common/http';
 import { HouseFilter } from '../../models/houseFilter';
@@ -16,7 +16,6 @@ import { DistrictService } from '../../services/district.service';
 })
 export class HouseListingComponent {
   houseListings: HouseListing[] = [];
-  value: number=0;
 
   squareMeter: number=0;
   price: number=0;
@@ -26,13 +25,18 @@ export class HouseListingComponent {
   city: City[] = [];
   districts: District[] = [];
 
+  currentPage = 1; 
+  listingsPerPage = 12;  
+  
 
-
-  constructor(private houseListingService: HouseListingService, private cityService: CityService, private districService: DistrictService, private router: Router, private httpClient: HttpClient) { }
+  constructor(private houseListingService: HouseListingService, private cityService: CityService, private districService: DistrictService, private router: Router, private httpClient: HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.getHouseListing();
-    this.getCity()
+    this.getCity();
+    this.route.queryParams.subscribe(params => {
+      this.currentPage = params['page'] || 1;
+    });
   }
 
 
@@ -90,22 +94,10 @@ onCityChange(event: any) {
       .subscribe(response => {
         this.houseListings = response.data
         console.log(response);
-        // Burada alınan verileri kullanabilirsin, örneğin bir liste gösterebilirsin.
       }, error => {
         console.error('API iletişim hatası:', error);
       });
   }
-  // lower(){
-  //   if(this.value>0){
-  //     this.value= this.value-4
-  //   }
-  // }
-  // upper(){
-  //   if(this.value>0){
-  //     this.value= this.value+4
-  //   }
-  // }
-
 
   getHouseListingImagePath(houseListing: HouseListing): string {
     if (houseListing.imagePath && houseListing.imagePath.length > 0) {
@@ -115,5 +107,40 @@ onCityChange(event: any) {
       return 'https://localhost:44318/Uploads/ListingImages/DefaultImage.png';
     }
   }
+
+
+  get startIndex(): number {
+    return (this.currentPage - 1) * this.listingsPerPage;
+  }
+
+  get endIndex(): number {
+    return this.startIndex + this.listingsPerPage;
+  }
+  
+  onPageChange(newPage: number) {
+    this.currentPage = newPage;
+    console.log(this.currentPage)
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: this.currentPage },
+      queryParamsHandling: 'merge'
+    });
+  }
+
+  
+  get totalPages(): number {
+    return Math.ceil(this.houseListings.length / this.listingsPerPage);
+  }
+  
+  get totalPagesArray(): number[] {
+    return Array(this.totalPages).fill(0).map((x, i) => i + 1);
+  }
+  get visiblePages(): number[] {
+    const start = Math.max(1, this.currentPage - 1);
+    const end = Math.min(start + 3, this.totalPagesArray.length);
+
+    return Array(end - start + 1).fill(0).map((_, index) => start + index);
 }
 
+  
+}

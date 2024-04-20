@@ -43,7 +43,7 @@ export class DetailComponent implements OnInit {
       console.log(response);
     })
   }
-  getHouseDetail(listingId: string | null) { // listingId parametresini ekleyin
+  getHouseDetail(listingId: string | null) { 
     // listingId yoksa işlem yapma
     if (!listingId) return;
 

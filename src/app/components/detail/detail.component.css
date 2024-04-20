@@ -58,9 +58,8 @@
 }
 
 .user-details {
-    flex-grow: 1; /* Bu, kullanıcı bilgilerinin resimden sonraki tüm alanı kaplamasını sağlar */
+    flex-grow: 1;
 }
-
 .user-name {
     margin-top: -30px;
     font-size: 3vh;

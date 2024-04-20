@@ -37,7 +37,6 @@ export class LoginComponent implements OnInit {
 
 
   login() {
-    // Kayıt işlemi burada gerçekleştirilebilir
     if (this.loginForm.valid) {
       let loginModel = Object.assign({}, this.loginForm.value)
       this.authService.login(loginModel).subscribe(response=>{
