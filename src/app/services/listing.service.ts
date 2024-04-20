@@ -7,10 +7,13 @@ import { ListingResponseModel } from '../models/listingResponseModel';
   providedIn: 'root'
 })
 export class ListingService {
-  apiUrl = "https://localhost:44318/api/Listings/getalldetails"
+  apiUrl = "https://localhost:44318/api/Listings/"
 
   constructor(private httpClient: HttpClient) { }
   getListing(): Observable<ListingResponseModel> {
-    return this.httpClient.get<ListingResponseModel>(this.apiUrl);
+    return this.httpClient.get<ListingResponseModel>(this.apiUrl+"getalldetails");
+  }
+  getListingByUserId():Observable<ListingResponseModel> {
+    return this.httpClient.get<ListingResponseModel>(this.apiUrl+"getbyuserid");
   }
 }

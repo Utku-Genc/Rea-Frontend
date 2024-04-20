@@ -23,6 +23,7 @@ export interface HouseDetail {
   firstName: string;
   lastName: string;
   userEmail: string;
+  userId: number;
   houseTypeName: string;
   listingTypeName: string;
 }

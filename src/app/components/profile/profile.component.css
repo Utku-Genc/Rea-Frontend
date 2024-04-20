@@ -1,0 +1,14 @@
+.bg-color{
+    background-color: rgb(43,48,53);
+}
+.profile-title{
+    color: rgb(255, 188, 0);
+}
+.user-img{
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+}
+.aspect-ratio-16x9 {
+    aspect-ratio: 16/9;
+}

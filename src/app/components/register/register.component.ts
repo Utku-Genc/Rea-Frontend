@@ -39,6 +39,7 @@ export class RegisterComponent implements OnInit {
         console.log("kayıt başarılı")
         this.localStorageService.remove("token");
         this.localStorageService.setItem("token", response.data.token);
+        window.location.href = "/";
       }, responseError=>{
         console.log("hata: "+responseError)
       });

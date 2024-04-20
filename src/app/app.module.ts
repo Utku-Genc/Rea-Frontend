@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 
 import { AppComponent } from './app.component';
@@ -21,6 +21,8 @@ import { HouseFilterComponent } from './components/house-filter/house-filter.com
 
 import { SummaryPipe } from './pipes/summary.pipe';
 import { PriceFormatPipe } from './pipes/price-format.pipe';
+import { AuthInterceptor } from './interceptors/auth-interceptor';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 
@@ -38,6 +40,7 @@ import { PriceFormatPipe } from './pipes/price-format.pipe';
     LoginComponent,
     RegisterComponent,
     HouseFilterComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,7 +51,7 @@ import { PriceFormatPipe } from './pipes/price-format.pipe';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [{provide:HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

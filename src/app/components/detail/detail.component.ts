@@ -5,6 +5,8 @@ import { HouseDetailResponseModel } from '../../models/HouseDetailResponseModel'
 import { HttpClient } from '@angular/common/http';
 import { ListingImage } from '../../models/listingImage';
 import { ListingImageResponseModel } from '../../models/listingImageResponseModel';
+import { UserImageService } from '../../services/user-image.service';
+import { UserImage } from '../../models/userImage';
 
 @Component({
   selector: 'detail',
@@ -17,13 +19,14 @@ export class DetailComponent implements OnInit {
   startIndex = 0;
   endIndex = 5;
   visibleImages: string[] = [];
+  userImg: UserImage[] = [];
 
 
   houseDetail!: HouseDetail;
   apiUrl = "https://localhost:44318/api/HouseListings/getdetails?listingId=";
   apiUrlImg = "https://localhost:44318/api/ListingImages/getbylistingid?listingId="
 
-  constructor(private httpClient: HttpClient, private route: ActivatedRoute) { } // ActivatedRoute ekleyin
+  constructor(private httpClient: HttpClient, private route: ActivatedRoute, private userImageService: UserImageService) { } // ActivatedRoute ekleyin
 
   ngOnInit() {
     const listingId = this.route.snapshot.paramMap.get('id'); // URL'den listingId'yi al
@@ -33,20 +36,21 @@ export class DetailComponent implements OnInit {
 
   }
 
-  gethouseImage(listingId: string | null ){
-     if (!listingId) return;
-     this.httpClient.get<ListingImageResponseModel>(this.apiUrlImg+listingId).subscribe((response)=> {
+  gethouseImage(listingId: string | null) {
+    if (!listingId) return;
+    this.httpClient.get<ListingImageResponseModel>(this.apiUrlImg + listingId).subscribe((response) => {
       this.imageListing = response;
       console.log(response);
-     })
+    })
   }
   getHouseDetail(listingId: string | null) { // listingId parametresini ekleyin
     // listingId yoksa işlem yapma
     if (!listingId) return;
 
-    this.httpClient.get<HouseDetailResponseModel>(this.apiUrl+listingId) // listingId'ye göre ilanı getir
+    this.httpClient.get<HouseDetailResponseModel>(this.apiUrl + listingId) // listingId'ye göre ilanı getir
       .subscribe((response) => {
         this.houseDetail = response.data;
+        this.getUserImageByUserId(this.houseDetail);
       });
   }
 
@@ -72,7 +76,7 @@ export class DetailComponent implements OnInit {
       .map(listingImage => listingImage.imagePath);
     this.imageContainer.nativeElement.scrollLeft = 0;
   }
-  
+
 
   showImageInCarousel(index: number) {
     const carousel = document.getElementById('carouselExampleRide');
@@ -87,8 +91,24 @@ export class DetailComponent implements OnInit {
     }
   }
 
+  getUserImageByUserId(houseDetail: HouseDetail) {
+    this.userImageService.getUserImageByUserId(houseDetail.userId).subscribe(response =>{
+      this.userImg = response.data
+    })
+  }
+
+  getUserImagePath(userImage: UserImage): string {
+    if (userImage.imagePath && this.userImg.length > 0) {
+      return 'https://localhost:44318/Uploads/UserImages/' + userImage.imagePath;
+    } else {
+      // Default User resim yolu
+      
+      return 'https://localhost:44318/Uploads/UserImages/DefaultUserImage.png';
+    }
+  }
+
   getHouseListingImagePath(item: ListingImage): string {
-    if (item.imagePath && item.imagePath.length > 0 && this.imageListing.data.length>0 )   {
+    if (item.imagePath && item.imagePath.length > 0 && this.imageListing.data.length > 0) {
       console.log('https://localhost:44318/Uploads/ListingImages/' + item.imagePath)
       return 'https://localhost:44318/Uploads/ListingImages/' + item.imagePath;
     } else {

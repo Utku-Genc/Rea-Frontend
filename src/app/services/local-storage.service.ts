@@ -8,17 +8,19 @@ export class LocalStorageService {
   constructor() { }
 
   setItem(key:string, value:any){
-    let json = JSON.stringify(value);
-    localStorage.setItem(key, json);
+    localStorage.setItem(key, value); // Doğrudan value'yu kaydediyoruz. Başinda ki tırnakları kaldırıdım
   }
 
   getItem(key:string){
-    let json = localStorage.getItem(key);
-    if(json){
-      let value = JSON.parse(json);
-      return value;
+    let value = localStorage.getItem(key); // localStorage'dan değeri alıyoruz
+    if(value){
+      try {
+        return JSON.parse(value); // JSON formatındaki değeri JavaScript nesnesine dönüştürüyoruz
+      } catch (error) {
+        return value; // JSON.parse hatası alınırsa, değeri olduğu gibi döndürüyoruz
+      }
     }
-    return null;
+    return null; // Değer bulunamadıysa null döndürüyoruz
   }
 
   isSaved(key: string) {

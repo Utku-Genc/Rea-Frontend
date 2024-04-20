@@ -63,7 +63,8 @@
             <p class="ilan">İlan Sahibi</p>
           </div>
           <div class="col-3 mb-3 ms-3">
-            <img src="../../../assets/img/user.png" class="user-image">
+            <img *ngIf="userImg.length>0" [src]="getUserImagePath(userImg[0])" class="user-image">
+            <img *ngIf="userImg.length<=0" src="../../../assets/img/user.png" class="user-image">
           </div>
           <div class="col-8">
             <div class="user-details">

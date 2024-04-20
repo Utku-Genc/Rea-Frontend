@@ -1,22 +1,109 @@
-<div class="container d-flex flex-wrap ">
-<div class="card d-flex flex-wrap mb-3 mx-2" style="width: 18rem;" *ngFor="let item of listings">
-    <div class="pt-3 text-center"><p>{{item.listingTypeName}}</p></div>
+<div class="container col d-flex flex-wrap ">
 
-    <img [src]="getListingImagePath(item)" class="card-img-top aspect-ratio-16x9" alt="...">
-    <div class="card-body">
-        <h5 class="card-title" style="min-height: 3rem;">{{item.title | summary:50 }}</h5>
-        <p class="card-text">{{item.description | summary:150}}</p>
+    <div class=" d-flex flex-wrap justify-content-between col-3"
+        style="height: max-content; position: sticky; top: 65px; z-index: 1000;">
+        <div class="card">
+            <div class="card-header">
+                Filtrele
+            </div>
+            <div class="card-body">
+                <form (ngSubmit)="onSubmit()" (reset)="getListing()">
+                    <div class="mb-3">
+                        <label for="searchText" class="form-label">Arama Metni</label>
+                        <input type="text" class="form-control" id="searchText" name="searchText"
+                            [(ngModel)]="filterObject.searchText">
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="listingTypeName" class="form-label">İlan Türü</label>
+                            <input type="text" class="form-control" id="listingTypeName" name="listingTypeName"
+                                [(ngModel)]="filterObject.listingTypeName">
+                        </div>
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="livingRoomCount" class="form-label">Şehir</label>
+                        <select class="form-select" id="city" name="city" (change)="onCityChange($event)"
+                            [(ngModel)]="filterObject.cityName">
+                            <option value="">Şehir Seçin</option>
+                            <option *ngFor="let city of city" [value]="city.cityName">{{ city.cityName }}</option>
+                        </select>
+
+                        <label for="livingRoomCount" class="form-label">İlçe</label>
+                        <select class="form-select" id="district" name="district"
+                            [(ngModel)]="filterObject.districtName">
+                            <option value=NULL>İlçe Seçin</option>
+                            <option *ngFor="let district of districts" [value]="district.districtName">{{
+                                district.districtName }}</option>
+                        </select>
+                    </div>
+
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="minPrice" class="form-label">Minimum Fiyat</label>
+                            <input type="number" class="form-control" id="minPrice" name="minPrice"
+                                [(ngModel)]="filterObject.minPrice">
+                        </div>
+                        <div class="col mb-3">
+                            <label for="maxPrice" class="form-label">Maksimum Fiyat</label>
+                            <input type="number" class="form-control" id="maxPrice" name="maxPrice"
+                                [(ngModel)]="filterObject.maxPrice">
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="minSquareMeter" class="form-label">Minimum Metrekare</label>
+                            <input type="number" class="form-control" id="minSquareMeter" name="minSquareMeter"
+                                [(ngModel)]="filterObject.minSquareMeter">
+                        </div>
+                        <div class="col mb-3">
+                            <label for="maxSquareMeter" class="form-label">Maksimum Metrekare</label>
+                            <input type="number" class="form-control" id="maxSquareMeter" name="maxSquareMeter"
+                                [(ngModel)]="filterObject.maxSquareMeter">
+                        </div>
+                    </div>
+
+
+                    <div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col d-grid"><button type="submit" class="btn btn-primary ">Filtrele</button></div>
+                        <div class="col d-grid"><button type="reset" class="btn btn-primary">Sıfırla</button></div>
+
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
     </div>
-    <ul class="list-group list-group-flush">
-        <li class="list-group-item">{{item.squareMeter}}</li>
-        <li class="list-group-item">{{item.date | date:'dd/MM/YYYY'}}</li>
-        <li class="list-group-item">{{item.propertyTypeName}}</li>
-    </ul>
-    <div class="card-body">
-        <div class="d-grid gap-2 col-15 mx-auto">
-            <button routerLink="/listings/detail/{{ item.id }}"
-                    class="btn btn-info btn-lg" type="button">{{ item.price | priceFormat: 'TRY' }}</button>
+
+    <div class="d-flex flex-wrap col-9">
+        <div class="card d-flex flex-wrap mb-3 mx-2" style="width: 18rem;" *ngFor="let item of listings">
+            <div class="pt-3 text-center">
+                <p>{{item.listingTypeName}}</p>
+            </div>
+
+            <img [src]="getListingImagePath(item)" class="card-img-top aspect-ratio-16x9" alt="...">
+            <div class="card-body">
+                <h5 class="card-title" style="min-height: 3rem;">{{item.title | summary:50 }}</h5>
+                <p class="card-text">{{item.description | summary:150}}</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">{{item.squareMeter}}</li>
+                <li class="list-group-item">{{item.date | date:'dd/MM/YYYY'}}</li>
+                <li class="list-group-item">{{item.propertyTypeName}}</li>
+            </ul>
+            <div class="card-body">
+                <div class="d-grid gap-2 col-15 mx-auto">
+                    <button routerLink="/listings/detail/{{ item.id }}" class="btn btn-info btn-lg" type="button">{{
+                        item.price | priceFormat: 'TRY' }}</button>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 </div>
