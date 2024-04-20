@@ -1,19 +1,17 @@
 <div class="container d-flex justify-content-center align-items-center" style="height: 73.5vh;">
     <div class="row justify-content-center align-items-center" style="background-color: rgb(43,48,53); border-radius: 50px;">
-        <img src="../../../assets/img/reaEmlakBannerB.png" style="width: 500px; " alt="Görsel yüklenemedi ☹️">
-        <form (ngSubmit)="login()" class="col-md-6">
+        <img src="../../../assets/img/reaEmlakBannerB.png" style="width: 500px;" alt="Görsel yüklenemedi ☹️">
+        <form class="col-md-6" [formGroup]="loginForm" (ngSubmit)="login()">
             <div class="row mt-5 mb-4">
                 <div class="col-md-12 mb-3">
-                    <input type="email" placeholder="E-posta :" [(ngModel)]="email" name="email"
-                        class="form-control form-style border-0">
+                    <input formControlName="email" class="form-control" type="email" placeholder="E-posta :" name="email">
                 </div>
                 <div class="col-md-12 mb-3">
-                    <input type="password" placeholder="Şifreniz :" [(ngModel)]="password" name="password"
-                        class="form-control form-style border-0">
+                    <input formControlName="password" class="form-control" type="password" placeholder="Şifreniz :" name="password">
                 </div>
                 <div class="col-md-8 mb-3">
                     <div class="d-grid">
-                        <input type="submit" value="Giriş Yap" class="btn form-style">
+                        <button type="submit" class="btn form-style">Giriş Yap</button>
                     </div>
                 </div>
                 <div class="col-md-4 mb-3">
