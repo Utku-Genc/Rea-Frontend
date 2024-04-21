@@ -38,7 +38,9 @@ export class RegisterComponent implements OnInit {
       this.authService.register(registerModel).subscribe(response=>{
         console.log("kayıt başarılı")
         this.localStorageService.remove("token");
+        this.localStorageService.remove("expiration")
         this.localStorageService.setItem("token", response.data.token);
+        this.localStorageService.setItem("expiration",response.data.expiration)
         window.location.href = "/";
       }, responseError=>{
         console.log("hata: "+responseError)

@@ -19,6 +19,7 @@ export class LoginGuard implements CanActivate {
     if (this.authService.isAuthenticated()) {
       return true;
     } else {
+      this.authService.logOut();
       this.router.navigate(["login"])
       console.log("giriş yapmalısınız");
       return false;

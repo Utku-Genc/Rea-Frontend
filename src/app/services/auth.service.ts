@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { LoginModel } from '../models/loginModel';
 import { SingleResponseModel } from '../models/singleReponseModel';
 import { TokenModel } from '../models/tokenModel';
 import { RegisterModel } from '../models/registerModel';
 import { LocalStorageService } from './local-storage.service';
+import { getLocaleDateFormat } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ import { LocalStorageService } from './local-storage.service';
 export class AuthService {
 
   apiUrl = "https://localhost:44318/api/auth/"
+
 
   constructor(private httpClient:HttpClient, private localStorageService:LocalStorageService) { }
 
@@ -24,16 +26,21 @@ export class AuthService {
   }
 
   isAuthenticated(){
-    if(this.localStorageService.getItem("token")){
+    const expirationString = this.localStorageService.getItem("expiration");
+    const expirationDate = new Date(expirationString);
+    if(this.localStorageService.getItem("token") &&  Date.now() < expirationDate.getTime()){
+      console.log(Date.now()+"  "+expirationDate.getTime());
       return true;
     }
     else{
+      this.logOut()
       return false;
     }
   }
 
   logOut(){
     this.localStorageService.remove("token");
+    this.localStorageService.remove("expiration");
   }
 
 }
