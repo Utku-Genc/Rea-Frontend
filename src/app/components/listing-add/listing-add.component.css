@@ -1,0 +1,38 @@
+.radio-btn{
+    background-color: rgb(43,48,53);
+    color: rgb(255,188,0);
+    padding: 10px;
+    font-size: 3vh;
+    border-radius: 20px;
+}
+.radio-btn input[type="radio"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin-left: 150px;
+    background-color: transparent;
+    border: 2px solid rgb(255,188,0);
+    border-radius: 20%;
+    padding: 10px;
+    position: relative;
+    transition: transform 0.3s;
+  }
+  
+  .radio-btn input[type="radio"]:checked {
+    transform: scale(1.5);
+  }
+  
+  .radio-btn label {
+    /* Etiketin pozisyonunu ayarlama */
+    position: relative;
+    /* Etiketin sol içeriğini ayarlama */
+    left: -90px;
+    /* Etiketin üst içeriğini ayarlama */
+    cursor: pointer;
+  }
+  
+  .radio-btn i {
+    /* İkonun sol içeriğini ayarlama */
+    margin-right: 5px;
+  }
+  

@@ -9,6 +9,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { LoginGuard } from './guards/login.guard';
 import { ListingAddComponent } from './components/listing-add/listing-add.component';
+import { LandListingComponent } from './components/land-listing/land-listing.component';
 
 
 
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: ':listingName/detail/:id', component: DetailComponent },
   { path: 'listing', component: IlanComponent },
   { path: 'houselisting', component: HouseListingComponent},
+  { path: 'landlisting', component: LandListingComponent},
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
   { path: 'profile/:id', component: ProfileComponent , canActivate:[LoginGuard]},

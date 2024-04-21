@@ -24,6 +24,7 @@ import { PriceFormatPipe } from './pipes/price-format.pipe';
 import { AuthInterceptor } from './interceptors/auth-interceptor';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ListingAddComponent } from './components/listing-add/listing-add.component';
+import { LandListingComponent } from './components/land-listing/land-listing.component';
 
 
 
@@ -43,6 +44,7 @@ import { ListingAddComponent } from './components/listing-add/listing-add.compon
     HouseFilterComponent,
     ProfileComponent,
     ListingAddComponent,
+    LandListingComponent,
   ],
   imports: [
     BrowserModule,

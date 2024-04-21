@@ -7,6 +7,8 @@ import { City } from '../../models/city';
 import { District } from '../../models/district';
 import { CityService } from '../../services/city.service';
 import { DistrictService } from '../../services/district.service';
+import { AddLandService } from '../../services/add-land.service';
+import { AddLandListing } from '../../models/addLandListing';
 
 @Component({
   selector: 'listing-add',
@@ -18,7 +20,7 @@ export class ListingAddComponent implements OnInit{
   house: boolean = true;
 
 
-  addListing: AddHouseListing = {
+  addHouseListing: AddHouseListing = {
     cityId: 0,
     listingTypeId: 0,
     propertyTypeId: 1,
@@ -45,11 +47,29 @@ export class ListingAddComponent implements OnInit{
     images: [],
   };
 
+
+  addLandListing: AddLandListing = {
+    cityId: 0,
+    listingTypeId: 0, // kiralık satılık
+    propertyTypeId: 2, //arsa tip belirleme bu
+    districtId: 0,
+    title: "",
+    description: "",
+    price: 0,
+    squareMeter: 0,
+    address: "",
+    parcelNo: 0,
+    islandNo: 0,
+    sheetNo: 0,
+    floorEquivalent: true,
+    status: true,
+    images: [],
+  }
   
   city: City[] = [];
   districts: District[] = [];
 
-  constructor(private addHouseService: AddHouseService, private addListingImageService: AddListingImageService,private cityService: CityService, private districService: DistrictService,) {}
+  constructor(private addHouseService: AddHouseService, private addLandService:AddLandService ,private addListingImageService: AddListingImageService,private cityService: CityService, private districService: DistrictService,) {}
   ngOnInit(): void {
     this.getCity();
   }
@@ -85,9 +105,10 @@ onCityChange(event: any) {
     })
   }
 
-  addListingSubmit() {
-console.log(this.addListing)
-    this.addHouseService.addListing(this.addListing)
+
+  addHouseListingSubmit() {
+console.log(this.addHouseListing)
+    this.addHouseService.addListing(this.addHouseListing)
       .subscribe(
         response => {
           console.log('İlan başarıyla eklendi:', response);
@@ -108,11 +129,20 @@ console.log(this.addListing)
       );
   }
 
+  addLandListingSubmit(){
+    this.addLandService.addLandListing(this.addLandListing)
+    .subscribe(
+      response =>{
+        console.log('İlan başarıyla eklendi:', response);
+      }
+    )
+  }
+
   onFileSelected(event: any) {
     // Seçilen dosyaları işleyecek kod buraya gelecek
     const files: FileList = event.target.files;
     for (let i = 0; i < files.length; i++) {
-      this.addListing.images.push(files[i]);
+      this.addHouseListing.images.push(files[i]);
     }
   }
 }
