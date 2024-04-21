@@ -23,6 +23,7 @@ import { SummaryPipe } from './pipes/summary.pipe';
 import { PriceFormatPipe } from './pipes/price-format.pipe';
 import { AuthInterceptor } from './interceptors/auth-interceptor';
 import { ProfileComponent } from './components/profile/profile.component';
+import { ListingAddComponent } from './components/listing-add/listing-add.component';
 
 
 
@@ -41,6 +42,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     RegisterComponent,
     HouseFilterComponent,
     ProfileComponent,
+    ListingAddComponent,
   ],
   imports: [
     BrowserModule,

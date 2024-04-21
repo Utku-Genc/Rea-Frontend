@@ -37,7 +37,7 @@
 
                         <div class="col mb-3">
                             <label for="listingTypeName" class="form-label">İlan Türü</label>
-                            <select class="form-select" id="propertyType" name="propertyType"
+                            <select class="form-select" id="listingTypeName" name="listingTypeName"
                                 [(ngModel)]="filterObject.listingTypeName">
                                 <option value="">Seçiniz</option>
                                 <option value="Kiralık">Kiralık</option>
@@ -59,14 +59,14 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="livingRoomCount" class="form-label">Şehir</label>
+                        <label for="city" class="form-label">Şehir</label>
                         <select class="form-select" id="city" name="city" (change)="onCityChange($event)"
                             [(ngModel)]="filterObject.cityName">
                             <option value="">Şehir Seçin</option>
                             <option *ngFor="let city of city" [value]="city.cityName">{{ city.cityName }}</option>
                         </select>
 
-                        <label for="livingRoomCount" class="form-label">İlçe</label>
+                        <label for="district" class="form-label">İlçe</label>
                         <select class="form-select" id="district" name="district"
                             [(ngModel)]="filterObject.districtName">
                             <option value=NULL>İlçe Seçin</option>
@@ -248,6 +248,7 @@
         [ngClass]="{'btn-primary': currentPage === page, 'page-btn': currentPage !== page}" (click)="onPageChange(page)">
         {{ page }}
     </button>
+    
     <button class="btn page-btn ms-1" (click)="onPageChange(totalPagesArray.length)" *ngIf="currentPage < totalPagesArray.length - 2">
         <i class="fa-solid fa-chevron-right"></i><i class="fa-solid fa-chevron-right"></i>
     </button>

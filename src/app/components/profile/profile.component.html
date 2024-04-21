@@ -46,3 +46,17 @@
     </div>
 
 </div>
+<div class="pagination justify-content-center ">
+    <button class="btn page-btn ms-1" (click)="onPageChange(1)" *ngIf="currentPage > 3">
+        <i class="fa-solid fa-chevron-left"></i><i class="fa-solid fa-chevron-left"></i>
+    </button>
+
+    <button *ngFor="let page of visiblePages" class="btn ms-1"
+        [ngClass]="{'btn-primary': currentPage === page, 'page-btn': currentPage !== page}" (click)="onPageChange(page)">
+        {{ page }}
+    </button>
+    
+    <button class="btn page-btn ms-1" (click)="onPageChange(totalPagesArray.length)" *ngIf="currentPage < totalPagesArray.length - 2">
+        <i class="fa-solid fa-chevron-right"></i><i class="fa-solid fa-chevron-right"></i>
+    </button>
+</div>

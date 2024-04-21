@@ -12,3 +12,7 @@
 .aspect-ratio-16x9 {
     aspect-ratio: 16/9;
 }
+.page-btn{
+    background-color: rgb(43, 48, 53);
+ color: rgb(255,188,0);
+ }
