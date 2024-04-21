@@ -11,13 +11,17 @@ import { UserService } from '../../services/user.service';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent implements OnInit {
-  isLoggedIn = false; 
+  isLoggedIn:boolean = false; 
   userImg: UserImage[] = [];
-  user!:User
+  user!:User;
+
 
   constructor(private authService:AuthService, private userImageService:UserImageService,private userService:UserService) { }
 
   ngOnInit(): void {
+
+
+
     console.log(this.isLoggedIn + " Navbar");
     this.isLoggedIn = this.authService.isAuthenticated();
     if (this.isLoggedIn){

@@ -42,7 +42,9 @@ export class LoginComponent implements OnInit {
       this.authService.login(loginModel).subscribe(response=>{
         console.log(response.data.token);
         this.localStorageService.remove("token");
+        this.localStorageService.remove("expiration")
         this.localStorageService.setItem("token",response.data.token);
+        this.localStorageService.setItem("expiration",response.data.expiration)
         window.location.href = "/";
         console.log("giriş başarılı")
       }, responseError=>{
