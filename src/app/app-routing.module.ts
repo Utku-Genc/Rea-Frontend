@@ -7,6 +7,7 @@ import { HouseListingComponent } from './components/house-listing/house-listing.
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { LoginGuard } from './guards/login.guard';
 
 
 
@@ -18,7 +19,8 @@ const routes: Routes = [
   { path: 'houselisting', component: HouseListingComponent},
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
-  { path: 'profile/:id', component: ProfileComponent}
+  { path: 'profile/:id', component: ProfileComponent , canActivate:[LoginGuard]},
+  {path:'profile/ilanlarim', component:ProfileComponent, canActivate:[LoginGuard]}
 
 ];  
 @NgModule({
