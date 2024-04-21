@@ -1,0 +1,164 @@
+<div class="container">
+    <h2 class="mt-4">Yeni İlan Ekle</h2>
+    <div class="mb-3">
+        <label class="form-label">İlan Türü:</label>
+        <div class="d-flex">
+            <div class="form-check col">
+                <input class="form-check-input" type="radio" name="type" id="houseRadio" value="house"
+                    [(ngModel)]="type" (change)="onTypeChange()">
+                <label class="form-check-label" for="houseRadio">
+                    Ev
+                </label>
+            </div>
+            <div class="form-check col">
+                <input class="form-check-input" type="radio" name="type" id="landRadio" value="land" [(ngModel)]="type"
+                    (change)="onTypeChange()">
+                <label class="form-check-label" for="landRadio">
+                    Arsa
+                </label>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="house">
+
+        <form (ngSubmit)="addListingSubmit()" class="mt-4">
+            <div class="mb-3">
+                <label class="form-label">Fotoğraf Seç:</label>
+                <input type="file" class="form-control" (change)="onFileSelected($event)" accept="image/*" multiple>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Başlık:</label>
+                <input type="text" class="form-control" [(ngModel)]="addListing.title" name="title" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Açıklama:</label>
+                <textarea class="form-control" [(ngModel)]="addListing.description" name="description"
+                    required></textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Fiyat:</label>
+                <input type="number" class="form-control" [(ngModel)]="addListing.price" name="price" required>
+            </div>
+            <div class="row">
+
+                <div class="col mb-3">
+                    <label for="listingTypeName" class="form-label">İlan Türü</label>
+                    <select class="form-select" id="listingTypeName" name="listingTypeName"
+                        [(ngModel)]="addListing.listingTypeId">
+                        <option value="0">Seçiniz</option>
+                        <option value="1">Kiralık</option>
+                        <option value="2">Satılık</option>
+                    </select>
+                </div>
+                <div class="col mb-3">
+                    <label for="typeId" class="form-label">Ev Türü</label>
+                    <select class="form-select" id="typeId" name="typeId"
+                        [(ngModel)]="addListing.typeId">
+                        <option value="0">Seçiniz</option>
+                        <option value=1>Apartman</option>
+                        <option value=2>Dublex</option>
+                        <option value=3>Triplex</option>
+                        <option value=4>Müstakil</option>
+                        <option value=5>Prefabrik</option>
+                        <option value=6>Villa</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col d-flex">
+                <div class="col mb-3 me-2">
+                    <label for="city" class="form-label">Şehir</label>
+                    <select class="form-select" id="city" name="city" (change)="onCityChange($event)"
+                        [(ngModel)]="addListing.cityId">
+                        <option value="">Şehir Seçin</option>
+                        <option *ngFor="let city of city" [value]="city.id">{{ city.cityName }}</option>
+                    </select>
+                </div>
+                <div class="col mb-3 ms-2">
+                    <label for="district" class="form-label">İlçe</label>
+                    <select class="form-select" id="district" name="district" [(ngModel)]="addListing.districtId">
+                        <option value=NULL>İlçe Seçin</option>
+                        <option *ngFor="let district of districts" [value]="district.id">{{
+                            district.districtName }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col d-flex">
+                <div class="col mb-3 me-2">
+                    <label class="form-label">Oda Sayısı:</label>
+                    <input type="number" class="form-control" [(ngModel)]="addListing.roomCount" name="roomCount" min="0"
+                        required>
+                </div>
+                <div class="col mb-3 ms-2 me-2">
+                    <label class="form-label">Salon Sayısı:</label>
+                    <input type="number" class="form-control" [(ngModel)]="addListing.livingRoomCount" name="livingRoomCount" min="0"
+                        required>
+                </div>
+                <div class="col mb-3 ms-2">
+                    <label class="form-label">Banyo Sayısı:</label>
+                    <input type="number" class="form-control" [(ngModel)]="addListing.bathroomCount" min="0"
+                        name="bathroomCount" required>
+                </div>
+
+            </div>
+            <div class="col d-flex">
+            <div class="col  me-2 mb-3">
+                <label class="form-label">Kat Sayısı:</label>
+                <input type="number" class="form-control" [(ngModel)]="addListing.floorCount" name="floorCount" min="0"
+                    required>
+            </div>
+            <div class="col ms-2  mb-3">
+                <label class="form-label">Bulunduğu Kat:</label>
+                <input type="number" class="form-control" [(ngModel)]="addListing.currentFloor" name="currentFloor" min="0"
+                    required>
+            </div>
+        </div>
+            <div class="mb-3">
+                <label class="form-label">Metrekare:</label>
+                <input type="number" class="form-control" [(ngModel)]="addListing.squareMeter" name="squareMeter" min="0"
+                    required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Bina Yaşı:</label>
+                <input type="number" class="form-control" [(ngModel)]="addListing.buildingAge" name="buildingAge" min="0"
+                    required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Adres:</label>
+                <input type="text" class="form-control" [(ngModel)]="addListing.address" name="address" required>
+            </div>
+            <div class="col d-flex justify-content-between">
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" [(ngModel)]="addListing.hasGarden" name="hasGarden">
+                    <label class="form-check-label">Bahçe</label>
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" [(ngModel)]="addListing.hasBalcony"
+                        name="hasBalcony">
+                    <label class="form-check-label">Balkon</label>
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" [(ngModel)]="addListing.hasElevator"
+                        name="hasElevator">
+                    <label class="form-check-label">Asansör</label>
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" [(ngModel)]="addListing.hasParking"
+                        name="hasParking">
+                    <label class="form-check-label">Otopark</label>
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" [(ngModel)]="addListing.hasFurniture"
+                        name="hasFurniture">
+                    <label class="form-check-label">Mobilya</label>
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" [(ngModel)]="addListing.isInGatedCommunity"
+                        name="isInGatedCommunity">
+                    <label class="form-check-label">Site İçinde</label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">İlanı Ekle</button>
+        </form>
+    </div>
+</div>
