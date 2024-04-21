@@ -7,6 +7,8 @@ import { ListingImage } from '../../models/listingImage';
 import { ListingImageResponseModel } from '../../models/listingImageResponseModel';
 import { UserImageService } from '../../services/user-image.service';
 import { UserImage } from '../../models/userImage';
+import { LandListingService } from '../../services/land-listing.service';
+import { LandDetail } from '../../models/landDetail';
 
 @Component({
   selector: 'detail',
@@ -23,30 +25,34 @@ export class DetailComponent implements OnInit {
 
 
   houseDetail!: HouseDetail;
+  landDetail!: LandDetail;
   apiUrl = "https://localhost:44318/api/HouseListings/getdetails?listingId=";
   apiUrlImg = "https://localhost:44318/api/ListingImages/getbylistingid?listingId="
 
-  constructor(private httpClient: HttpClient, private route: ActivatedRoute, private userImageService: UserImageService) { } // ActivatedRoute ekleyin
+  constructor(private httpClient: HttpClient, private route: ActivatedRoute, private userImageService: UserImageService, private landListingService: LandListingService) { } // ActivatedRoute ekleyin
 
   ngOnInit() {
     const listingId = this.route.snapshot.paramMap.get('id'); // URL'den listingId'yi al
-    this.getHouseDetail(listingId); // Parametre olarak listingId'yi geçir
-    this.gethouseImage(listingId);
+    if (listingId != null) {
+      console.log(listingId)
+      if (parseInt(listingId, 10) < 20000000) {
+        this.getHouseDetail(listingId); // Parametre olarak listingId'yi geçir
+      } else {
+        this.getLandListingDetail(listingId);
+      }
+    }
+    this.getImage(listingId);
     this.showImages();
-
   }
 
-  gethouseImage(listingId: string | null) {
+  getImage(listingId: string | null) {
     if (!listingId) return;
     this.httpClient.get<ListingImageResponseModel>(this.apiUrlImg + listingId).subscribe((response) => {
       this.imageListing = response;
       console.log(response);
     })
   }
-  getHouseDetail(listingId: string | null) { 
-    // listingId yoksa işlem yapma
-    if (!listingId) return;
-
+  getHouseDetail(listingId: string | null) {
     this.httpClient.get<HouseDetailResponseModel>(this.apiUrl + listingId) // listingId'ye göre ilanı getir
       .subscribe((response) => {
         this.houseDetail = response.data;
@@ -54,6 +60,11 @@ export class DetailComponent implements OnInit {
       });
   }
 
+  getLandListingDetail(listingId: string) {
+    this.landListingService.getLandListingDetail(listingId).subscribe(response => {
+      this.landDetail = response.data;
+    })
+  }
   next() {
     if (this.endIndex < this.imageListing.data.length) {
       this.startIndex += 5;
@@ -92,7 +103,7 @@ export class DetailComponent implements OnInit {
   }
 
   getUserImageByUserId(houseDetail: HouseDetail) {
-    this.userImageService.getUserImageByUserId(houseDetail.userId).subscribe(response =>{
+    this.userImageService.getUserImageByUserId(houseDetail.userId).subscribe(response => {
       this.userImg = response.data
     })
   }
@@ -102,7 +113,7 @@ export class DetailComponent implements OnInit {
       return 'https://localhost:44318/Uploads/UserImages/' + userImage.imagePath;
     } else {
       // Default User resim yolu
-      
+
       return 'https://localhost:44318/Uploads/UserImages/DefaultUserImage.png';
     }
   }
@@ -118,3 +129,4 @@ export class DetailComponent implements OnInit {
     }
   }
 }
+

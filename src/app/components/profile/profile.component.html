@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="d-flex flex-wrap ms-4">
-            <div class="card d-flex flex-wrap mb-3 mx-2" style="width: 18rem;" *ngFor="let item of listings">
+            <div class="card d-flex flex-wrap mb-3 mx-2" style="width: 18rem;" *ngFor="let item of listings.slice(startIndex,endIndex)">
                 <div class="pt-3 text-center">
                     <p>{{item.listingTypeName}}</p>
                 </div>
@@ -28,7 +28,7 @@
                 <img [src]="getListingImagePath(item)" class="card-img-top aspect-ratio-16x9" alt="...">
                 <div class="card-body">
                     <h5 class="card-title" style="min-height: 3rem;">{{item.title | summary:50 }}</h5>
-                    <p class="card-text">{{item.description | summary:150}}</p>
+                    <p class="card-text" style="min-height: 8rem;">{{item.description | summary:150}}</p>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">{{item.squareMeter}}</li>
