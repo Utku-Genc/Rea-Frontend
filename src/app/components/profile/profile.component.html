@@ -4,8 +4,8 @@
             <div class="card text-center text-white bg-color">
                 <div class="card-title">
                     <h3 class="mt-3 mb-3 profile-title">Profile</h3>
-                    <img *ngIf="userImg.length>0" [src]="getUserImagePath(userImg[0])" class="user-img rounded-circle mt-3 mb-3" style="background-color: aliceblue;">
-                    <img *ngIf="userImg.length<=0" src="../../../assets/img/user.png" class="user-img rounded-circle mt-3 mb-3" style="background-color: aliceblue;">
+                    <img *ngIf="userImg.length>0" [src]="getUserImagePath(userImg[0])" class="user-img rounded-circle mt-3 mb-3" style="background-color: rgb(255,188,0);">
+                    <img *ngIf="userImg.length<=0" src="../../../assets/img/user.png" class="user-img rounded-circle mt-3 mb-3" style="background-color: rgb(255,188,0);">
                     <h2 class="mb-3">{{user.firstName}} {{user.lastName}}</h2>
                     <p>İletişim Adresi: {{user.email}}</p>
                     <p>Toplam İlan: {{listings.length}}</p>
