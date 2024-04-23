@@ -10,7 +10,7 @@ import { SingleResponseModel } from '../models/singleReponseModel';
   providedIn: 'root'
 })
 export class LandListingService {
-  apiUrl = "https://localhost:44318/api/LandListing/";
+  apiUrl = "https://localhost:44318/api/LandListings/";
 
   constructor(private httpClient: HttpClient) { }
   getLandListing(): Observable<ListResponseModel<LandListing>> {

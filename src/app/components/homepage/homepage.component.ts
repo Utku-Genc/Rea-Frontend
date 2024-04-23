@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ListingResponseModel } from '../../models/listingResponseModel';
 import { HouseListing } from '../../models/houseListing';
+import { LandListing } from '../../models/landListing';
+import { HouseListingService } from '../../services/house-listing.service';
+import { LandListingService } from '../../services/land-listing.service';
 
 @Component({
   selector: 'homepage',
@@ -13,12 +16,18 @@ import { HouseListing } from '../../models/houseListing';
 
 export class HomepageComponent {
   listings: Listing[] = [];
+  houseListings: HouseListing[] = [];
+  landListings: LandListing[] = [];
+
   apiUrl = "https://localhost:44318/api/Listings/getalldetails"
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private houseListingService:HouseListingService,private landListingService:LandListingService ) { }
 
   ngOnInit(): void {
-    this.getListing()
+    this.getListing();
+    this.getHouseListing();
+    this.getLandListing()
+    
   }
   getListing = () => {
     this.httpClient.get<ListingResponseModel>(this.apiUrl)
@@ -26,12 +35,25 @@ export class HomepageComponent {
         this.listings = response.data;
       });
   }
-  getHouseListingImagePath(listing: Listing): string {
-    if (listing.imagePath && listing.imagePath.length > 0) {
-      return 'https://localhost:44318/Uploads/ListingImages/' + listing.imagePath;
+
+  getHouseListing(){
+    this.houseListingService.getHouseListing().subscribe(response =>{
+      this.houseListings = response.data;
+    })
+  }
+
+  getLandListing(){
+    this.landListingService.getLandListing().subscribe(response =>{
+      this.landListings = response.data;
+    })
+  }
+  getHouseListingImagePath(imagePath: string): string {
+    if (imagePath && imagePath.length > 0) {
+      return 'https://localhost:44318/Uploads/ListingImages/' + imagePath;
     } else {
       // Default resim yolu
       return 'https://localhost:44318/Uploads/ListingImages/DefaultImage.png';
     }
   }
+  
 }

@@ -9,12 +9,11 @@ export class AddListingImageService {
   apiUrl = "https://localhost:44318/api/ListingImages/add";
 
   constructor(private httpClient: HttpClient) { }
-  addImages(listingId: number, images: FileList): Observable<any> {
-    const formData: FormData = new FormData();
-    for (let i = 0; i < images.length; i++) {
-      formData.append('images', images[i], images[i].name);
-    }
-    formData.append('listingId', listingId.toString());
+  uploadImage( listingId: number, imageFile: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', imageFile);
+    formData.append('listingId', JSON.stringify(listingId)); // Gerekirse JSON olarak gönderebilirsiniz
+
     return this.httpClient.post<any>(this.apiUrl, formData);
   }
 }

@@ -41,6 +41,12 @@
                             item.price | priceFormat: 'TRY' }}</button>
                     </div>
                 </div>
+                <div class="col d-flex ms-2 me-2 mb-2">
+                    <button class="btn btn-success col me-2">Düzenle</button>
+                    <button type="button" class="btn btn-danger col ms-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        Sil
+                      </button>
+                </div>
             </div>
         </div>
     </div>
@@ -60,3 +66,23 @@
         <i class="fa-solid fa-chevron-right"></i><i class="fa-solid fa-chevron-right"></i>
     </button>
 </div>
+
+<!--MODAL -->
+  
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Silmek istediğine emin misin?</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+           başlıklı ilanın kalıcı olarak silinecektir.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
+          <button type="button" class="btn btn-danger">Onayla</button>
+        </div>
+      </div>
+    </div>
+  </div>

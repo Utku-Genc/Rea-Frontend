@@ -24,7 +24,7 @@
         <form (ngSubmit)="addHouseListingSubmit()" class="mt-4">
             <div class="mb-3">
                 <label class="form-label">Fotoğraf Seç:</label>
-                <input type="file" class="form-control " (change)="onFileSelected($event)" accept="image/*" multiple>
+                <input type="file" class="form-control " (change)="onFileSelectedHouse($event)" accept="image/*" multiple>
             </div>
             <div class="mb-3">
                 <label class="form-label">Başlık:</label>
@@ -166,7 +166,7 @@
         <form (ngSubmit)="addLandListingSubmit()" class="mt-4">
             <div class="mb-3">
                 <label class="form-label">Fotoğraf Seç:</label>
-                <input type="file" class="form-control" (change)="onFileSelected($event)" accept="image/*" multiple>
+                <input type="file" class="form-control" (change)="onFileSelectedLand($event)" accept="image/*" multiple>
             </div>
             <div class="mb-3">
                 <label class="form-label">Başlık:</label>
