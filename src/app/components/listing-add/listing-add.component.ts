@@ -9,17 +9,19 @@ import { CityService } from '../../services/city.service';
 import { DistrictService } from '../../services/district.service';
 import { AddLandService } from '../../services/add-land.service';
 import { AddLandListing } from '../../models/addLandListing';
+import { AddHouseListingResponse } from '../../models/addHouseListingResponse';
+import { AddLandListingResponse } from '../../models/addLandListingResponse';
 
 @Component({
   selector: 'listing-add',
   templateUrl: './listing-add.component.html',
   styleUrls: ['./listing-add.component.css']
 })
-export class ListingAddComponent implements OnInit{
+export class ListingAddComponent implements OnInit {
   type: string = 'house';
   house: boolean = true;
 
-
+  addHouseListingResponse!: AddHouseListingResponse;
   addHouseListing: AddHouseListing = {
     cityId: 0,
     listingTypeId: 0,
@@ -47,7 +49,7 @@ export class ListingAddComponent implements OnInit{
     images: [],
   };
 
-
+  addLandListingResponse!: AddLandListingResponse;
   addLandListing: AddLandListing = {
     cityId: 0,
     listingTypeId: 0, // kiralık satılık
@@ -65,11 +67,11 @@ export class ListingAddComponent implements OnInit{
     status: true,
     images: [],
   }
-  
+
   city: City[] = [];
   districts: District[] = [];
 
-  constructor(private addHouseService: AddHouseService, private addLandService:AddLandService ,private addListingImageService: AddListingImageService,private cityService: CityService, private districService: DistrictService,) {}
+  constructor(private addHouseService: AddHouseService, private addLandService: AddLandService, private addListingImageService: AddListingImageService, private cityService: CityService, private districService: DistrictService,) { }
   ngOnInit(): void {
     this.getCity();
   }
@@ -88,14 +90,14 @@ export class ListingAddComponent implements OnInit{
     })
   }
 
-onCityChange(event: any) {
+  onCityChange(event: any) {
     const cityName = event.target.value;
     if (cityName) {
-        this.getDistrict(cityName);
+      this.getDistrict(cityName);
     } else {
-        this.districts = []; // Şehir seçilmediyse ilçe listesini temizle
+      this.districts = []; // Şehir seçilmediyse ilçe listesini temizle
     }
-}
+  }
 
 
 
@@ -107,42 +109,56 @@ onCityChange(event: any) {
 
 
   addHouseListingSubmit() {
-console.log(this.addHouseListing)
+    console.log(this.addHouseListing)
     this.addHouseService.addListing(this.addHouseListing)
       .subscribe(
         response => {
           console.log('İlan başarıyla eklendi:', response);
-        //   const listingId = response.data.listingId; // Örneğin bu şekilde listingId'yi aldığınızı varsayalım
-        //   this.addHouseService.addImages(listingId, this.addListing.images)
-        //     .subscribe(
-        //       () => {
-        //         console.log('Fotoğraflar başarıyla eklendi.');
-        //       },
-        //       error => {
-        //         console.error('Fotoğraflar eklenirken bir hata oluştu:', error);
-        //       }
-        //     );
-       },
+          this.addHouseListingResponse= response.data;
+          console.log(this.addHouseListingResponse)
+          this.addHouseListing.images.forEach(image => {
+            console.log("çalıştı:")
+            console.log(image)
+            this.addListingImageService.uploadImage(this.addHouseListingResponse.listingId, image).subscribe(response => {console.log("Resimler Eklendi")})
+          });
+
+        },
         error => {
           console.error('İlan eklenirken bir hata oluştu:', error);
         }
       );
   }
 
-  addLandListingSubmit(){
+  addLandListingSubmit() {
     this.addLandService.addLandListing(this.addLandListing)
-    .subscribe(
-      response =>{
-        console.log('İlan başarıyla eklendi:', response);
-      }
-    )
+      .subscribe(
+        response => {
+          console.log('İlan başarıyla eklendi:', response);
+          this.addLandListingResponse = response.data;
+          console.log(this.addLandListingResponse)
+          this.addLandListing.images.forEach(image => {
+            console.log("çalıştı:")
+            console.log(image)
+            this.addListingImageService.uploadImage(this.addLandListingResponse.listingId, image).subscribe(response => {console.log("Resimler Eklendi")})
+          });
+
+        },
+        error => {
+          console.error('İlan eklenirken bir hata oluştu:', error);
+        }
+      );
   }
 
-  onFileSelected(event: any) {
-    // Seçilen dosyaları işleyecek kod buraya gelecek
+  onFileSelectedHouse(event: any) {
     const files: FileList = event.target.files;
     for (let i = 0; i < files.length; i++) {
       this.addHouseListing.images.push(files[i]);
+    }
+  }
+  onFileSelectedLand(event: any) {
+    const files: FileList = event.target.files;
+    for (let i = 0; i < files.length; i++) {
+      this.addLandListing.images.push(files[i]);
     }
   }
 }

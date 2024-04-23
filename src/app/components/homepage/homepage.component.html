@@ -63,11 +63,11 @@
             <h2 class="display-2 mt-5 mb-3 ">Son İlanlar</h2>
             <div class="row">
                 <div class="col-md-6 mb-3" *ngFor="let item of listings.slice(0,6); let i = index;">
-                    <div routerLink="/houselisting/detail/{{ item.id }}">
+                    <div routerLink="/listing/detail/{{ item.id }}">
                         <div class="card" style="min-width: 100%;">
                             <div class="row g-0">
                                 <div class="col-md-4">
-                                    <img [src]="getHouseListingImagePath(item)"
+                                    <img [src]="getHouseListingImagePath(item.imagePath)"
                                         class="img-fluid rounded-start aspect-ratio-16x9"
                                         style="object-fit: cover; width: 100%; height: 100%;">
                                 </div>
@@ -76,6 +76,56 @@
                                         <h5 class="card-title">{{item.title}}</h5>
                                         <p class="card-text">{{item.description | summary:50}}</p>
                                         <p class="card-text"><small class="text-body-secondary">{{item.date |
+                                                date:'dd/MM/YYYY'}}</small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h2 class="display-2 mt-5 mb-3 ">Son Ev İlanları</h2>
+            <div class="row">
+                <div class="col-md-6 mb-3" *ngFor="let itemHouse of houseListings.slice(0,6); let i = index;">
+                    <div routerLink="/houselisting/detail/{{ itemHouse.listingId }}">
+                        <div class="card" style="min-width: 100%;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img [src]="getHouseListingImagePath(itemHouse.imagePath)"
+                                        class="img-fluid rounded-start aspect-ratio-16x9"
+                                        style="object-fit: cover; width: 100%; height: 100%;">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{itemHouse.title}}</h5>
+                                        <p class="card-text">{{itemHouse.description | summary:50}}</p>
+                                        <p class="card-text"><small class="text-body-secondary">{{itemHouse.date |
+                                                date:'dd/MM/YYYY'}}</small>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h2 class="display-2 mt-5 mb-3 ">Son Arsa İlanları</h2>
+            <div class="row">
+                <div class="col-md-6 mb-3" *ngFor="let itemLand of landListings.slice(0,6); let i = index;">
+                    <div routerLink="/landlisting/detail/{{ itemLand.listingId }}">
+                        <div class="card" style="min-width: 100%;">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img [src]="getHouseListingImagePath(itemLand.imagePath)"
+                                        class="img-fluid rounded-start aspect-ratio-16x9"
+                                        style="object-fit: cover; width: 100%; height: 100%;">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{itemLand.title}}</h5>
+                                        <p class="card-text">{{itemLand.description | summary:50}}</p>
+                                        <p class="card-text"><small class="text-body-secondary">{{itemLand.date |
                                                 date:'dd/MM/YYYY'}}</small>
                                         </p>
                                     </div>
