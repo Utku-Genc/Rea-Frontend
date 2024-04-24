@@ -1,16 +1,20 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AddHouseListing } from '../../models/addHouseListing';
-import { AddHouseService } from '../../services/add-house.service';
-import { AddListingImageService } from '../../services/add-listing-image.service';
+import { ListingImageService } from '../../services/listing-image.service';
 import { City } from '../../models/city';
 import { District } from '../../models/district';
 import { CityService } from '../../services/city.service';
 import { DistrictService } from '../../services/district.service';
-import { AddLandService } from '../../services/add-land.service';
 import { AddLandListing } from '../../models/addLandListing';
 import { AddHouseListingResponse } from '../../models/addHouseListingResponse';
 import { AddLandListingResponse } from '../../models/addLandListingResponse';
+import { HouseListingService } from '../../services/house-listing.service';
+import { LandListingService } from '../../services/land-listing.service';
+import { ListingTypeService } from '../../services/listing-type.service';
+import { HouseTypeService } from '../../services/house-type.service';
+import { HouseType } from '../../models/houseType';
+import { ListingType } from '../../models/listingType';
 
 @Component({
   selector: 'listing-add',
@@ -70,10 +74,16 @@ export class ListingAddComponent implements OnInit {
 
   city: City[] = [];
   districts: District[] = [];
+  houseTypes:HouseType[] = [];
+  listingTypes:ListingType[] = [];
 
-  constructor(private addHouseService: AddHouseService, private addLandService: AddLandService, private addListingImageService: AddListingImageService, private cityService: CityService, private districService: DistrictService,) { }
+  constructor(private houseListingService:HouseListingService,private landListingService:LandListingService,private listingImageService: ListingImageService, private cityService: CityService, private districService: DistrictService,
+    private listingTypeService:ListingTypeService,private houseTypeService:HouseTypeService
+  ) { }
   ngOnInit(): void {
     this.getCity();
+    this.getHouseTypes();
+    this.getListingTypes();
   }
 
   onTypeChange() {
@@ -87,6 +97,16 @@ export class ListingAddComponent implements OnInit {
   getCity() {
     this.cityService.getCity().subscribe(response => {
       this.city = response.data;
+    })
+  }
+  getListingTypes(){
+this.listingTypeService.getAll().subscribe(response=>{
+  this.listingTypes = response.data;
+})
+  }
+  getHouseTypes(){
+    this.houseTypeService.getAll().subscribe(response=>{
+      this.houseTypes = response.data;
     })
   }
 
@@ -110,7 +130,7 @@ export class ListingAddComponent implements OnInit {
 
   addHouseListingSubmit() {
     console.log(this.addHouseListing)
-    this.addHouseService.addListing(this.addHouseListing)
+    this.houseListingService.addListing(this.addHouseListing)
       .subscribe(
         response => {
           console.log('İlan başarıyla eklendi:', response);
@@ -119,7 +139,7 @@ export class ListingAddComponent implements OnInit {
           this.addHouseListing.images.forEach(image => {
             console.log("çalıştı:")
             console.log(image)
-            this.addListingImageService.uploadImage(this.addHouseListingResponse.listingId, image).subscribe(response => {console.log("Resimler Eklendi")})
+            this.listingImageService.uploadImage(this.addHouseListingResponse.listingId, image).subscribe(response => {console.log("Resimler Eklendi")})
           });
 
         },
@@ -130,7 +150,7 @@ export class ListingAddComponent implements OnInit {
   }
 
   addLandListingSubmit() {
-    this.addLandService.addLandListing(this.addLandListing)
+    this.landListingService.addLandListing(this.addLandListing)
       .subscribe(
         response => {
           console.log('İlan başarıyla eklendi:', response);
@@ -139,7 +159,7 @@ export class ListingAddComponent implements OnInit {
           this.addLandListing.images.forEach(image => {
             console.log("çalıştı:")
             console.log(image)
-            this.addListingImageService.uploadImage(this.addLandListingResponse.listingId, image).subscribe(response => {console.log("Resimler Eklendi")})
+            this.listingImageService.uploadImage(this.addLandListingResponse.listingId, image).subscribe(response => {console.log("Resimler Eklendi")})
           });
 
         },

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { LandListing } from '../models/landListing';
 import { LandDetail } from '../models/landDetail';
 import { SingleResponseModel } from '../models/singleReponseModel';
+import { AddLandListingResponse } from '../models/addLandListingResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +20,8 @@ export class LandListingService {
   
   getLandListingDetail(id:string): Observable<SingleResponseModel<LandDetail>> {
     return this.httpClient.get<SingleResponseModel<LandDetail>>(this.apiUrl+"getlandlistingdetail?listingId="+id);
+  }
+  addLandListing(data: any): Observable<SingleResponseModel<AddLandListingResponse>> {
+    return this.httpClient.post<SingleResponseModel<AddLandListingResponse>>(this.apiUrl+"add", data);
   }
 }
