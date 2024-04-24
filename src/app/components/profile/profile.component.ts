@@ -13,17 +13,22 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
-export class ProfileComponent implements OnInit{
+export class ProfileComponent implements OnInit {
 
   listings: Listing[] = [];
-  user!: User ;
-  userImg : UserImage[] = [];
-  currentPage = 1; 
-  listingsPerPage = 12; 
+  user!: User;
+  userImg: UserImage[] = [];
+  currentPage = 1;
+  listingsPerPage = 12;
 
-  deleteToListingId! : number
+  deleteToListingId!: number;
 
-  constructor(private listingService:ListingService, private userService:UserService,private userImageService:UserImageService,private router: Router, private route: ActivatedRoute) {};
+  constructor(
+    private listingService: ListingService,
+    private userService: UserService,
+    private userImageService: UserImageService,
+    private router: Router,
+    private route: ActivatedRoute) { };
 
   ngOnInit(): void {
     this.getListingByUserId();
@@ -37,10 +42,10 @@ export class ProfileComponent implements OnInit{
   getListingByUserId() {
     this.listingService.getListingByUserId().subscribe(response => {
       this.listings = response.data;
-    
+
     })
   }
-  
+
   getUserByToken() {
     this.userService.getUserByToken().subscribe(response => {
       this.user = response.data;
@@ -51,10 +56,10 @@ export class ProfileComponent implements OnInit{
       this.userImg = response.data;
     })
   }
-  
+
 
   getUserImagePath(userImage: UserImage): string {
-    if (userImage.imagePath && this.userImg.length>0) {
+    if (userImage.imagePath && this.userImg.length > 0) {
       return 'https://localhost:44318/Uploads/UserImages/' + userImage.imagePath;
     } else {
       // Default User resim yolu
@@ -70,7 +75,7 @@ export class ProfileComponent implements OnInit{
     }
   }
 
-  
+
   get startIndex(): number {
     return (this.currentPage - 1) * this.listingsPerPage;
   }
@@ -78,7 +83,7 @@ export class ProfileComponent implements OnInit{
   get endIndex(): number {
     return this.startIndex + this.listingsPerPage;
   }
-  
+
   onPageChange(newPage: number) {
     this.currentPage = newPage;
     console.log(this.currentPage)
@@ -89,21 +94,21 @@ export class ProfileComponent implements OnInit{
     });
   }
 
-  setDeleteToListingId(listingId:number){
-      this.deleteToListingId = listingId;
+  setDeleteToListingId(listingId: number) {
+    this.deleteToListingId = listingId;
   }
-  deleteListing(){
-    this.listingService.deleteListing(this.deleteToListingId).subscribe(response=>{
+  deleteListing() {
+    this.listingService.deleteListing(this.deleteToListingId).subscribe(response => {
       console.log(response)
       window.location.reload();
     });
   }
 
-  
+
   get totalPages(): number {
     return Math.ceil(this.listings.length / this.listingsPerPage);
   }
-  
+
   get totalPagesArray(): number[] {
     return Array(this.totalPages).fill(0).map((x, i) => i + 1);
   }
@@ -112,5 +117,5 @@ export class ProfileComponent implements OnInit{
     const end = Math.min(start + 3, this.totalPagesArray.length);
 
     return Array(end - start + 1).fill(0).map((_, index) => start + index);
-}
+  }
 }

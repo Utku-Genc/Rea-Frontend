@@ -15,6 +15,7 @@ import { ListingTypeService } from '../../services/listing-type.service';
 import { HouseTypeService } from '../../services/house-type.service';
 import { HouseType } from '../../models/houseType';
 import { ListingType } from '../../models/listingType';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'listing-add',
@@ -74,11 +75,18 @@ export class ListingAddComponent implements OnInit {
 
   city: City[] = [];
   districts: District[] = [];
-  houseTypes:HouseType[] = [];
-  listingTypes:ListingType[] = [];
+  houseTypes: HouseType[] = [];
+  listingTypes: ListingType[] = [];
 
-  constructor(private houseListingService:HouseListingService,private landListingService:LandListingService,private listingImageService: ListingImageService, private cityService: CityService, private districService: DistrictService,
-    private listingTypeService:ListingTypeService,private houseTypeService:HouseTypeService
+  constructor(
+    private houseListingService: HouseListingService, 
+    private landListingService: LandListingService, 
+    private listingImageService: ListingImageService, 
+    private cityService: CityService, 
+    private districService: DistrictService,
+    private listingTypeService: ListingTypeService, 
+    private houseTypeService: HouseTypeService,
+    private router: Router
   ) { }
   ngOnInit(): void {
     this.getCity();
@@ -99,13 +107,13 @@ export class ListingAddComponent implements OnInit {
       this.city = response.data;
     })
   }
-  getListingTypes(){
-this.listingTypeService.getAll().subscribe(response=>{
-  this.listingTypes = response.data;
-})
+  getListingTypes() {
+    this.listingTypeService.getAll().subscribe(response => {
+      this.listingTypes = response.data;
+    })
   }
-  getHouseTypes(){
-    this.houseTypeService.getAll().subscribe(response=>{
+  getHouseTypes() {
+    this.houseTypeService.getAll().subscribe(response => {
       this.houseTypes = response.data;
     })
   }
@@ -134,14 +142,14 @@ this.listingTypeService.getAll().subscribe(response=>{
       .subscribe(
         response => {
           console.log('İlan başarıyla eklendi:', response);
-          this.addHouseListingResponse= response.data;
+          this.addHouseListingResponse = response.data;
           console.log(this.addHouseListingResponse)
           this.addHouseListing.images.forEach(image => {
             console.log("çalıştı:")
             console.log(image)
-            this.listingImageService.uploadImage(this.addHouseListingResponse.listingId, image).subscribe(response => {console.log("Resimler Eklendi")})
+            this.listingImageService.uploadImage(this.addHouseListingResponse.listingId, image).subscribe(response => { console.log("Resimler Eklendi") })
           });
-
+          this.router.navigate(["profile/ilanlarım"]);
         },
         error => {
           console.error('İlan eklenirken bir hata oluştu:', error);
@@ -159,9 +167,9 @@ this.listingTypeService.getAll().subscribe(response=>{
           this.addLandListing.images.forEach(image => {
             console.log("çalıştı:")
             console.log(image)
-            this.listingImageService.uploadImage(this.addLandListingResponse.listingId, image).subscribe(response => {console.log("Resimler Eklendi")})
+            this.listingImageService.uploadImage(this.addLandListingResponse.listingId, image).subscribe(response => { console.log("Resimler Eklendi") })
           });
-
+          this.router.navigate(["profile/ilanlarım"]);
         },
         error => {
           console.error('İlan eklenirken bir hata oluştu:', error);
