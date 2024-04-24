@@ -4,8 +4,23 @@
             <div class="card text-center text-white bg-color">
                 <div class="card-title">
                     <h3 class="mt-3 mb-3 profile-title">Profile</h3>
-                    <img *ngIf="userImg.length>0" [src]="getUserImagePath(userImg[0])" class="user-img rounded-circle mt-3 mb-3" style="background-color: rgb(255,188,0);">
-                    <img *ngIf="userImg.length<=0" src="../../../assets/img/user.png" class="user-img rounded-circle mt-3 mb-3" style="background-color: rgb(255,188,0);">
+
+                    <div *ngIf="userImg.length>0" class="mb-3">
+                        <img [src]="getUserImagePath(userImg[0])" class="user-img rounded-circle mt-3 mb-3"
+                            style="background-color: rgb(255,188,0);">
+                            <div class="col">
+                            <button class="btn col ms-2 mb-2" style="background-color: rgb(255,188,0);">Profil Resmi Değiştir</button>
+                            <button class="btn btn-danger col  ms-2 mb-2">Profil Resmi Kaldır</button>
+
+                        </div>
+                    </div>
+
+                    <div *ngIf="userImg.length<=0" class="mb-2">
+                        <img src="../../../assets/img/user.png" class="user-img rounded-circle mt-3 mb-3"
+                            style="background-color: rgb(255,188,0);">
+                            <button class="btn " style="background-color: rgb(255,188,0);">Profil Resmi Yükle</button>
+                    </div>
+
                     <h2 class="mb-3">{{user.firstName}} {{user.lastName}}</h2>
                     <p>İletişim Adresi: {{user.email}}</p>
                     <p>Toplam İlan: {{listings.length}}</p>
@@ -13,27 +28,28 @@
             </div>
         </div>
     </div>
-    <div class="col-9 m-3">
-        <div class="card text-center mb-3 profile-title bg-color" >
+    <div class="col-9 m-3 ">
+        <div class="card text-center mb-3 profile-title bg-color">
             <div class="card-title">
                 <h3 class="mt-1">İlanlar</h3>
             </div>
         </div>
         <div class="d-flex flex-wrap ms-4">
-            <div class="card d-flex flex-wrap mb-3 mx-2" style="width: 18rem;" *ngFor="let item of listings.slice(startIndex,endIndex)">
+            <div class="card d-flex flex-wrap mb-3 mx-2" style="width: 18rem;"
+                *ngFor="let item of listings.slice(startIndex,endIndex)">
                 <div class="pt-3 text-center">
                     <p>{{item.listingTypeName}}</p>
                 </div>
-    
+
                 <img [src]="getListingImagePath(item)" class="card-img-top aspect-ratio-16x9" alt="...">
                 <div class="card-body">
                     <h5 class="card-title" style="min-height: 3rem;">{{item.title | summary:50 }}</h5>
                     <p class="card-text" style="min-height: 8rem;">{{item.description | summary:150}}</p>
                 </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">{{item.squareMeter}}</li>
-                    <li class="list-group-item">{{item.date | date:'dd/MM/YYYY'}}</li>
+                <ul class="list-group list-group-flush text-center">
+                    <li class="list-group-item">{{item.squareMeter}} m²</li>
                     <li class="list-group-item">{{item.propertyTypeName}}</li>
+                    <li class="list-group-item">{{item.date | date:'dd/MM/YYYY'}}</li>
                 </ul>
                 <div class="card-body">
                     <div class="d-grid gap-2 col-15 mx-auto">
@@ -43,9 +59,10 @@
                 </div>
                 <div class="col d-flex ms-2 me-2 mb-2">
                     <button class="btn btn-success col me-2">Düzenle</button>
-                    <button (click)="setDeleteToListingId(item.id)" type="button" class="btn btn-danger col ms-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    <button (click)="setDeleteToListingId(item.id)" type="button" class="btn btn-danger col ms-2"
+                        data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         Sil
-                      </button>
+                    </button>
                 </div>
             </div>
         </div>
@@ -58,31 +75,35 @@
     </button>
 
     <button *ngFor="let page of visiblePages" class="btn ms-1"
-        [ngClass]="{'btn-primary': currentPage === page, 'page-btn': currentPage !== page}" (click)="onPageChange(page)">
+        [ngClass]="{'btn-primary': currentPage === page, 'page-btn': currentPage !== page}"
+        (click)="onPageChange(page)">
         {{ page }}
     </button>
-    
-    <button class="btn page-btn ms-1" (click)="onPageChange(totalPagesArray.length)" *ngIf="currentPage < totalPagesArray.length - 2">
+
+    <button class="btn page-btn ms-1" (click)="onPageChange(totalPagesArray.length)"
+        *ngIf="currentPage < totalPagesArray.length - 2">
         <i class="fa-solid fa-chevron-right"></i><i class="fa-solid fa-chevron-right"></i>
     </button>
 </div>
 
 <!--MODAL -->
-  
-  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Silmek istediğine emin misin?</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Silmek istediğine emin misin?</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {{deleteToListingId}} numaralı ilanın kalıcı olarak silinecektir. Onaylıyor musun ?
+            </div>
+            <div class="modal-footer">
+                <button (click)="setDeleteToListingId(0)" type="button" class="btn btn-secondary"
+                    data-bs-dismiss="modal">Vazgeç</button>
+                <button (click)="deleteListing()" type="button" class="btn btn-danger">Onayla</button>
+            </div>
         </div>
-        <div class="modal-body">
-          {{deleteToListingId}} numaralı ilanın kalıcı olarak silinecektir. Onaylıyor musun ?
-        </div>
-        <div class="modal-footer">
-          <button (click)="setDeleteToListingId(0)" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
-          <button (click)="deleteListing()" type="button" class="btn btn-danger">Onayla</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>

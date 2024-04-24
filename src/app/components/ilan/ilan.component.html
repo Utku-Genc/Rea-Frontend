@@ -114,10 +114,10 @@
                 <h5 class="card-title" style="min-height: 3rem;">{{item.title | summary:50 }}</h5>
                 <p class="card-text" style="min-height: 8rem;">{{item.description | summary:150}}</p>
             </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">{{item.squareMeter}}</li>
-                <li class="list-group-item">{{item.date | date:'dd/MM/YYYY'}}</li>
+            <ul class="list-group list-group-flush text-center">
+                <li class="list-group-item">{{item.squareMeter}}m²</li>
                 <li class="list-group-item">{{item.propertyTypeName}}</li>
+                <li class="list-group-item">{{item.date | date:'dd/MM/YYYY'}}</li>
             </ul>
             <div class="card-body">
                 <div class="d-grid gap-2 col-15 mx-auto">

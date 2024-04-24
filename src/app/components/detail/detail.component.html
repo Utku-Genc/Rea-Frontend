@@ -48,7 +48,7 @@
       <div *ngIf="imageListing.data.length>0" class="container d-flex flex-wrap slide-bottom-div " #imageContainer>
         <button (click)="previous()" class="slide-bottom-btn"><i class="fa-solid fa-chevron-left"></i></button>
 
-        <ng-container *ngFor="let image of imageListing.data;; let i = index">
+        <ng-container *ngFor="let image of imageListing.data.slice(startIndex,endIndex); let i = index">
           <img [src]="getHouseListingImagePath(image)" class="d-block border-end border-start slide-bottom"
             (click)="showImageInCarousel(i)">
         </ng-container>
@@ -223,7 +223,7 @@
       <div *ngIf="imageListing.data.length>0" class="container d-flex flex-wrap slide-bottom-div " #imageContainer>
         <button (click)="previous()" class="slide-bottom-btn"><i class="fa-solid fa-chevron-left"></i></button>
 
-        <ng-container *ngFor="let image of imageListing.data;; let i = index">
+        <ng-container *ngFor="let image of imageListing.data.slice(startIndex,endIndex); let i = index">
           <img [src]="getHouseListingImagePath(image)" class="d-block border-end border-start slide-bottom"
             (click)="showImageInCarousel(i)">
         </ng-container>

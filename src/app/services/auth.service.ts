@@ -34,7 +34,6 @@ export class AuthService {
     }
     else{
       this.logOut()
-      window.location.reload()
       return false;
     }
   }

@@ -13,12 +13,10 @@ export class UserImageService {
   constructor(private httpClient: HttpClient) { }
   getUserImageByToken(): Observable<ListResponseModel<UserImage>> {
     return this.httpClient.get<ListResponseModel<UserImage>>(this.apiUrl + "getbytoken");
-
   }
 
   getUserImageByUserId(userId:number): Observable<ListResponseModel<UserImage>> {
     return this.httpClient.get<ListResponseModel<UserImage>>(this.apiUrl + "getallbyuserid?userId="+userId);
-
   }
 
 }
