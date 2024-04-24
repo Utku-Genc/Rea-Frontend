@@ -16,6 +16,7 @@ import { HouseTypeService } from '../../services/house-type.service';
 import { HouseType } from '../../models/houseType';
 import { ListingType } from '../../models/listingType';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'listing-add',
@@ -86,7 +87,8 @@ export class ListingAddComponent implements OnInit {
     private districService: DistrictService,
     private listingTypeService: ListingTypeService, 
     private houseTypeService: HouseTypeService,
-    private router: Router
+    private router: Router,
+    private toastrService:ToastrService
   ) { }
   ngOnInit(): void {
     this.getCity();
@@ -141,18 +143,23 @@ export class ListingAddComponent implements OnInit {
     this.houseListingService.addListing(this.addHouseListing)
       .subscribe(
         response => {
-          console.log('İlan başarıyla eklendi:', response);
+          this.toastrService.success("İlan Başarıyla eklendi",response.data.listingId.toString())
           this.addHouseListingResponse = response.data;
-          console.log(this.addHouseListingResponse)
           this.addHouseListing.images.forEach(image => {
-            console.log("çalıştı:")
-            console.log(image)
-            this.listingImageService.uploadImage(this.addHouseListingResponse.listingId, image).subscribe(response => { console.log("Resimler Eklendi") })
+            this.listingImageService.uploadImage(this.addHouseListingResponse.listingId, image).subscribe(response =>
+               {
+                 this.toastrService.success("Resimler Eklendi");
+                })
           });
           this.router.navigate(["profile/ilanlarım"]);
         },
-        error => {
-          console.error('İlan eklenirken bir hata oluştu:', error);
+        responseError=>{
+          if(responseError.error.ValidationErrors.length>0){
+            console.log(responseError.error.ValidationErrors)
+            for (let i = 0; i < responseError.error.ValidationErrors.length; i++) {
+              this.toastrService.error(responseError.error.ValidationErrors[i].ErrorMessage,"Doğrulama Hatası")
+            }
+          }
         }
       );
   }
@@ -161,18 +168,20 @@ export class ListingAddComponent implements OnInit {
     this.landListingService.addLandListing(this.addLandListing)
       .subscribe(
         response => {
-          console.log('İlan başarıyla eklendi:', response);
+          this.toastrService.success("İlan Başarıyla eklendi",response.data.listingId.toString())
           this.addLandListingResponse = response.data;
-          console.log(this.addLandListingResponse)
           this.addLandListing.images.forEach(image => {
-            console.log("çalıştı:")
-            console.log(image)
             this.listingImageService.uploadImage(this.addLandListingResponse.listingId, image).subscribe(response => { console.log("Resimler Eklendi") })
           });
           this.router.navigate(["profile/ilanlarım"]);
         },
-        error => {
-          console.error('İlan eklenirken bir hata oluştu:', error);
+        responseError=>{
+          if(responseError.error.ValidationErrors.length>0){
+            console.log(responseError.error.ValidationErrors)
+            for (let i = 0; i < responseError.error.ValidationErrors.length; i++) {
+              this.toastrService.error(responseError.error.ValidationErrors[i].ErrorMessage,"Doğrulama Hatası")
+            }
+          }
         }
       );
   }

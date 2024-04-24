@@ -7,6 +7,7 @@ import { CityService } from '../../services/city.service';
 import { City } from '../../models/city';
 import { District } from '../../models/district';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'ilan',
@@ -29,7 +30,9 @@ export class IlanComponent implements OnInit {
   currentPage = 1; 
   listingsPerPage = 12;  
 
-constructor(private listingService:ListingService,private httpClient: HttpClient, private cityService: CityService, private districService: DistrictService, private route: ActivatedRoute,private router: Router){}
+constructor(private listingService:ListingService,private httpClient: HttpClient, private cityService: CityService, private districService: DistrictService, private route: ActivatedRoute,private router: Router,
+  private toastrService:ToastrService
+){}
 
   ngOnInit(): void {
     this.getListing()
@@ -61,9 +64,9 @@ constructor(private listingService:ListingService,private httpClient: HttpClient
     this.httpClient.post<any>(this.filterApiUrl, this.filterObject)
       .subscribe(response => {
         this.listings = response.data
-        console.log(response);
+        this.toastrService.success("Başarıyla Filtrelendi","İşlem Başarılı")
       }, error => {
-        console.error('API iletişim hatası:', error);
+        this.toastrService.error("Bir hatayla karşılaşıldı","Hata");
       });
   }
 
