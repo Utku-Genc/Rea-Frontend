@@ -43,7 +43,7 @@
                 </div>
                 <div class="col d-flex ms-2 me-2 mb-2">
                     <button class="btn btn-success col me-2">Düzenle</button>
-                    <button type="button" class="btn btn-danger col ms-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    <button (click)="setDeleteToListingId(item.id)" type="button" class="btn btn-danger col ms-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         Sil
                       </button>
                 </div>
@@ -77,11 +77,11 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-           başlıklı ilanın kalıcı olarak silinecektir.
+          {{deleteToListingId}} numaralı ilanın kalıcı olarak silinecektir. Onaylıyor musun ?
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
-          <button type="button" class="btn btn-danger">Onayla</button>
+          <button (click)="setDeleteToListingId(0)" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
+          <button (click)="deleteListing()" type="button" class="btn btn-danger">Onayla</button>
         </div>
       </div>
     </div>

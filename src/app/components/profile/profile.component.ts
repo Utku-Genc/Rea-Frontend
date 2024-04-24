@@ -21,6 +21,8 @@ export class ProfileComponent implements OnInit{
   currentPage = 1; 
   listingsPerPage = 12; 
 
+  deleteToListingId! : number
+
   constructor(private listingService:ListingService, private userService:UserService,private userImageService:UserImageService,private router: Router, private route: ActivatedRoute) {};
 
   ngOnInit(): void {
@@ -84,6 +86,16 @@ export class ProfileComponent implements OnInit{
       relativeTo: this.route,
       queryParams: { page: this.currentPage },
       queryParamsHandling: 'merge'
+    });
+  }
+
+  setDeleteToListingId(listingId:number){
+      this.deleteToListingId = listingId;
+  }
+  deleteListing(){
+    this.listingService.deleteListing(this.deleteToListingId).subscribe(response=>{
+      console.log(response)
+      window.location.reload();
     });
   }
 

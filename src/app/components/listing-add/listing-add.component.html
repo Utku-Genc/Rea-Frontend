@@ -46,20 +46,15 @@
                     <select class="form-select" id="listingTypeName" name="listingTypeName"
                         [(ngModel)]="addHouseListing.listingTypeId">
                         <option value="0">Seçiniz</option>
-                        <option value="1">Satılık</option>
-                        <option value="2">Kiralık</option>
+                        <option  *ngFor="let listingType of listingTypes" value="{{listingType.id}}">{{listingType.listingTypeName}}</option>
                     </select>
                 </div>
                 <div class="col mb-3">
                     <label for="typeId" class="form-label">Ev Türü</label>
                     <select class="form-select" id="typeId" name="typeId" [(ngModel)]="addHouseListing.typeId">
                         <option value="0">Seçiniz</option>
-                        <option value=1>Apartman</option>
-                        <option value=2>Dublex</option>
-                        <option value=3>Triplex</option>
-                        <option value=4>Müstakil</option>
-                        <option value=5>Prefabrik</option>
-                        <option value=6>Villa</option>
+                        <option *ngFor="let houseType of houseTypes" value={{houseType.id}}>{{houseType.name}}</option>
+
                     </select>
                 </div>
             </div>
@@ -183,8 +178,7 @@
                     <select class="form-select" id="listingTypeName" name="listingTypeName"
                         [(ngModel)]="addLandListing.listingTypeId">
                         <option value="0">Seçiniz</option>
-                        <option value="1">Satılık</option>
-                        <option value="2">Kiralık</option>
+                        <option *ngFor="let listingType of listingTypes" value="{{listingType.id}}">{{listingType.listingTypeName}}</option>
                     </select>
                 </div>
                 <div class="col mb-3 ms-2">
@@ -235,7 +229,7 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Adres:</label>
-                <input type="text" class="form-control" [(ngModel)]="addHouseListing.address" name="address" required>
+                <input type="text" class="form-control" [(ngModel)]="addLandListing.address" name="address" required>
             </div>
             <button type="submit" class="btn btn-primary">İlanı Ekle</button>
 

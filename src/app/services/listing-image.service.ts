@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/internal/Observable';
 @Injectable({
   providedIn: 'root'
 })
-export class AddListingImageService {
+export class ListingImageService {
   apiUrl = "https://localhost:44318/api/ListingImages/add";
 
   constructor(private httpClient: HttpClient) { }
