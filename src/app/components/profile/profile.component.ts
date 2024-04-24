@@ -21,6 +21,7 @@ export class ProfileComponent implements OnInit {
   currentPage = 1;
   listingsPerPage = 12;
 
+  selectedImage: File | undefined;
   deleteToListingId!: number;
 
   constructor(
@@ -103,7 +104,34 @@ export class ProfileComponent implements OnInit {
       window.location.reload();
     });
   }
+  onFileSelected(event: any) {
+    this.selectedImage = event.target.files[0];
+    console.log("onfile")
+}
 
+
+addUserImageByToken() {
+    if (this.selectedImage) {
+        const formData: FormData = new FormData();
+        formData.append('file', this.selectedImage, this.selectedImage.name);
+
+        // Resim yükleme servisine gönder
+        this.userImageService.addUserImageByToken(formData).subscribe(response => {
+            // Yükleme başarılıysa sayfayı yenile
+            window.location.reload();
+        }, error => {
+            console.error('Resim yükleme hatası:', error);
+        });
+    }
+}
+
+deleteUserImage(){
+  this.userImageService.deleteUserImage().subscribe(response => {
+    console.log(response);
+    window.location.reload();
+
+  })
+}
 
   get totalPages(): number {
     return Math.ceil(this.listings.length / this.listingsPerPage);
