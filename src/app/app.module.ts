@@ -26,6 +26,9 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ListingAddComponent } from './components/listing-add/listing-add.component';
 import { LandListingComponent } from './components/land-listing/land-listing.component';
 
+import{ToastrModule} from "ngx-toastr";
+import{BrowserAnimationsModule} from '@angular/platform-browser/animations'
+
 
 
 @NgModule({
@@ -54,6 +57,11 @@ import { LandListingComponent } from './components/land-listing/land-listing.com
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    ToastrModule.forRoot({
+      positionClass:"toast-bottom-right",
+      timeOut:5000
+    }),
+    BrowserAnimationsModule
   ],
   providers: [{provide:HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi:true}],
   bootstrap: [AppComponent]

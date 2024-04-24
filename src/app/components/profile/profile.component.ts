@@ -7,6 +7,7 @@ import { User } from '../../models/user';
 import { UserImage } from '../../models/userImage';
 import { UserImageService } from '../../services/user-image.service';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-profile',
@@ -29,7 +30,8 @@ export class ProfileComponent implements OnInit {
     private userService: UserService,
     private userImageService: UserImageService,
     private router: Router,
-    private route: ActivatedRoute) { };
+    private route: ActivatedRoute,
+  private toastrService:ToastrService) { };
 
   ngOnInit(): void {
     this.getListingByUserId();
@@ -100,8 +102,8 @@ export class ProfileComponent implements OnInit {
   }
   deleteListing() {
     this.listingService.deleteListing(this.deleteToListingId).subscribe(response => {
-      console.log(response)
       window.location.reload();
+      this.toastrService.info("İlan Başarıyla Silindi","İşlem Başarılı")
     });
   }
   onFileSelected(event: any) {
@@ -118,8 +120,10 @@ addUserImageByToken() {
         // Resim yükleme servisine gönder
         this.userImageService.addUserImageByToken(formData).subscribe(response => {
             // Yükleme başarılıysa sayfayı yenile
+            this.toastrService.success("Profil Resmi Başarıyla Eklendi","Profil")
             window.location.reload();
         }, error => {
+          this.toastrService.error("Bir hatayla karşıldı","Hata")
             console.error('Resim yükleme hatası:', error);
         });
     }
@@ -127,6 +131,7 @@ addUserImageByToken() {
 
 deleteUserImage(){
   this.userImageService.deleteUserImage().subscribe(response => {
+    this.toastrService.success("Profil resmin başarıyla silindi","Profil")
     console.log(response);
     window.location.reload();
 

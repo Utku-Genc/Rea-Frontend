@@ -8,6 +8,7 @@ import { City } from '../../models/city';
 import { District } from '../../models/district';
 import { CityService } from '../../services/city.service';
 import { DistrictService } from '../../services/district.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'house-listing',
@@ -29,7 +30,9 @@ export class HouseListingComponent {
   listingsPerPage = 12;  
   
 
-  constructor(private houseListingService: HouseListingService, private cityService: CityService, private districService: DistrictService, private router: Router, private httpClient: HttpClient, private route: ActivatedRoute) { }
+  constructor(private houseListingService: HouseListingService, private cityService: CityService, private districService: DistrictService, private router: Router, private httpClient: HttpClient, private route: ActivatedRoute,
+    private toastrService:ToastrService
+  ) { }
 
   ngOnInit(): void {
     this.getHouseListing();
@@ -51,7 +54,12 @@ export class HouseListingComponent {
     this.httpClient.post<HouseListing[]>(this.filterApiUrl, filterObject)
       .subscribe((response) => {
         this.houseListings = response;
-      });
+        this.toastrService.success("Başarıyla Filtrelendi","İşlem Başarılı")
+      },
+      (errorResponse)=>{
+        this.toastrService.error("Bir hata ile karşılaşıldı","Hata")
+      }
+    );
   }
 
   getCity() {
@@ -94,8 +102,9 @@ onCityChange(event: any) {
       .subscribe(response => {
         this.houseListings = response.data
         console.log(response);
+        this.toastrService.success("Başarıyla Filtrelendi","İşlem Başarılı")
       }, error => {
-        console.error('API iletişim hatası:', error);
+        this.toastrService.error("Bir hata ile karşılaşıldı","Hata")
       });
   }
 
