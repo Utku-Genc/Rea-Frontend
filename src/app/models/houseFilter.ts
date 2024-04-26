@@ -17,9 +17,6 @@ export class HouseFilter {
     hasFurniture: boolean = false;
     hasParking: boolean = false;
     hasBalcony: boolean = false;
-    isInGatedCommunity: boolean = false;
-  
-    // Index signature
-    [key: string]: string | number | boolean | null;
+    isInGatedCommunity: boolean = false
   }
   

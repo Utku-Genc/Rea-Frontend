@@ -6,6 +6,7 @@ import { LandListing } from '../models/landListing';
 import { LandDetail } from '../models/landDetail';
 import { SingleResponseModel } from '../models/singleReponseModel';
 import { AddLandListingResponse } from '../models/addLandListingResponse';
+import { LandFilter } from '../models/landFilter';
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +24,9 @@ export class LandListingService {
   }
   addLandListing(data: any): Observable<SingleResponseModel<AddLandListingResponse>> {
     return this.httpClient.post<SingleResponseModel<AddLandListingResponse>>(this.apiUrl+"add", data);
+  }
+
+  getAllByFilter(filter:LandFilter): Observable<ListResponseModel<LandListing>>{
+    return this.httpClient.post<ListResponseModel<LandListing>>(this.apiUrl + "getallbyfilter", filter)
   }
 }

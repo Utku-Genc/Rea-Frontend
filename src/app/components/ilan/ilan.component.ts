@@ -8,6 +8,8 @@ import { City } from '../../models/city';
 import { District } from '../../models/district';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { ListingType } from '../../models/listingType';
+import { ListingTypeService } from '../../services/listing-type.service';
 
 @Component({
   selector: 'ilan',
@@ -25,18 +27,26 @@ export class IlanComponent implements OnInit {
 
   city: City[] = [];
   districts: District[] = [];
-
+  listingTypes: ListingType[] = [];
   
   currentPage = 1; 
   listingsPerPage = 12;  
 
-constructor(private listingService:ListingService,private httpClient: HttpClient, private cityService: CityService, private districService: DistrictService, private route: ActivatedRoute,private router: Router,
-  private toastrService:ToastrService
+constructor(private listingService:ListingService,
+  private httpClient: HttpClient, 
+  private cityService: CityService, 
+  private districService: DistrictService, 
+  private route: ActivatedRoute,
+  private router: Router,
+  private toastrService:ToastrService,
+  private listingTypeService: ListingTypeService, 
+
 ){}
 
   ngOnInit(): void {
-    this.getListing()
-    this.getCity()
+    this.getListing();
+    this.getCity();
+    this.getListingTypes();
     this.route.queryParams.subscribe(params => {
       this.currentPage = params['page'] || 1;
     });
@@ -45,6 +55,11 @@ constructor(private listingService:ListingService,private httpClient: HttpClient
       this.listingService.getListing().subscribe((response) => {
         this.listings = response.data;
       });
+  }
+  getListingTypes() {
+    this.listingTypeService.getAll().subscribe(response => {
+      this.listingTypes = response.data;
+    })
   }
 
   onSubmit() {

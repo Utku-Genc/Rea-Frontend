@@ -56,13 +56,16 @@ export class DetailComponent implements OnInit {
     this.httpClient.get<HouseDetailResponseModel>(this.apiUrl + listingId) // listingId'ye göre ilanı getir
       .subscribe((response) => {
         this.houseDetail = response.data;
-        this.getUserImageByUserId(this.houseDetail);
+        this.getUserImageByUserId(this.houseDetail.userId);
+
       });
   }
 
   getLandListingDetail(listingId: string) {
     this.landListingService.getLandListingDetail(listingId).subscribe(response => {
       this.landDetail = response.data;
+      this.getUserImageByUserId(this.landDetail.userId);
+
     })
   }
   next() {
@@ -102,8 +105,8 @@ export class DetailComponent implements OnInit {
     }
   }
 
-  getUserImageByUserId(houseDetail: HouseDetail) {
-    this.userImageService.getUserImageByUserId(houseDetail.userId).subscribe(response => {
+  getUserImageByUserId(id: number) {
+    this.userImageService.getUserImageByUserId(id).subscribe(response => {
       this.userImg = response.data
     })
   }

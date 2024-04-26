@@ -31,7 +31,7 @@ export class ProfileComponent implements OnInit {
     private userImageService: UserImageService,
     private router: Router,
     private route: ActivatedRoute,
-  private toastrService:ToastrService) { };
+    private toastrService: ToastrService) { };
 
   ngOnInit(): void {
     this.getListingByUserId();
@@ -103,40 +103,40 @@ export class ProfileComponent implements OnInit {
   deleteListing() {
     this.listingService.deleteListing(this.deleteToListingId).subscribe(response => {
       window.location.reload();
-      this.toastrService.info("İlan Başarıyla Silindi","İşlem Başarılı")
+      this.toastrService.info("İlan Başarıyla Silindi", "İşlem Başarılı")
     });
   }
   onFileSelected(event: any) {
     this.selectedImage = event.target.files[0];
     console.log("onfile")
-}
+  }
 
 
-addUserImageByToken() {
+  addUserImageByToken() {
     if (this.selectedImage) {
-        const formData: FormData = new FormData();
-        formData.append('file', this.selectedImage, this.selectedImage.name);
+      const formData: FormData = new FormData();
+      formData.append('file', this.selectedImage, this.selectedImage.name);
 
-        // Resim yükleme servisine gönder
-        this.userImageService.addUserImageByToken(formData).subscribe(response => {
-            // Yükleme başarılıysa sayfayı yenile
-            this.toastrService.success("Profil Resmi Başarıyla Eklendi","Profil")
-            window.location.reload();
-        }, error => {
-          this.toastrService.error("Bir hatayla karşıldı","Hata")
-            console.error('Resim yükleme hatası:', error);
-        });
+      // Resim yükleme servisine gönder
+      this.userImageService.addUserImageByToken(formData).subscribe(response => {
+        // Yükleme başarılıysa sayfayı yenile
+        this.toastrService.success("Profil Resmi Başarıyla Eklendi", "Profil")
+        window.location.reload();
+      }, error => {
+        this.toastrService.error("Bir hatayla karşıldı", "Hata")
+        console.error('Resim yükleme hatası:', error);
+      });
     }
-}
+  }
 
-deleteUserImage(){
-  this.userImageService.deleteUserImage().subscribe(response => {
-    this.toastrService.success("Profil resmin başarıyla silindi","Profil")
-    console.log(response);
-    window.location.reload();
+  deleteUserImage() {
+    this.userImageService.deleteUserImage().subscribe(response => {
+      this.toastrService.success("Profil resmin başarıyla silindi", "Profil")
+      console.log(response);
+      window.location.reload();
 
-  })
-}
+    })
+  }
 
   get totalPages(): number {
     return Math.ceil(this.listings.length / this.listingsPerPage);

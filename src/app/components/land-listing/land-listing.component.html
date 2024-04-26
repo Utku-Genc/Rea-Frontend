@@ -1,79 +1,173 @@
-
 <div class="container col d-flex">
-    <div class="col">Filtre ekleyelim bence böyle çok saçma oldu umut </div>
-    <div class=" d-flex flex-wrap col-9">
-    <div class="card d-flex flex-wrap mb-3 mx-2" style="width: 19.2rem;" *ngFor="let item of landListing.slice(startIndex, endIndex)">
-        <div routerLink="/landlisting/detail/{{ item.listingId }}">
-
-            <li class="list-group-item border-0 bg-transparent text-center">
-                <p>{{item.listingTypeName}}</p>
-            </li>
-
-            <img [src]="getLandListingImagePath(item)" class="card-img-top rounded-bottom aspect-ratio-16x9"
-                alt="...">
-            <div class="card-body">
-                <h5 class="card-title" style="min-height: 3rem;">{{item.title | summary:50 }}</h5>
-                <p class="card-text" style="min-height: 7rem;">{{item.description | summary:120}}</p>
+    <div class="col">
+        <div class="card">
+            <div class="card-header">
+                Filtrele
             </div>
-            <ul class="list-group list-group-flush">
-                <li
-                    class="list-group-item bg-info bg-opacity-10 border border-info border border-1 border-end-0 border-start-0">
-                    <div class="mb-2 col-8 mx-auto">
-                        <h5 class="card-title text-center ">
-                            <ul class="list-group list-group-horizontal" style="max-height: 3rem;">
-                                <li class="list-group-item border-0 bg-transparent">
-                                    <i class="fa-solid fa-bed"></i>
-                                    <p>{{item.islandNo}}</p>
-                                </li>
-                                <li class="list-group-item border-0 bg-transparent">
-                                    <i class="fa-solid fa-couch"></i>
-                                    <p>{{item.parcelNo}}</p>
-                                </li>
-                                <li class="list-group-item border-0 bg-transparent">
-                                    <i class="fa-solid fa-bath"></i>
-                                    <p>{{item.sheetNo}}</p>
-                                </li>
-                            </ul>
-                        </h5>
-                    </div>
-                </li>
-                <li
-                    class="list-group-item bg-info bg-opacity-10 border border-info border border-1 border-end-0 border-start-0 border-top-0 text-center">
-                    <h5>
-                        {{item.squareMeter}}m²
-                    </h5>
-                </li>
-                <li
-                    class="list-group-item bg-info bg-opacity-10 border border-info border border-1 border-end-0 border-start-0 border-top-0 text-center">
-                    <h5>
-                        {{item.cityName}}
-                        <small class="text-body-secondary">
-                            - {{item.districtName}}
-                        </small>
-                    </h5>
-                </li>
-            </ul>
             <div class="card-body">
-                <div class="d-grid gap-2 col-15 mx-auto">
-                    <button routerLink="/listings/detail/{{ item.listingTypeName }}/{{ item.id }}"
-                        class="btn btn-info btn-lg" type="button">{{ item.price | priceFormat }}</button>
+                <form (ngSubmit)="onSubmit()" (reset)="getLandListing()">
+                    <div class="mb-3">
+                        <label for="searchText" class="form-label">Arama Metni</label>
+                        <input type="text" class="form-control" id="searchText" name="searchText"
+                            [(ngModel)]="filterObject.searchText">
+                    </div>
+
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="listingTypeName" class="form-label">İlan Türü</label>
+                            <select class="form-select" id="listingTypeName" name="listingTypeName"
+                                [(ngModel)]="filterObject.listingTypeName">
+                                <option value="">Seçiniz</option>
+                                <option  *ngFor="let listingType of listingTypes" value="{{listingType.listingTypeName}}">{{listingType.listingTypeName}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="city" class="form-label">Şehir</label>
+                        <select class="form-select" id="city" name="city" (change)="onCityChange($event)"
+                            [(ngModel)]="filterObject.cityName">
+                            <option value="">Şehir Seçin</option>
+                            <option *ngFor="let city of city" [value]="city.cityName">{{ city.cityName }}</option>
+                        </select>
+
+                        <label for="district" class="form-label">İlçe</label>
+                        <select class="form-select" id="district" name="district"
+                            [(ngModel)]="filterObject.districtName">
+                            <option value=NULL>İlçe Seçin</option>
+                            <option *ngFor="let district of districts" [value]="district.districtName">{{
+                                district.districtName }}</option>
+                        </select>
+                    </div>
+
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="minPrice" class="form-label">Minimum Fiyat</label>
+                            <input type="number" class="form-control" id="minPrice" name="minPrice" min="0"
+                                [(ngModel)]="filterObject.minPrice">
+                        </div>
+                        <div class="col mb-3">
+                            <label for="maxPrice" class="form-label">Maksimum Fiyat</label>
+                            <input type="number" class="form-control" id="maxPrice" name="maxPrice" min="0"
+                                [(ngModel)]="filterObject.maxPrice">
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col mb-3">
+                            <label for="minSquareMeter" class="form-label">Minimum Metrekare</label>
+                            <input type="number" class="form-control" id="minSquareMeter" name="minSquareMeter" min="0"
+                                [(ngModel)]="filterObject.minSquareMeter">
+                        </div>
+                        <div class="col mb-3">
+                            <label for="maxSquareMeter" class="form-label">Maksimum Metrekare</label>
+                            <input type="number" class="form-control" id="maxSquareMeter" name="maxSquareMeter" min="0"
+                                [(ngModel)]="filterObject.maxSquareMeter">
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="row">
+                            <div class="col mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="floorEquivalen"
+                                        name="floorEquivalen" [(ngModel)]="filterObject.floorEquivalen">
+                                    <label class="form-check-label" for="floorEquivalen">
+                                        Mobilya
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col d-grid"><button type="submit" class="btn btn-primary ">Filtrele</button></div>
+                        <div class="col d-grid"><button type="reset" class="btn btn-primary">Sıfırla</button></div>
+
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class=" d-flex flex-wrap col-9">
+        <div class="card d-flex flex-wrap mb-3 mx-2" style="width: 19.2rem;"
+            *ngFor="let item of landListing.slice(startIndex, endIndex)">
+            <div routerLink="/landlisting/detail/{{ item.listingId }}">
+
+                <li class="list-group-item border-0 bg-transparent text-center">
+                    <p>{{item.listingTypeName}}</p>
+                </li>
+
+                <img [src]="getLandListingImagePath(item)" class="card-img-top rounded-bottom aspect-ratio-16x9"
+                    alt="...">
+                <div class="card-body">
+                    <h5 class="card-title" style="min-height: 3rem;">{{item.title | summary:50 }}</h5>
+                    <p class="card-text" style="min-height: 7rem;">{{item.description | summary:120}}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li
+                        class="list-group-item bg-info bg-opacity-10 border border-info border border-1 border-end-0 border-start-0">
+                        <div class="mb-2 col-8 mx-auto">
+                            <h5 class="card-title text-center ">
+                                <ul class="list-group list-group-horizontal" style="max-height: 3rem;">
+                                    <li class="list-group-item border-0 bg-transparent">
+                                        <i class="fa-solid fa-bed"></i>
+                                        <p>{{item.islandNo}}</p>
+                                    </li>
+                                    <li class="list-group-item border-0 bg-transparent">
+                                        <i class="fa-solid fa-couch"></i>
+                                        <p>{{item.parcelNo}}</p>
+                                    </li>
+                                    <li class="list-group-item border-0 bg-transparent">
+                                        <i class="fa-solid fa-bath"></i>
+                                        <p>{{item.sheetNo}}</p>
+                                    </li>
+                                </ul>
+                            </h5>
+                        </div>
+                    </li>
+                    <li
+                        class="list-group-item bg-info bg-opacity-10 border border-info border border-1 border-end-0 border-start-0 border-top-0 text-center">
+                        <h5>
+                            {{item.squareMeter}}m²
+                        </h5>
+                    </li>
+                    <li
+                        class="list-group-item bg-info bg-opacity-10 border border-info border border-1 border-end-0 border-start-0 border-top-0 text-center">
+                        <h5>
+                            {{item.cityName}}
+                            <small class="text-body-secondary">
+                                - {{item.districtName}}
+                            </small>
+                        </h5>
+                    </li>
+                </ul>
+                <div class="card-body">
+                    <div class="d-grid gap-2 col-15 mx-auto">
+                        <button routerLink="/listings/detail/{{ item.listingTypeName }}/{{ item.id }}"
+                            class="btn btn-info btn-lg" type="button">{{ item.price | priceFormat }}</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-</div>
 <div class="pagination justify-content-center ">
-<button class="btn page-btn ms-1" (click)="onPageChange(1)" *ngIf="currentPage > 3">
-    <i class="fa-solid fa-chevron-left"></i><i class="fa-solid fa-chevron-left"></i>
-</button>
+    <button class="btn page-btn ms-1" (click)="onPageChange(1)" *ngIf="currentPage > 3">
+        <i class="fa-solid fa-chevron-left"></i><i class="fa-solid fa-chevron-left"></i>
+    </button>
 
-<button *ngFor="let page of visiblePages" class="btn ms-1"
-    [ngClass]="{'btn-primary': currentPage === page, 'page-btn': currentPage !== page}" (click)="onPageChange(page)">
-    {{ page }}
-</button>
+    <button *ngFor="let page of visiblePages" class="btn ms-1"
+        [ngClass]="{'btn-primary': currentPage === page, 'page-btn': currentPage !== page}"
+        (click)="onPageChange(page)">
+        {{ page }}
+    </button>
 
-<button class="btn page-btn ms-1" (click)="onPageChange(totalPagesArray.length)" *ngIf="currentPage < totalPagesArray.length - 2">
-    <i class="fa-solid fa-chevron-right"></i><i class="fa-solid fa-chevron-right"></i>
-</button>
+    <button class="btn page-btn ms-1" (click)="onPageChange(totalPagesArray.length)"
+        *ngIf="currentPage < totalPagesArray.length - 2">
+        <i class="fa-solid fa-chevron-right"></i><i class="fa-solid fa-chevron-right"></i>
+    </button>
 </div>

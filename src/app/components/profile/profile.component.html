@@ -8,11 +8,14 @@
                     <div *ngIf="userImg.length>0" class="mb-3">
                         <img [src]="getUserImagePath(userImg[0])" class="user-img rounded-circle mt-3 mb-3"
                             style="background-color: rgb(255,188,0);">
-                            <div class="col ms-4 me-4">
-                                <input class="form-control   mb-3"  type="file" (change)="onFileSelected($event)" placeholder="aa" style="background-color: rgb(255,188,0);">
+                        <div class="col ms-4 me-4">
+                            <input class="form-control   mb-3" type="file" accept="image/*"
+                                (change)="onFileSelected($event)" placeholder="aa"
+                                style="background-color: rgb(255,188,0);">
 
-                                <button (click)="addUserImageByToken()" class="btn col mb-2" style="background-color: rgb(255,188,0);">Profil Resim Değiştir</button>
-                                <button (click)="deleteUserImage()" class="btn btn-danger col">Profil Resmi Kaldır</button>
+                            <button (click)="addUserImageByToken()" class="btn col mb-2"
+                                style="background-color: rgb(255,188,0);">Profil Resim Değiştir</button>
+                            <button (click)="deleteUserImage()" class="btn btn-danger col">Profil Resmi Kaldır</button>
 
                         </div>
                     </div>
@@ -20,10 +23,13 @@
                     <div *ngIf="userImg.length<=0" class="mb-2">
                         <img src="../../../assets/img/user.png" class="user-img rounded-circle mt-3 mb-3"
                             style="background-color: rgb(255,188,0);">
-                            <div class="col ms-4 me-4">
-                            
-                                <input class="form-control   mb-3"  type="file" (change)="onFileSelected($event)" placeholder="aa" style="background-color: rgb(255,188,0);">
-                                <button (click)="addUserImageByToken()" class="btn " style="background-color: rgb(255,188,0);">Profil Resmi Yükle</button>
+                        <div class="col ms-4 me-4">
+
+                            <input class="form-control   mb-3" type="file" accept="image/*"
+                                (change)="onFileSelected($event)" placeholder="aa"
+                                style="background-color: rgb(255,188,0);">
+                            <button (click)="addUserImageByToken()" class="btn "
+                                style="background-color: rgb(255,188,0);">Profil Resmi Yükle</button>
                         </div>
                     </div>
 
@@ -64,7 +70,8 @@
                     </div>
                 </div>
                 <div class="col d-flex ms-2 me-2 mb-2">
-                    <button class="btn btn-success col me-2">Düzenle</button>
+                    <button routerLink="/listing/edit/{{ item.id }}" class="btn btn-success col me-2">Düzenle</button>
+
                     <button (click)="setDeleteToListingId(item.id)" type="button" class="btn btn-danger col ms-2"
                         data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         Sil
@@ -113,4 +120,3 @@
         </div>
     </div>
 </div>
-

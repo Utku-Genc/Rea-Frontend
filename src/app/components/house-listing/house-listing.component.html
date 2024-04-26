@@ -40,8 +40,8 @@
                             <select class="form-select" id="listingTypeName" name="listingTypeName"
                                 [(ngModel)]="filterObject.listingTypeName">
                                 <option value="">Seçiniz</option>
-                                <option value="Kiralık">Kiralık</option>
-                                <option value="Satılık">Satılık</option>
+                                <option  *ngFor="let listingType of listingTypes" value="{{listingType.listingTypeName}}">{{listingType.listingTypeName}}</option>
+
                             </select>
                         </div>
                         <div class="col mb-3">
@@ -49,12 +49,8 @@
                             <select class="form-select" id="propertyType" name="propertyType"
                                 [(ngModel)]="filterObject.houseTypeName">
                                 <option value="">Seçiniz</option>
-                                <option value="Apartman">Apartman</option>
-                                <option value="Dublex">Dublex</option>
-                                <option value="Triplex">Triplex</option>
-                                <option value="Müstakil">Müstakil</option>
-                                <option value="Prefabrik">Prefabrik</option>
-                                <option value="Villa">Villa</option>
+                                <option *ngFor="let houseType of houseTypes" value={{houseType.name}}>{{houseType.name}}</option>
+
                             </select>
                         </div>
                     </div>
