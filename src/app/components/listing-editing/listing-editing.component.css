@@ -1,0 +1,93 @@
+.slide-div {
+    width: 63vh;
+    height: 38.4vh;
+    object-fit: contain;
+    background-color: rgb(43, 48, 53);
+}
+
+.slide-style {
+    width: 63vh;
+    height: 38.4vh;
+    object-fit: contain;
+    background-color: rgb(43, 48, 53);
+}
+
+.slide-style-default {
+    width: 63vh;
+    height: 38.4vh;
+    object-fit: cover;
+    background-color: rgb(43, 48, 53);
+}
+
+.slide-bottom{
+    width: 12vh;
+    height: 12vh;
+    background-color: rgb(43, 48, 53);
+    object-fit: scale-down;
+    object-position: center;
+}
+
+.slide-bottom-btn{
+    background-color: rgb(43, 48, 53);
+    color: rgb(255,188,0);
+    border: none;
+    width: 1.5vh;
+    font-size: 1vh;
+}
+.user-card {
+    display: flex;
+    align-items: center;
+    background-color: rgb(43, 48, 53);
+    border-radius: 5px;
+}
+
+.padding-down{
+    padding: 20px;
+}
+.ilan{
+    font-size: 3vh;
+    color: rgb(255,188,0);
+}
+.user-image {
+    width: 12vh;
+    height: 12vh;
+    object-fit: cover;
+    background-color: rgb(255,188,0);
+    border-radius: 50%;
+    margin-bottom: 1vh;
+}
+
+.user-details {
+    flex-grow: 1;
+}
+.user-name {
+    margin-top: -30px;
+    font-size: 3vh;
+    color: rgb(255,188,0);
+
+}
+
+.user-email {
+    margin: 0;
+    color: rgba(255, 187, 0, 0.801);
+}
+
+.price{
+    text-align: center;
+    font-size: 3vh;
+    width: 100%;
+    background-color: rgb(255,188,0);
+    border-radius: 10px;
+}
+.price li{
+    background: none;
+    border: 0;
+}
+
+.count-li{
+    font-size: 3vh;
+
+}
+.count-li p{
+    font-size: 3vh;
+}

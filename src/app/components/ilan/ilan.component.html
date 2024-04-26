@@ -36,8 +36,7 @@
                             <select class="form-select" id="propertyType" name="propertyType"
                                 [(ngModel)]="filterObject.listingTypeName">
                                 <option value="">Seçiniz</option>
-                                <option value="Kiralık">Kiralık</option>
-                                <option value="Satılık">Satılık</option>
+                                <option  *ngFor="let listingType of listingTypes" value="{{listingType.listingTypeName}}">{{listingType.listingTypeName}}</option>
                             </select>
                         </div>
 

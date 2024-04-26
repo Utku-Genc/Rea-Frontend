@@ -2,6 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { LandListingService } from '../../services/land-listing.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LandListing } from '../../models/landListing';
+import { LandFilter } from '../../models/landFilter';
+import { DistrictService } from '../../services/district.service';
+import { CityService } from '../../services/city.service';
+import { City } from '../../models/city';
+import { District } from '../../models/district';
+import { ToastrService } from 'ngx-toastr';
+import { ListingTypeService } from '../../services/listing-type.service';
+import { ListingType } from '../../models/listingType';
 
 @Component({
   selector: 'app-land-listing',
@@ -13,14 +21,33 @@ export class LandListingComponent implements OnInit {
   landListing : LandListing[] = [];
 
   currentPage = 1; 
-  listingsPerPage = 12;  
+  listingsPerPage = 12; 
+  filterObject: any= {}
 
+  city: City[] = [];
+  districts: District[] = [];
+  listingTypes: ListingType[] = [];
+  squareMeter: number=0;
+  price: number=0;
 
-
-  constructor(private landListingService: LandListingService, private route: ActivatedRoute, private router:Router){}
+  constructor(
+    private landListingService: LandListingService, 
+    private route: ActivatedRoute, private router:Router,
+    private cityService: CityService,
+    private districService: DistrictService, 
+    private toastrService:ToastrService,
+    private listingTypeService: ListingTypeService, 
+  ){}
 
   ngOnInit(): void {
     this.getLandListing();
+    this.getCity();
+    this.getListingTypes();
+
+    
+    this.route.queryParams.subscribe(params => {
+      this.currentPage = params['page'] || 1;
+    });
   }
 
   getLandListing() {
@@ -38,6 +65,57 @@ export class LandListingComponent implements OnInit {
       // Default resim yolu
       return 'https://localhost:44318/Uploads/ListingImages/DefaultImage.png';
     }
+  }
+
+
+  getCity() {
+    this.cityService.getCity().subscribe(response => {
+      this.city = response.data;
+    })
+  }
+
+onCityChange(event: any) {
+    const cityName = event.target.value;
+    if (cityName) {
+        this.getDistrict(cityName);
+    } else {
+        this.districts = []; // Şehir seçilmediyse ilçe listesini temizle
+    }
+}
+
+
+
+  getDistrict(cityName: string) {
+    this.districService.getDistrictByName(cityName).subscribe(respone => {
+      this.districts = respone.data;
+    })
+  }
+
+  getListingTypes() {
+    this.listingTypeService.getAll().subscribe(response => {
+      this.listingTypes = response.data;
+    })
+  }
+  onSubmit() {
+    if(this.filterObject.minSquareMeter > this.filterObject.maxSquareMeter){
+      this.squareMeter = this.filterObject.minSquareMeter;
+      this.filterObject.minSquareMeter = this.filterObject.maxSquareMeter;
+      this.filterObject.maxSquareMeter = this.squareMeter;
+    }
+
+    if(this.filterObject.minPrice > this.filterObject.maxPrice){
+      this.price = this.filterObject.minPrice;
+      this.filterObject.minPrice = this.filterObject.maxPrice;
+      this.filterObject.maxPrice = this.price;
+    }
+
+    this.landListingService.getAllByFilter(this.filterObject).subscribe(response => {
+        this.landListing = response.data
+        console.log(response);
+        this.toastrService.success("Başarıyla Filtrelendi","İşlem Başarılı")
+      }, error => {
+        this.toastrService.error("Bir hata ile karşılaşıldı","Hata")
+      });
   }
 
 

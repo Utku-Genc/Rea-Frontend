@@ -9,6 +9,10 @@ import { District } from '../../models/district';
 import { CityService } from '../../services/city.service';
 import { DistrictService } from '../../services/district.service';
 import { ToastrService } from 'ngx-toastr';
+import { HouseTypeService } from '../../services/house-type.service';
+import { ListingTypeService } from '../../services/listing-type.service';
+import { HouseType } from '../../models/houseType';
+import { ListingType } from '../../models/listingType';
 
 @Component({
   selector: 'house-listing',
@@ -25,18 +29,30 @@ export class HouseListingComponent {
 
   city: City[] = [];
   districts: District[] = [];
+  houseTypes: HouseType[] = [];
+  listingTypes: ListingType[] = [];
 
   currentPage = 1; 
   listingsPerPage = 12;  
   
 
-  constructor(private houseListingService: HouseListingService, private cityService: CityService, private districService: DistrictService, private router: Router, private httpClient: HttpClient, private route: ActivatedRoute,
-    private toastrService:ToastrService
+  constructor(
+    private houseListingService: HouseListingService,
+    private cityService: CityService,
+    private districService: DistrictService,
+    private router: Router,
+    private httpClient: HttpClient,
+    private route: ActivatedRoute,
+    private toastrService:ToastrService,
+    private listingTypeService: ListingTypeService, 
+    private houseTypeService: HouseTypeService,
   ) { }
 
   ngOnInit(): void {
     this.getHouseListing();
     this.getCity();
+    this.getHouseTypes();
+    this.getListingTypes();
     this.route.queryParams.subscribe(params => {
       this.currentPage = params['page'] || 1;
     });
@@ -85,6 +101,16 @@ onCityChange(event: any) {
     })
   }
 
+  getListingTypes() {
+    this.listingTypeService.getAll().subscribe(response => {
+      this.listingTypes = response.data;
+    })
+  }
+  getHouseTypes() {
+    this.houseTypeService.getAll().subscribe(response => {
+      this.houseTypes = response.data;
+    })
+  }
   onSubmit() {
     if(this.filterObject.minSquareMeter > this.filterObject.maxSquareMeter){
       this.squareMeter = this.filterObject.minSquareMeter;
