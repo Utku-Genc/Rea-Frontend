@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserImageService } from '../../services/user-image.service';
 import { LandListingService } from '../../services/land-listing.service';
 import { ListingImageResponseModel } from '../../models/listingImageResponseModel';
@@ -19,6 +19,9 @@ import { City } from '../../models/city';
 import { District } from '../../models/district';
 import { HouseListingService } from '../../services/house-listing.service';
 import { UpdateHouse } from '../../models/updateHouse';
+import { UpdateLand } from '../../models/updateLand';
+import { ToastrService } from 'ngx-toastr';
+import { error } from 'jquery';
 
 @Component({
   selector: 'listing-editing',
@@ -37,6 +40,8 @@ export class ListingEditingComponent implements OnInit {
     listingTypes: ListingType[] = [];
     city: City[]= [];
     districts: District[]=[];
+
+    hasError: boolean = false;
 
     houseDetail!: HouseDetail;
     landDetail!: LandDetail;
@@ -69,6 +74,24 @@ export class ListingEditingComponent implements OnInit {
       status: true
     };
 
+    updateLandListing: UpdateLand = {
+      cityId: 0,
+      listingTypeId: 0,
+      propertyTypeId: 1,
+      districtId: 0,
+      title: '',
+      description: '',
+      price: 0,
+      squareMeter: 0,
+      status: true,
+      id: 0,
+      address: '',
+      parcelNo: 0,
+      islandNo: 0,
+      sheetNo: 0,
+      floorEquivalent: false
+    }
+
     constructor(private httpClient: HttpClient,
       private route: ActivatedRoute,
       private userImageService: UserImageService,
@@ -78,6 +101,8 @@ export class ListingEditingComponent implements OnInit {
       private houseTypeService: HouseTypeService,
       private cityService: CityService,
       private districService: DistrictService,
+      private toastrService:ToastrService,
+      private router:Router
     ) { }
   
     ngOnInit() {
@@ -153,13 +178,82 @@ export class ListingEditingComponent implements OnInit {
       });
   }
 
+  updateHouse(){
+    if(this.updateHouseListing.cityId == 0){
+      this.toastrService.error("Şehir Bilgisi Boş Olamaz", "Dikkat!");
+      this.hasError = true;
+    }
+    if(this.updateHouseListing.districtId == 0){
+      this.toastrService.error("İlçe Bilgisi Boş Olamaz", "Dikkat!");
+      this.hasError = true;
+
+    }
+    if(this.updateHouseListing.typeId == 0){
+      this.toastrService.error("Ev Tipi Boş Olamaz", "Dikkat!");
+      this.hasError = true;
+
+    }
+    if(this.updateHouseListing.listingTypeId == 0){
+      this.toastrService.error("İlan Tipi Bilgisi Boş Olamaz", "Dikkat!");
+      this.hasError = true;
+
+    }
+    if(this.hasError == true)return      
+    
+    this.houseListingService.updateHouse(this.updateHouseListing).subscribe(response =>{
+        this.router.navigate(["profile/ilanlarım"]);
+        this.toastrService.success("İlan Başarıyla Güncellendi", "İşlem Başarılı")
+      })
+  
+    }
+
   getLandListingDetail(listingId: string) {
     this.landListingService.getLandListingDetail(listingId).subscribe(response => {
       this.landDetail = response.data;
       this.getUserImageByUserId(this.landDetail.userId);
 
+      this.updateLandListing.id = response.data.id;
+      this.updateLandListing.title = response.data.title;
+      this.updateLandListing.description = response.data.description;
+      this.updateLandListing.price = response.data.price;
+      this.updateLandListing.address = response.data.address;
+      this.updateLandListing.parcelNo = response.data.parcelNo;
+      this.updateLandListing.islandNo = response.data.islandNo;
+      this.updateLandListing.sheetNo = response.data.sheetNo;
+      this.updateLandListing.floorEquivalent = response.data.floorEquivalent;
+      this.updateLandListing.squareMeter = response.data.squareMeter;
+
+      console.log(this.updateLandListing)
+
+
+
+
     })
   }
+
+  updateLand(){
+    if(this.updateLandListing.cityId == 0){
+      this.toastrService.error("Şehir Bilgisi Boş Olamaz", "Dikkat!");
+      this.hasError = true;
+    }
+    if(this.updateLandListing.districtId == 0){
+      this.toastrService.error("İlçe Bilgisi Boş Olamaz", "Dikkat!");
+      this.hasError = true;
+
+    }
+    if(this.updateLandListing.listingTypeId == 0){
+      this.toastrService.error("İlan Tipi Boş Olamaz", "Dikkat!");
+      this.hasError = true;
+
+    }
+    if(this.hasError == true)return
+
+    this.landListingService.updateLand(this.updateLandListing).subscribe(response =>{
+        this.router.navigate(["profile/ilanlarım"]);
+        this.toastrService.success("İlan Başarıyla Güncellendi", "İşlem Başarılı")
+      })
+  
+    }
 
   next() {
     if (this.endIndex < this.imageListing.data.length) {
@@ -219,14 +313,6 @@ export class ListingEditingComponent implements OnInit {
     } else {
       return 'https://localhost:44318/Uploads/UserImages/DefaultUserImage.png';
     }
-  }
-
-  updateHouse(){
-  console.log(this.updateHouseListing)
-    this.houseListingService.updateHouse(this.updateHouseListing).subscribe(response =>{
-
-    })
-
   }
 
   getHouseListingImagePath(item: ListingImage): string {

@@ -6,6 +6,7 @@ import { HouseListing } from '../../models/houseListing';
 import { LandListing } from '../../models/landListing';
 import { HouseListingService } from '../../services/house-listing.service';
 import { LandListingService } from '../../services/land-listing.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'homepage',
@@ -15,19 +16,24 @@ import { LandListingService } from '../../services/land-listing.service';
 
 
 export class HomepageComponent {
+  searchText: string = "";
   listings: Listing[] = [];
   houseListings: HouseListing[] = [];
   landListings: LandListing[] = [];
 
   apiUrl = "https://localhost:44318/api/Listings/getalldetails"
 
-  constructor(private httpClient: HttpClient, private houseListingService:HouseListingService,private landListingService:LandListingService ) { }
+  constructor(private httpClient: HttpClient,
+     private houseListingService: HouseListingService, 
+     private landListingService: LandListingService,
+     private route:ActivatedRoute,
+    ) { }
 
   ngOnInit(): void {
     this.getListing();
     this.getHouseListing();
     this.getLandListing()
-    
+
   }
   getListing = () => {
     this.httpClient.get<ListingResponseModel>(this.apiUrl)
@@ -36,14 +42,14 @@ export class HomepageComponent {
       });
   }
 
-  getHouseListing(){
-    this.houseListingService.getHouseListing().subscribe(response =>{
+  getHouseListing() {
+    this.houseListingService.getHouseListing().subscribe(response => {
       this.houseListings = response.data;
     })
   }
 
-  getLandListing(){
-    this.landListingService.getLandListing().subscribe(response =>{
+  getLandListing() {
+    this.landListingService.getLandListing().subscribe(response => {
       this.landListings = response.data;
     })
   }
@@ -55,5 +61,5 @@ export class HomepageComponent {
       return 'https://localhost:44318/Uploads/ListingImages/DefaultImage.png';
     }
   }
-  
+
 }

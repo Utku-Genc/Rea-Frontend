@@ -5,6 +5,7 @@ import { AuthService } from '../../services/auth.service';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'login',
@@ -18,7 +19,9 @@ export class LoginComponent implements OnInit {
   constructor(    private formBuilder:FormBuilder,
     private authService:AuthService,
     private localStorageService:LocalStorageService,
-    private router:Router){
+    private router:Router,
+    private toastrService: ToastrService
+  ){
 
   }
 
@@ -45,13 +48,14 @@ export class LoginComponent implements OnInit {
         this.localStorageService.remove("expiration")
         this.localStorageService.setItem("token",response.data.token);
         this.localStorageService.setItem("expiration",response.data.expiration)
+        this.toastrService.success("Giriş Başarılı", "Yönlendiriliyorsunuz...")
+
         window.location.href = "/";
-        console.log("giriş başarılı")
       }, responseError=>{
-        console.log("hata")
+        this.toastrService.error("Giriş başarısız! Lütfen hesabınızı kontrol edin.", "Dikkat!");
       });
     } else {
-      console.log("Lütfen Tüm Alanları Doldurun: "+this.loginForm.value)
+      this.toastrService.error("Lütfen Tüm Alanları Doldurun", "Dikkat!");
     }
   }
 

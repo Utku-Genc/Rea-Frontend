@@ -6,12 +6,13 @@
           <a class="navbar-brand">
             <img src="../../assets/img/reaEmlakBannerB.png" routerLink="/homepage" alt="REA Emlak" width="auto" height="36">
           </a>
-          <form class="d-flex" role="search">
-            <input class="form-control" type="search" placeholder="Ara" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">
+
+          <div class="d-flex" *ngIf="checkLink()">
+            <input class="form-control" [(ngModel)]="searchText" type="search" placeholder="Ara" aria-label="Search">
+            <button routerLink="/listing/searchText/{{searchText}}" class="btn btn-outline-success" type="button">
               <i class="fa-solid fa-magnifying-glass fs-lg"></i>
             </button>
-          </form>
+          </div>
           <div class="d-flex align-items-center">
             <button *ngIf="!isLoggedIn" class="btn me-2 login-btn" style="color:rgb(43,48,53);" routerLink="/login">Giriş Yap</button>
             <button *ngIf="!isLoggedIn" class="btn btn-outline-secondary"  routerLink="/register">Kayıt Ol</button>

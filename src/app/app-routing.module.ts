@@ -19,6 +19,8 @@ const routes: Routes = [
   { path: 'homepage', component: HomepageComponent },
   { path: ':listingName/detail/:id', component: DetailComponent },
   { path: 'listing', component: IlanComponent },
+  { path: 'listing/searchText/:searchText', component: IlanComponent },
+
   { path: 'houselisting', component: HouseListingComponent},
   { path: 'landlisting', component: LandListingComponent},
   { path: 'login', component: LoginComponent},

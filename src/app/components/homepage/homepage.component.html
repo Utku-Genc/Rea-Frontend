@@ -7,11 +7,11 @@
                     <img src="../../assets/img/reaEmlak.png" alt="" class="card-img">
                     <div class="position-absolute top-50 start-50 translate-middle" style="width: 80%;">
                         <div class="input-group mb-3 ">
-                            <input type="text" class="form-control input-lg"
+                            <input [(ngModel)]="searchText" type="text" class="form-control input-lg"
                                 placeholder="Hayalinde ki ev ve arsa bir adım uzağında"
                                 aria-label="Recipient's username" aria-describedby="button-addon2">
-                            <button class="btn btn-light btn-lg" type="button" id="button-addon2"><i
-                                    class="fa-solid fa-magnifying-glass fs-lg"></i></button>
+                            <button routerLink="/listing/searchText/{{searchText}}" class="btn btn-light btn-lg" type="button"
+                                id="button-addon2"><i class="fa-solid fa-magnifying-glass fs-lg"></i></button>
                         </div>
 
                         <a routerLink="/houselisting/">

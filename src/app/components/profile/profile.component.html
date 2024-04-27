@@ -46,14 +46,24 @@
                 <h3 class="mt-1">İlanlar</h3>
             </div>
         </div>
-        <div class="d-flex flex-wrap ms-4">
-            <div class="card d-flex flex-wrap mb-3 mx-2" style="width: 18rem;"
+        <div class="d-flex flex-wrap ms-4 "  >
+            <div class="card d-flex flex-wrap mb-3 mx-2 rounded-bottom rounded-5" routerLink="/houselisting/detail/{{ item.id }}" style="width: 18rem;"
                 *ngFor="let item of listings.slice(startIndex,endIndex)">
-                <div class="pt-3 text-center">
-                    <p>{{item.listingTypeName}}</p>
+                <div style="margin-bottom: -16px;">
+                    <div *ngIf="item.listingTypeName=='Satılık'" class="pt-3 text-center sell-col rounded-bottom rounded-5 ">
+                        <p>{{item.listingTypeName}}</p>
+                    </div>
+                    <div *ngIf="item.listingTypeName=='Kiralık'" class="pt-3 text-center rent-col rounded-bottom rounded-5" >
+                        <p>{{item.listingTypeName}}</p>
+                    </div>
+                    <div *ngIf="item.listingTypeName !=='Kiralık' && item.listingTypeName!=='Satılık'"
+                        class="pt-3 text-center bg-secondary rounded-bottom rounded-5">
+                        <p>{{item.listingTypeName}}</p>
+                    </div>
                 </div>
 
-                <img [src]="getListingImagePath(item)" class="card-img-top aspect-ratio-16x9" alt="...">
+
+                <img [src]="getListingImagePath(item)" class="card-img-top rounded-0 aspect-ratio-16x9" alt="..." style="background-color: rgb(255,255,255);">
                 <div class="card-body">
                     <h5 class="card-title" style="min-height: 3rem;">{{item.title | summary:50 }}</h5>
                     <p class="card-text" style="min-height: 8rem;">{{item.description | summary:150}}</p>
