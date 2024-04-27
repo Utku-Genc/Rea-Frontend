@@ -17,6 +17,8 @@ import { CityService } from '../../services/city.service';
 import { DistrictService } from '../../services/district.service';
 import { City } from '../../models/city';
 import { District } from '../../models/district';
+import { HouseListingService } from '../../services/house-listing.service';
+import { UpdateHouse } from '../../models/updateHouse';
 
 @Component({
   selector: 'listing-editing',
@@ -38,12 +40,39 @@ export class ListingEditingComponent implements OnInit {
 
     houseDetail!: HouseDetail;
     landDetail!: LandDetail;
-    apiUrl = "https://localhost:44318/api/HouseListings/getdetails?listingId=";
     apiUrlImg = "https://localhost:44318/api/ListingImages/getbylistingid?listingId=";
   
+    updateHouseListing: UpdateHouse = {
+      cityId: 0,
+      listingTypeId:0,
+      propertyTypeId: 1,
+      districtId: 0,
+      title: '',
+      description: '',
+      price: 0,
+      squareMeter: 0,
+      typeId: 0,
+      roomCount: 0,
+      bathroomCount: 0,
+      livingRoomCount: 0,
+      floorCount: 0,
+      currentFloor: 0,
+      hasGarden: false,
+      hasBalcony: false,
+      hasElevator: false,
+      hasParking: false,
+      hasFurniture: false,
+      isInGatedCommunity: false,
+      buildingAge: 0,
+      address: '',
+      houseListingId: 0,
+      status: true
+    };
+
     constructor(private httpClient: HttpClient,
       private route: ActivatedRoute,
       private userImageService: UserImageService,
+      private houseListingService: HouseListingService,
       private landListingService: LandListingService,
       private listingTypeService: ListingTypeService,
       private houseTypeService: HouseTypeService,
@@ -97,12 +126,30 @@ export class ListingEditingComponent implements OnInit {
       })
     }
   
-    getHouseDetail(listingId: string | null) {
-      this.httpClient.get<HouseDetailResponseModel>(this.apiUrl + listingId)
+    getHouseDetail(listingId: string) {
+     this.houseListingService.getHouseDetail(listingId)
       .subscribe((response) => {
         this.houseDetail = response.data;
         this.getUserImageByUserId(this.houseDetail.userId);
 
+        this.updateHouseListing.houseListingId = response.data.id;
+        this.updateHouseListing.title = response.data.title;
+        this.updateHouseListing.description = response.data.description;
+        this.updateHouseListing.price = response.data.price;
+        this.updateHouseListing.address = response.data.address;
+        this.updateHouseListing.roomCount= response.data.roomCount;
+        this.updateHouseListing.livingRoomCount= response.data.livingRoomCount;
+        this.updateHouseListing.bathroomCount= response.data.bathroomCount;
+        this.updateHouseListing.squareMeter= response.data.squareMeter;
+        this.updateHouseListing.floorCount= response.data.floorCount;
+        this.updateHouseListing.currentFloor= response.data.currentFloor;
+        this.updateHouseListing.buildingAge= response.data.buildingAge;
+        this.updateHouseListing.hasGarden= response.data.hasGarden;
+        this.updateHouseListing.hasParking= response.data.hasParking;
+        this.updateHouseListing.hasBalcony= response.data.hasBalcony;
+        this.updateHouseListing.hasFurniture= response.data.hasFurniture;
+        this.updateHouseListing.hasElevator= response.data.hasElevator;
+        this.updateHouseListing.isInGatedCommunity= response.data.isInGatedCommunity;
       });
   }
 
@@ -172,6 +219,14 @@ export class ListingEditingComponent implements OnInit {
     } else {
       return 'https://localhost:44318/Uploads/UserImages/DefaultUserImage.png';
     }
+  }
+
+  updateHouse(){
+  console.log(this.updateHouseListing)
+    this.houseListingService.updateHouse(this.updateHouseListing).subscribe(response =>{
+
+    })
+
   }
 
   getHouseListingImagePath(item: ListingImage): string {

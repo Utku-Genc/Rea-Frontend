@@ -111,7 +111,7 @@
             <img [src]="getListingImagePath(item)" class="card-img-top aspect-ratio-16x9" alt="...">
             <div class="card-body">
                 <h5 class="card-title" style="min-height: 3rem;">{{item.title | summary:50 }}</h5>
-                <p class="card-text" style="min-height: 8rem;">{{item.description | summary:150}}</p>
+                <p class="card-text text-sub" style="min-height: 8rem;">{{item.description | summary:150}}</p>
             </div>
             <ul class="list-group list-group-flush text-center">
                 <li class="list-group-item">{{item.squareMeter}}m²</li>

@@ -69,7 +69,7 @@ export class ListingAddComponent implements OnInit {
     parcelNo: 0,
     islandNo: 0,
     sheetNo: 0,
-    floorEquivalent: true,
+    floorEquivalent: false,
     status: true,
     images: [],
   }
