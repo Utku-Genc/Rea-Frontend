@@ -45,10 +45,10 @@
         </div>
       </div>
 
-      <div *ngIf="imageListing.data.length>0" class="container d-flex flex-wrap slide-bottom-div "  #imageContainer>
+      <div *ngIf="imageListing.data.length>0" class="container d-flex flex-wrap slide-bottom-div " #imageContainer>
         <button (click)="previous()" class="slide-bottom-btn"><i class="fa-solid fa-chevron-left"></i></button>
 
-        <ng-container  *ngFor="let image of imageListing.data.slice(startIndex,endIndex); let i = index">
+        <ng-container *ngFor="let image of imageListing.data.slice(startIndex,endIndex); let i = index">
           <img [src]="getHouseListingImagePath(image)" class="d-block border-end border-start slide-bottom"
             (click)="showImageInCarousel(i)">
         </ng-container>
@@ -174,7 +174,7 @@
     </div>
 
   </div>
-  <div *ngIf="landDetail != null"  class="row align-items-start">
+  <div *ngIf="landDetail != null" class="row align-items-start">
 
     <div class="card mb-3">
       <div class="card-body">
@@ -280,25 +280,38 @@
                   <h5 class="card-title">{{ landDetail.description }}</h5>
                 </div>
               </div>
-              <div class="d-flex  count-li text-center">
-                <div class="col ">
-                  <li class="list-group-item border border-0 "><i class="fa-solid fa-bed"></i> <br>
-                    <p>{{ landDetail.parcelNo }}</p>
-                  </li>
+              <div class="col">
+                <div class="d-flex col count-li text-center">
+
+                  <div class="col">
+                    <div class="col ">
+                      <li class="list-group-item border border-0 ">Parsel No: <br>
+                        <p>{{ landDetail.parcelNo }}</p>
+                      </li>
+                    </div>
+                    <div class="col">
+                      <li class="list-group-item border border-0">Ada No: <br>
+                        <p>{{ landDetail.islandNo }}</p>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="col">
+                      <li class="list-group-item border border-0">Pafta No: <br>
+                        <p>{{ landDetail.sheetNo }}</p>
+                      </li>
+                    </div>
+                    <div class="col">
+                      <li class="list-group-item border border-0">Boyut: <br>
+                        <p>{{ landDetail.squareMeter }}m²</p>
+                      </li>
+                    </div>
+                  </div>
+
                 </div>
-                <div class="col">
-                  <li class="list-group-item border border-0"><i class="fa-solid fa-couch"></i> <br>
-                    <p>{{ landDetail.islandNo }}</p>
-                </div>
-                <div class="col">
-                  <li class="list-group-item border border-0"><i class="fa-solid fa-bath"></i> <br>
-                    <p>{{ landDetail.sheetNo }}</p>
-                  </li>
-                </div>
-                <div class="col">
-                  <li class="list-group-item border border-0"><i class="fa-solid fa-maximize"></i> <br>
-                    <p>{{ landDetail.squareMeter }}m²</p>
-                  </li>
+                <div class="col  count-li text-center">
+                  <li class="list-group-item border border-0">Kat Karşılığı: <i
+                    class="fa-solid {{ landDetail.floorEquivalent ? 'fa-check text-success' : 'fa-xmark text-danger' }}"></i>
+                </li>
                 </div>
               </div>
               <li class="list-group-item"><strong>Adres:</strong> {{ landDetail.address }}</li>

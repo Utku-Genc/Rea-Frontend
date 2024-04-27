@@ -16,5 +16,13 @@
     background-color: rgb(43, 48, 53);
  color: rgb(255,188,0);
  }
+ .sell-col{
+    padding-bottom: 5px;
+    background: #cc99ff;
+}
+.rent-col{
+    padding-bottom: 5px;
+    background: #80dad0;
+}
 
  

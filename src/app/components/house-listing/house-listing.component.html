@@ -174,15 +174,26 @@
     </div>
 
     <div class=" d-flex flex-wrap col-9">
-        <div class="card d-flex flex-wrap mb-3 mx-2" style="width: 19.2rem;" *ngFor="let item of houseListings.slice(startIndex, endIndex)">
+        <div class="card d-flex flex-wrap mb-3 mx-2 rounded-bottom rounded-5" style="width: 19.2rem;" *ngFor="let item of houseListings.slice(startIndex, endIndex)">
             <div routerLink="/houselisting/detail/{{ item.listingId }}">
 
-                <li class="list-group-item border-0 bg-transparent text-center">
-                    <p>{{item.listingTypeName}}</p>
-                </li>
+               
+                    <div style="margin-bottom: -16px;">
+                        <div *ngIf="item.listingTypeName=='Satılık'" class="pt-3 text-center sell-col rounded-bottom rounded-5 ">
+                            <p>{{item.listingTypeName}}</p>
+                        </div>
+                        <div *ngIf="item.listingTypeName=='Kiralık'" class="pt-3 text-center rent-col rounded-bottom rounded-5" >
+                            <p>{{item.listingTypeName}}</p>
+                        </div>
+                        <div *ngIf="item.listingTypeName !=='Kiralık' && item.listingTypeName!=='Satılık'"
+                            class="pt-3 text-center bg-secondary rounded-bottom rounded-5">
+                            <p>{{item.listingTypeName}}</p>
+                        </div>
+                    </div>
+                
 
-                <img [src]="getHouseListingImagePath(item)" class="card-img-top rounded-bottom aspect-ratio-16x9"
-                    alt="...">
+                <img [src]="getHouseListingImagePath(item)" class="card-img-top  rounded-0 aspect-ratio-16x9"
+                    alt="..." style="background-color: rgb(255,255,255);">
                 <div class="card-body">
                     <h5 class="card-title" style="min-height: 3rem;">{{item.title | summary:40 }}</h5>
                     <p class="card-text text-sub" style="min-height: 7rem;">{{item.description | summary:120}}</p>

@@ -10,3 +10,11 @@
     overflow-wrap: break-word; 
     word-break: break-all;
 }
+.sell-col{
+    padding-bottom: 5px;
+    background: #cc99ff;
+}
+.rent-col{
+    padding-bottom: 5px;
+    background: #80dad0;
+}

@@ -14,29 +14,14 @@
                             [(ngModel)]="filterObject.searchText">
                     </div>
 
-                    <div class="mb-3">
-                        <label class="form-label">Gayrimenkul Türü</label>
-                        <div class="col d-flex">
-                            <div class="form-check col">
-                                <input class="form-check-input" type="radio" name="propertyType" id="ev" value="Ev"
-                                    [(ngModel)]="filterObject.propertyType">
-                                <label class="form-check-label" for="ev">Ev</label>
-                            </div>
-                            <div class="form-check col">
-                                <input class="form-check-input" type="radio" name="propertyType" id="arsa" value="Arsa"
-                                    [(ngModel)]="filterObject.propertyType">
-                                <label class="form-check-label" for="arsa">Arsa</label>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="row">
                         <div class="col mb-3">
                             <label for="listingTypeName" class="form-label">İlan Türü</label>
                             <select class="form-select" id="propertyType" name="propertyType"
                                 [(ngModel)]="filterObject.listingTypeName">
                                 <option value="">Seçiniz</option>
-                                <option  *ngFor="let listingType of listingTypes" value="{{listingType.listingTypeName}}">{{listingType.listingTypeName}}</option>
+                                <option *ngFor="let listingType of listingTypes"
+                                    value="{{listingType.listingTypeName}}">{{listingType.listingTypeName}}</option>
                             </select>
                         </div>
 
@@ -102,31 +87,41 @@
     </div>
 
     <div class="d-flex flex-wrap col-9">
-        <div class="card d-flex flex-wrap mb-3 mx-2" style="width: 18rem;" *ngFor="let item of listings.slice(startIndex, endIndex)">
+        <div class="card d-flex flex-wrap mb-3 mx-2 rounded-bottom rounded-5 " style="width: 18rem;"
+            *ngFor="let item of listings.slice(startIndex, endIndex)">
             <div routerLink="/houselisting/detail/{{ item.id }}">
-            <div class="pt-3 text-center">
-                <p>{{item.listingTypeName}}</p>
-            </div>
+                <div style="margin-bottom: -16px;">
+                    <div *ngIf="item.listingTypeName=='Satılık'" class="pt-3 text-center sell-col rounded-bottom rounded-5 ">
+                        <p>{{item.listingTypeName}}</p>
+                    </div>
+                    <div *ngIf="item.listingTypeName=='Kiralık'" class="pt-3 text-center rent-col rounded-bottom rounded-5" >
+                        <p>{{item.listingTypeName}}</p>
+                    </div>
+                    <div *ngIf="item.listingTypeName !=='Kiralık' && item.listingTypeName!=='Satılık'"
+                        class="pt-3 text-center bg-secondary rounded-bottom rounded-5">
+                        <p>{{item.listingTypeName}}</p>
+                    </div>
+                </div>
 
-            <img [src]="getListingImagePath(item)" class="card-img-top aspect-ratio-16x9" alt="...">
-            <div class="card-body">
-                <h5 class="card-title" style="min-height: 3rem;">{{item.title | summary:50 }}</h5>
-                <p class="card-text text-sub" style="min-height: 8rem;">{{item.description | summary:150}}</p>
-            </div>
-            <ul class="list-group list-group-flush text-center">
-                <li class="list-group-item">{{item.squareMeter}}m²</li>
-                <li class="list-group-item">{{item.propertyTypeName}}</li>
-                <li class="list-group-item">{{item.date | date:'dd/MM/YYYY'}}</li>
-            </ul>
-            <div class="card-body">
-                <div class="d-grid gap-2 col-15 mx-auto">
-                    <button routerLink="/listings/detail/{{ item.id }}" class="btn btn-info btn-lg" type="button">{{
-                        item.price | priceFormat: 'TRY' }}</button>
+                <img [src]="getListingImagePath(item)" class="card-img-top rounded-0 aspect-ratio-16x9" alt="..."  style="background-color: rgb(255,255,255);">
+                <div class="card-body" >
+                    <h5 class="card-title" style="min-height: 3rem;">{{item.title | summary:50 }}</h5>
+                    <p class="card-text text-sub" style="min-height: 8rem;">{{item.description | summary:150}}</p>
+                </div>
+                <ul class="list-group list-group-flush text-center">
+                    <li class="list-group-item">{{item.squareMeter}}m²</li>
+                    <li class="list-group-item">{{item.propertyTypeName}}</li>
+                    <li class="list-group-item">{{item.date | date:'dd/MM/YYYY'}}</li>
+                </ul>
+                <div class="card-body">
+                    <div class="d-grid gap-2 col-15 mx-auto">
+                        <button routerLink="/listings/detail/{{ item.id }}" class="btn btn-info btn-lg" type="button">{{
+                            item.price | priceFormat: 'TRY' }}</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 <div class="pagination justify-content-center ">
     <button class="btn page-btn ms-1" (click)="onPageChange(1)" *ngIf="currentPage > 3">
@@ -134,11 +129,13 @@
     </button>
 
     <button *ngFor="let page of visiblePages" class="btn ms-1"
-        [ngClass]="{'btn-primary': currentPage === page, 'page-btn': currentPage !== page}" (click)="onPageChange(page)">
+        [ngClass]="{'btn-primary': currentPage === page, 'page-btn': currentPage !== page}"
+        (click)="onPageChange(page)">
         {{ page }}
     </button>
 
-    <button class="btn page-btn ms-1" (click)="onPageChange(totalPagesArray.length)" *ngIf="currentPage < totalPagesArray.length - 2">
+    <button class="btn page-btn ms-1" (click)="onPageChange(totalPagesArray.length)"
+        *ngIf="currentPage < totalPagesArray.length - 2">
         <i class="fa-solid fa-chevron-right"></i><i class="fa-solid fa-chevron-right"></i>
     </button>
 </div>

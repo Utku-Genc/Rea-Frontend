@@ -78,8 +78,9 @@
       </div>
 
 
-      <button class="btn btn-success" (click)="updateHouse()"> ilanı güncelle</button>
-
+      <div class=" d-flex justify-content-center align-items-center">
+        <button class="btn btn-success w-75" (click)="updateHouse()">İlanı güncelle</button>
+      </div>
     </div>
 
     <div class="col">
@@ -94,21 +95,23 @@
             <ul class="list-group list-group-flush">
               <div class="price mt-3">
                 <li class="list-group-item">
-                  <input type="number" class="form-control price" [(ngModel)]="updateHouseListing.price" name="price" required>
+                  <input type="number" class="form-control price" [(ngModel)]="updateHouseListing.price" name="price"
+                    required>
                 </li>
               </div>
 
               <div>
                 <li class="list-group-item border border-0 d-flex justify-content-between">
-                  <h4>                      
+                  <h4>
                     <label for="">İlan Tipi</label>
                     <select class="form-select" id="listingTypeId" name="listingTypeId"
                       [(ngModel)]="updateHouseListing.listingTypeId">
-                      
+
                       <option value="0">Seçiniz</option>
                       <option *ngFor="let listingType of listingTypes" value="{{listingType.id}}">
                         {{listingType.listingTypeName}}</option>
-                    </select></h4>
+                    </select>
+                  </h4>
                   <h5>
                     <label for="">Ev Tipi</label>
 
@@ -128,7 +131,8 @@
 
                     <small class="text-body-secondary">
                       <label for="">İlçe Seçiniz</label>
-                      <select class="form-select" id="district" name="district" [(ngModel)]="updateHouseListing.districtId">
+                      <select class="form-select" id="district" name="district"
+                        [(ngModel)]="updateHouseListing.districtId">
                         <option value=0>İlçe Seçiniz</option>
                         <option *ngFor="let district of districts" [value]="district.id">{{
                           district.districtName }}</option>
@@ -145,8 +149,8 @@
               <div class="d-flex  count-li text-center">
                 <div class="col ">
                   <li class="list-group-item border border-0 "><i class="fa-solid fa-bed"></i> <br>
-                    <p> <input type="number" class="form-control" [(ngModel)]="updateHouseListing.roomCount" name="roomCount"
-                        min="0" required></p>
+                    <p> <input type="number" class="form-control" [(ngModel)]="updateHouseListing.roomCount"
+                        name="roomCount" min="0" required></p>
                   </li>
                 </div>
                 <div class="col">
@@ -210,8 +214,8 @@
                   </li>
                 </div>
               </div>
-              <li class="list-group-item"><strong>Adres:</strong> <input type="text" class="form-control"
-                  [(ngModel)]="updateHouseListing.address" name="address" required>
+              <li class="list-group-item"><strong>Adres:</strong> <textarea type="text" class="form-control"
+                  [(ngModel)]="updateHouseListing.address" name="address" required></textarea>
               </li>
 
             </ul>
@@ -226,8 +230,8 @@
 
     <div class="card mb-3">
       <div class="card-body">
-        <h5 class="card-title d-flex justify-content-between">{{ landDetail.title }} <small
-            class=" text-end  opacity-50">{{
+        <h5 class="card-title d-flex justify-content-between"><input type="text" class="form-control me-5"
+            [(ngModel)]="updateLandListing.title" name="title" required> <small class=" text-end  opacity-50">{{
             landDetail.listingId }}</small></h5>
 
       </div>
@@ -297,8 +301,9 @@
           </div>
         </div>
       </div>
-
-
+      <div class=" d-flex justify-content-center align-items-center">
+        <button class="btn btn-success w-75" (click)="updateLand()">İlanı güncelle</button>
+      </div>
     </div>
 
     <div class="col">
@@ -312,44 +317,81 @@
             </h5>
             <ul class="list-group list-group-flush">
               <div class="price mt-3">
-                <li class="list-group-item">{{ landDetail.price | priceFormat}}</li>
+                <li class="list-group-item"><input type="number" class="form-control price"
+                    [(ngModel)]="updateLandListing.price" name="price" required></li>
               </div>
 
               <div>
                 <li class="list-group-item border border-0 d-flex justify-content-between">
-                  <h4>{{ landDetail.listingTypeName }}</h4>
-                  <h5>{{landDetail.cityName}} <br>
-                    <small class="text-body-secondary">{{landDetail.districtName}}</small>
+                  <h4><label for="">İlan Tipi</label>
+                    <select class="form-select" id="listingTypeId" name="listingTypeId"
+                      [(ngModel)]="updateLandListing.listingTypeId">
+
+                      <option value="0">Seçiniz</option>
+                      <option *ngFor="let listingType of listingTypes" value="{{listingType.id}}">
+                        {{listingType.listingTypeName}}</option>
+                    </select>
+                  </h4>
+                  <h5>
+                    <label for="">Şehir Seçiniz</label>
+                    <select class="form-select" id="city" name="city" (change)="onCityChange($event)"
+                      [(ngModel)]="updateLandListing.cityId">
+                      <option value="0">Şehir Seçin</option>
+                      <option *ngFor="let city of city" [value]="city.id">{{ city.cityName }}</option>
+                    </select><br>
+
+                    <small class="text-body-secondary">
+                      <label for="">İlçe Seçiniz</label>
+                      <select class="form-select" id="district" name="district"
+                        [(ngModel)]="updateLandListing.districtId">
+                        <option value=0>İlçe Seçiniz</option>
+                        <option *ngFor="let district of districts" [value]="district.id">{{
+                          district.districtName }}</option>
+                      </select></small>
                   </h5>
                 </li>
               </div>
               <div class="card mb-2 border border-0 ">
                 <div class="card-body">
-                  <h5 class="card-title">{{ landDetail.description }}</h5>
+                  <h5 class="card-title"><textarea class="form-control" [(ngModel)]="updateLandListing.description"
+                      name="description" required></textarea></h5>
                 </div>
               </div>
               <div class="d-flex  count-li text-center">
-                <div class="col ">
-                  <li class="list-group-item border border-0 "><i class="fa-solid fa-bed"></i> <br>
-                    <p>{{ landDetail.parcelNo }}</p>
-                  </li>
-                </div>
                 <div class="col">
-                  <li class="list-group-item border border-0"><i class="fa-solid fa-couch"></i> <br>
-                    <p>{{ landDetail.islandNo }}</p>
+                  <div class="col ">
+                    <li class="list-group-item border border-0 ">Parsel No: <br>
+                      <p><input type="number" class="form-control" [(ngModel)]="updateLandListing.parcelNo"
+                          name="roomCount" min="0" required></p>
+                    </li>
+                  </div>
+                  <div class="col">
+                    <li class="list-group-item border border-0">Ada No:<br>
+                      <p><input type="number" class="form-control" [(ngModel)]="updateLandListing.islandNo"
+                          name="roomCount" min="0" required></p>
+                  </div>
                 </div>
+
                 <div class="col">
-                  <li class="list-group-item border border-0"><i class="fa-solid fa-bath"></i> <br>
-                    <p>{{ landDetail.sheetNo }}</p>
-                  </li>
-                </div>
-                <div class="col">
-                  <li class="list-group-item border border-0"><i class="fa-solid fa-maximize"></i> <br>
-                    <p>{{ landDetail.squareMeter }}m²</p>
-                  </li>
+                  <div class="col">
+                    <li class="list-group-item border border-0">Pafta No: <br>
+                      <p><input type="number" class="form-control" [(ngModel)]="updateLandListing.sheetNo"
+                          name="roomCount" min="0" required></p>
+                    </li>
+                  </div>
+                  <div class="col">
+                    <li class="list-group-item border border-0">Boyut: <br>
+                      <p><input type="number" class="form-control" [(ngModel)]="updateLandListing.squareMeter"
+                          name="roomCount" min="0" required>m²</p>
+                    </li>
+                  </div>
                 </div>
               </div>
-              <li class="list-group-item"><strong>Adres:</strong> {{ landDetail.address }}</li>
+              <li class="list-group-item">Kat Karşılığı: <i> <input type="checkbox" class="form-check-input"
+                    [(ngModel)]="updateLandListing.floorEquivalent" name="floorEquivalent"></i>
+              </li>
+              <li class="list-group-item"><strong>Adres:</strong> <textarea type="text" class="form-control me-5"
+                  [(ngModel)]="updateLandListing.address" name="title" required></textarea> </li>
 
             </ul>
           </div>
