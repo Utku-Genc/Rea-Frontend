@@ -9,6 +9,7 @@ import { UserImageService } from '../../services/user-image.service';
 import { UserImage } from '../../models/userImage';
 import { LandListingService } from '../../services/land-listing.service';
 import { LandDetail } from '../../models/landDetail';
+import { HouseListingService } from '../../services/house-listing.service';
 
 @Component({
   selector: 'detail',
@@ -29,7 +30,12 @@ export class DetailComponent implements OnInit {
   apiUrl = "https://localhost:44318/api/HouseListings/getdetails?listingId=";
   apiUrlImg = "https://localhost:44318/api/ListingImages/getbylistingid?listingId="
 
-  constructor(private httpClient: HttpClient, private route: ActivatedRoute, private userImageService: UserImageService, private landListingService: LandListingService) { } // ActivatedRoute ekleyin
+  constructor(private httpClient: HttpClient,
+    private route: ActivatedRoute,
+    private userImageService: UserImageService,
+    private landListingService: LandListingService,
+    private houseListingService: HouseListingService  
+  ) { } // ActivatedRoute ekleyin
 
   ngOnInit() {
     const listingId = this.route.snapshot.paramMap.get('id'); // URL'den listingId'yi al
@@ -52,14 +58,13 @@ export class DetailComponent implements OnInit {
       console.log(response);
     })
   }
-  getHouseDetail(listingId: string | null) {
-    this.httpClient.get<HouseDetailResponseModel>(this.apiUrl + listingId) // listingId'ye göre ilanı getir
-      .subscribe((response) => {
-        this.houseDetail = response.data;
-        this.getUserImageByUserId(this.houseDetail.userId);
-
-      });
-  }
+  getHouseDetail(listingId: string) {
+    this.houseListingService.getHouseDetail(listingId)
+     .subscribe((response) => {
+       this.houseDetail = response.data;
+       this.getUserImageByUserId(this.houseDetail.userId);
+     });
+ }
 
   getLandListingDetail(listingId: string) {
     this.landListingService.getLandListingDetail(listingId).subscribe(response => {

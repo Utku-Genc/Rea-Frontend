@@ -73,7 +73,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
-                                        <h5 class="card-title">{{item.title}}</h5>
+                                        <h5 class="card-title">{{item.title | summary:30}}</h5>
                                         <p class="card-text">{{item.description | summary:50}}</p>
                                         <p class="card-text"><small class="text-body-secondary">{{item.date |
                                                 date:'dd/MM/YYYY'}}</small>
@@ -98,7 +98,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
-                                        <h5 class="card-title">{{itemHouse.title}}</h5>
+                                        <h5 class="card-title">{{itemHouse.title | summary:30}}</h5>
                                         <p class="card-text">{{itemHouse.description | summary:50}}</p>
                                         <p class="card-text"><small class="text-body-secondary">{{itemHouse.date |
                                                 date:'dd/MM/YYYY'}}</small>
@@ -123,7 +123,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="card-body">
-                                        <h5 class="card-title">{{itemLand.title}}</h5>
+                                        <h5 class="card-title">{{itemLand.title | summary:30}}</h5>
                                         <p class="card-text">{{itemLand.description | summary:50}}</p>
                                         <p class="card-text"><small class="text-body-secondary">{{itemLand.date |
                                                 date:'dd/MM/YYYY'}}</small>

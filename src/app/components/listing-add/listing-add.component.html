@@ -7,7 +7,7 @@
                 <input class="form-check-input" type="radio" name="type" id="houseRadio" value="house"
                     [(ngModel)]="type" (change)="onTypeChange()">
                 <label class="form-check-label" for="houseRadio">
-                    <i class="fa-solid fa-house"></i> Ev 
+                    <i class="fa-solid fa-house"></i> Ev
                 </label>
             </div>
             <div class="form-check col radio-btn ms-3">
@@ -24,7 +24,8 @@
         <form (ngSubmit)="addHouseListingSubmit()" class="mt-4">
             <div class="mb-3">
                 <label class="form-label">Fotoğraf Seç:</label>
-                <input type="file" class="form-control " (change)="onFileSelectedHouse($event)" accept="image/*" multiple>
+                <input type="file" class="form-control " (change)="onFileSelectedHouse($event)" accept="image/*"
+                    multiple>
             </div>
             <div class="mb-3">
                 <label class="form-label">Başlık:</label>
@@ -46,7 +47,8 @@
                     <select class="form-select" id="listingTypeName" name="listingTypeName"
                         [(ngModel)]="addHouseListing.listingTypeId">
                         <option value="0">Seçiniz</option>
-                        <option  *ngFor="let listingType of listingTypes" value="{{listingType.id}}">{{listingType.listingTypeName}}</option>
+                        <option *ngFor="let listingType of listingTypes" value="{{listingType.id}}">
+                            {{listingType.listingTypeName}}</option>
                     </select>
                 </div>
                 <div class="col mb-3">
@@ -178,7 +180,8 @@
                     <select class="form-select" id="listingTypeName" name="listingTypeName"
                         [(ngModel)]="addLandListing.listingTypeId">
                         <option value="0">Seçiniz</option>
-                        <option *ngFor="let listingType of listingTypes" value="{{listingType.id}}">{{listingType.listingTypeName}}</option>
+                        <option *ngFor="let listingType of listingTypes" value="{{listingType.id}}">
+                            {{listingType.listingTypeName}}</option>
                     </select>
                 </div>
                 <div class="col mb-3 ms-2">
@@ -222,10 +225,20 @@
                 </div>
 
             </div>
-            <div class="mb-3">
-                <label class="form-label">Metrekare:</label>
-                <input type="number" class="form-control" [(ngModel)]="addLandListing.squareMeter" name="squareMeter"
-                    min="0" required>
+            <div class="col d-flex">
+                <div class="mb-3 col-9">
+                    <label class="form-label">Metrekare:</label>
+                    <input type="number" class="form-control" [(ngModel)]="addLandListing.squareMeter"
+                        name="squareMeter" min="0" required>
+                </div>
+                <div class="mb-3 form-check col-3 " >
+                    <br>
+                    <div class="mb-3 form-check mt-1" >
+                        <input type="checkbox" class="form-check-input" [(ngModel)]="addLandListing.floorEquivalent"
+                            name="floorEquivalent" style="height: 3.8vh; width:  3.8vh;">
+                        <label class="form-check-label ms-2  mt-2"  style="font-size: 2vh;"> Kat Karşılığı Var</label>
+                    </div>
+                </div>
             </div>
             <div class="mb-3">
                 <label class="form-label">Adres:</label>
