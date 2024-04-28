@@ -10,6 +10,7 @@
     object-fit: cover;
 }
 .aspect-ratio-16x9 {
+    width: 18rem;
     aspect-ratio: 16/9;
 }
 .page-btn{
