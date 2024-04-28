@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Listing } from '../../models/listing';
 import { ListResponseModel } from '../../models/listResponseModel';
 import { ListingService } from '../../services/listing.service';
@@ -25,6 +25,9 @@ export class ProfileComponent implements OnInit {
   selectedImage: File | undefined;
   deleteToListingId!: number;
 
+  isUsersProfile = this.router.url.startsWith("/profile/ilanlarim");
+  userId:number | undefined
+
   constructor(
     private listingService: ListingService,
     private userService: UserService,
@@ -34,21 +37,50 @@ export class ProfileComponent implements OnInit {
     private toastrService: ToastrService) { };
 
   ngOnInit(): void {
-    this.getListingByUserId();
-    this.getUserByToken();
-    this.getUserImageByToken();
+    this.route.url.subscribe(url => {
+      this.updateProfileView();
+    });
     this.route.queryParams.subscribe(params => {
       this.currentPage = params['page'] || 1;
     });
 
   }
-  getListingByUserId() {
-    this.listingService.getListingByUserId().subscribe(response => {
+  updateProfileView() {
+    this.isUsersProfile = this.router.url.startsWith("/profile/ilanlarim");
+    if (this.isUsersProfile) {
+      this.getListingByToken();
+      this.getUserByToken();
+      this.getUserImageByToken();
+    } else {
+      this.userId = Number(this.route.snapshot.paramMap.get('id')?.toString());
+      this.getListingByUserId();
+      this.getUserById();
+      this.getUserImageById();
+    }
+  }
+
+
+  getListingByUserId(){
+    if(this.userId){
+  this.listingService.getListingByUserId(this.userId).subscribe(response=>{
+    this.listings = response.data
+  })}
+  }
+
+  getListingByToken() {
+    this.listingService.getByToken().subscribe(response => {
       this.listings = response.data;
 
     })
   }
 
+  getUserById(){
+    if(this.userId){
+    this.userService.getUserById(this.userId).subscribe(response=>{
+      this.user = response.data
+    })
+  }
+  }
   getUserByToken() {
     this.userService.getUserByToken().subscribe(response => {
       this.user = response.data;
@@ -58,6 +90,14 @@ export class ProfileComponent implements OnInit {
     this.userImageService.getUserImageByToken().subscribe(response => {
       this.userImg = response.data;
     })
+  }
+  getUserImageById(){
+    if(this.userId){
+      this.userImageService.getUserImageByUserId(this.userId).subscribe(response=>{
+        this.userImg = response.data;
+      })
+    }
+
   }
 
 

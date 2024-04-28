@@ -8,7 +8,7 @@
                     <div *ngIf="userImg.length>0" class="mb-3">
                         <img [src]="getUserImagePath(userImg[0])" class="user-img rounded-circle mt-3 mb-3"
                             style="background-color: rgb(255,188,0);">
-                        <div class="col ms-4 me-4">
+                        <div *ngIf="isUsersProfile" class="col ms-4 me-4">
                             <input class="form-control   mb-3" type="file" accept="image/*"
                                 (change)="onFileSelected($event)" placeholder="aa"
                                 style="background-color: rgb(255,188,0);">
@@ -23,7 +23,7 @@
                     <div *ngIf="userImg.length<=0" class="mb-2">
                         <img src="../../../assets/img/user.png" class="user-img rounded-circle mt-3 mb-3"
                             style="background-color: rgb(255,188,0);">
-                        <div class="col ms-4 me-4">
+                        <div *ngIf="isUsersProfile" class="col ms-4 me-4">
 
                             <input class="form-control   mb-3" type="file" accept="image/*"
                                 (change)="onFileSelected($event)" placeholder="aa"
@@ -32,7 +32,6 @@
                                 style="background-color: rgb(255,188,0);">Profil Resmi Yükle</button>
                         </div>
                     </div>
-
                     <h2 class="mb-3">{{user.firstName}} {{user.lastName}}</h2>
                     <p>İletişim Adresi: {{user.email}}</p>
                     <p>Toplam İlan: {{listings.length}}</p>
@@ -79,7 +78,7 @@
                             item.price | priceFormat: 'TRY' }}</button>
                     </div>
                 </div>
-                <div class="col d-flex ms-2 me-2 mb-2">
+                <div *ngIf="isUsersProfile" class="col d-flex ms-2 me-2 mb-2">
                     <button routerLink="/listing/edit/{{ item.id }}" class="btn btn-success col me-2">Düzenle</button>
 
                     <button (click)="setDeleteToListingId(item.id)" type="button" class="btn btn-danger col ms-2"
