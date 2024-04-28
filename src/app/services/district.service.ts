@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { DistrictResponseModel } from '../models/districtResponseModel';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
+import { ListResponseModel } from '../models/listResponseModel';
+import { District } from '../models/district';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,11 @@ export class DistrictService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getDistrict(id: number):Observable<DistrictResponseModel>{
-    return this.httpClient.get<DistrictResponseModel>(this.apiUrl+'getbycityid?cityId='+id);
+  getDistrict(id: number):Observable<ListResponseModel<District>>{
+    return this.httpClient.get<ListResponseModel<District>>(this.apiUrl+'getbycityid?cityId='+id);
   }
 
-  getDistrictByName(cityName: string):Observable<DistrictResponseModel>{
-    return this.httpClient.get<DistrictResponseModel>(this.apiUrl+'getbycityname?cityName='+cityName);
+  getDistrictByName(cityName: string):Observable<ListResponseModel<District>>{
+    return this.httpClient.get<ListResponseModel<District>>(this.apiUrl+'getbycityname?cityName='+cityName);
   }
 }

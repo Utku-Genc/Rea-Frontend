@@ -46,9 +46,9 @@
             </div>
         </div>
         <div class="d-flex flex-wrap ms-4 "  >
-            <div class="card d-flex flex-wrap mb-3 mx-2 rounded-bottom rounded-5"  style="width: 18rem;"
-                *ngFor="let item of listings.slice(startIndex,endIndex)">
+            <div class="card d-flex flex-wrap mb-3 mx-2 rounded-bottom rounded-5 align-self-start"  style="width: 18rem;" *ngFor="let item of listings.slice(startIndex,endIndex)">
                 <div routerLink="/houselisting/detail/{{ item.id }}">
+                    
                     <div style="margin-bottom: -16px;">
                         <div *ngIf="item.listingTypeName=='Satılık'" class="pt-3 text-center sell-col rounded-bottom rounded-5 ">
                             <p>{{item.listingTypeName}}</p>
@@ -65,20 +65,23 @@
     
                     <img [src]="getListingImagePath(item)" class="card-img-top rounded-0 aspect-ratio-16x9" alt="..." style="background-color: rgb(255,255,255);">
                     <div class="card-body">
-                        <h5 class="card-title text-sub" style="min-height: 3rem;">{{item.title | summary:40 }}</h5>
-                        <p class="card-text text-sub" style="min-height: 8rem;">{{item.description | summary:150}}</p>
+                        <h5 class="card-title text-sub" style="min-height: 3rem;max-height: 3rem;">{{item.title | summary:40 }}</h5>
+                        <p class="card-text text-sub" style="min-height: 8rem; max-height: 8rem;">{{item.description | summary:120}}</p>
                     </div>
+
                     <ul class="list-group list-group-flush text-center">
                         <li class="list-group-item">{{item.squareMeter}} m²</li>
                         <li class="list-group-item">{{item.propertyTypeName}}</li>
                         <li class="list-group-item">{{item.date | date:'dd/MM/YYYY'}}</li>
                     </ul>
+
                     <div class="card-body">
                         <div class="d-grid gap-2 col-15 mx-auto">
                             <button routerLink="/listings/detail/{{ item.id }}" class="btn btn-info btn-lg" type="button">{{
                                 item.price | priceFormat: 'TRY' }}</button>
                         </div>
                     </div>
+                    
                 </div>
                 
                 <div *ngIf="isUsersProfile" class="col d-flex ms-2 me-2 mb-2">

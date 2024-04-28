@@ -3,11 +3,9 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserImageService } from '../../services/user-image.service';
 import { LandListingService } from '../../services/land-listing.service';
-import { ListingImageResponseModel } from '../../models/listingImageResponseModel';
 import { UserImage } from '../../models/userImage';
 import { HouseDetail } from '../../models/houseDetail';
 import { LandDetail } from '../../models/landDetail';
-import { HouseDetailResponseModel } from '../../models/HouseDetailResponseModel';
 import { ListingImage } from '../../models/listingImage';
 import { ListingTypeService } from '../../services/listing-type.service';
 import { HouseTypeService } from '../../services/house-type.service';
@@ -22,6 +20,7 @@ import { UpdateHouse } from '../../models/updateHouse';
 import { UpdateLand } from '../../models/updateLand';
 import { ToastrService } from 'ngx-toastr';
 import { error } from 'jquery';
+import { ListResponseModel } from '../../models/listResponseModel';
 
 @Component({
   selector: 'listing-editing',
@@ -30,7 +29,7 @@ import { error } from 'jquery';
 })
 export class ListingEditingComponent implements OnInit {
     @ViewChild('imageContainer') imageContainer!: ElementRef;
-    imageListing!: ListingImageResponseModel;
+    imageListing!: ListResponseModel<ListingImage>;
     startIndex = 0;
     endIndex = 5;
     visibleImages: string[] = [];
@@ -124,7 +123,7 @@ export class ListingEditingComponent implements OnInit {
   
     getImage(listingId: string | null) {
       if (!listingId) return;
-      this.httpClient.get<ListingImageResponseModel>(this.apiUrlImg + listingId).subscribe((response) => {
+      this.httpClient.get<ListResponseModel<ListingImage>>(this.apiUrlImg + listingId).subscribe((response) => {
         this.imageListing = response;
       })
     }

@@ -1,20 +1,24 @@
 .aspect-ratio-16x9 {
     aspect-ratio: 16/9;
 }
-.page-btn{
+
+.page-btn {
     background-color: rgb(43, 48, 53);
- color: rgb(255,188,0);
- }
- .text-sub{
-    word-wrap: break-word; 
-    overflow-wrap: break-word; 
+    color: rgb(255, 188, 0);
+}
+
+.text-sub {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
     word-break: break-all;
 }
-.sell-col{
+
+.sell-col {
     padding-bottom: 5px;
     background: #cc99ff;
 }
-.rent-col{
+
+.rent-col {
     padding-bottom: 5px;
     background: #80dad0;
 }

@@ -1,12 +1,10 @@
 import { Listing } from '../../models/listing';
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { ListingResponseModel } from '../../models/listingResponseModel';
 import { HouseListing } from '../../models/houseListing';
 import { LandListing } from '../../models/landListing';
 import { HouseListingService } from '../../services/house-listing.service';
 import { LandListingService } from '../../services/land-listing.service';
-import { ActivatedRoute } from '@angular/router';
+import { ListingService } from '../../services/listing.service';
 
 @Component({
   selector: 'homepage',
@@ -21,12 +19,11 @@ export class HomepageComponent {
   houseListings: HouseListing[] = [];
   landListings: LandListing[] = [];
 
-  apiUrl = "https://localhost:44318/api/Listings/getalldetails"
 
-  constructor(private httpClient: HttpClient,
+  constructor(
      private houseListingService: HouseListingService, 
      private landListingService: LandListingService,
-     private route:ActivatedRoute,
+     private listingService: ListingService,
     ) { }
 
   ngOnInit(): void {
@@ -36,8 +33,7 @@ export class HomepageComponent {
 
   }
   getListing = () => {
-    this.httpClient.get<ListingResponseModel>(this.apiUrl)
-      .subscribe((response) => {
+      this.listingService.getListing().subscribe((response) => {
         this.listings = response.data;
       });
   }
@@ -53,6 +49,7 @@ export class HomepageComponent {
       this.landListings = response.data;
     })
   }
+  
   getHouseListingImagePath(imagePath: string): string {
     if (imagePath && imagePath.length > 0) {
       return 'https://localhost:44318/Uploads/ListingImages/' + imagePath;

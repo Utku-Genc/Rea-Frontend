@@ -5,82 +5,77 @@
       <div class="card-body">
         <h5 class="card-title d-flex justify-content-between">{{ houseDetail.title }} <small
             class=" text-end  opacity-50">{{
-            houseDetail.listingId }}</small></h5>
-
+            houseDetail.listingId }}</small>
+        </h5>
       </div>
     </div>
-
-    <div class="col">
-
-      <div class="container d-flex flex-wrap ">
-        <div *ngIf="imageListing.data.length>0" id="carouselExampleRide" class="carousel slide slide-div mb-3 "
-          data-bs-ride="true">
-          <div class="carousel-inner ">
-            <div class="carousel-item " *ngFor="let image of imageListing.data; let isFirst = first"
-              [ngClass]="{ 'active': isFirst }">
-              <img [src]="getHouseListingImagePath(image)" class="d-block w-100 slide-style ">
+    <div class="col d-flex">
+      <div class="col">
+        <div class="container d-flex flex-wrap ">
+          <div *ngIf="imageListing.data.length>0" id="carouselExampleRide" class="carousel slide slide-div mb-3 "
+            data-bs-ride="true">
+            <div class="carousel-inner ">
+              <div class="carousel-item " *ngFor="let image of imageListing.data; let isFirst = first"
+                [ngClass]="{ 'active': isFirst }">
+                <img [src]="getHouseListingImagePath(image)" class="d-block w-100 slide-style ">
+              </div>
             </div>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bxs-target="#carouselExampleRide"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleRide"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="container d-flex flex-wrap">
-        <div *ngIf="imageListing.data.length<=0" id="carouselExampleAutoplaying" class="carousel slide slide-div mb-3"
-          data-bs-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="../../../assets/img/defaultHouse.png" class="d-block w-100 slide-style-default" alt="...">
-            </div>
+            <button class="carousel-control-prev" type="button" data-bxs-target="#carouselExampleRide"
+              data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleRide"
+              data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
           </div>
         </div>
-      </div>
 
-      <div *ngIf="imageListing.data.length>0" class="container d-flex flex-wrap slide-bottom-div " #imageContainer>
-        <button (click)="previous()" class="slide-bottom-btn"><i class="fa-solid fa-chevron-left"></i></button>
-
-        <ng-container *ngFor="let image of imageListing.data.slice(startIndex,endIndex); let i = index">
-          <img [src]="getHouseListingImagePath(image)" class="d-block border-end border-start slide-bottom"
-            (click)="showImageInCarousel(i)">
-        </ng-container>
-
-        <button (click)="next()" class="slide-bottom-btn"><i class="fa-solid fa-chevron-right"></i></button>
-      </div>
-
-
-      <div routerLink="/profile/{{houseDetail.userId}}" class="container  mt-2 padding-down">
-        <div class="row user-card">
-          <div class="col-14">
-            <p class="ilan">İlan Sahibi</p>
-          </div>
-          <div class="col-3 mb-3 ms-3">
-            <img *ngIf="userImg.length>0" [src]="getUserImagePath(userImg[0])" class="user-image">
-            <img *ngIf="userImg.length<=0" src="../../../assets/img/user.png" class="user-image">
-          </div>
-          <div class="col-8">
-            <div class="user-details">
-              <h3 class="user-name">{{houseDetail.firstName}} {{houseDetail.lastName}}</h3>
-              <p class="user-email">{{houseDetail.userEmail}}</p>
+        <div class="container d-flex flex-wrap">
+          <div *ngIf="imageListing.data.length<=0" id="carouselExampleAutoplaying" class="carousel slide slide-div mb-3"
+            data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="../../../assets/img/defaultHouse.png" class="d-block w-100 slide-style-default" alt="...">
+              </div>
             </div>
           </div>
         </div>
+
+        <div *ngIf="imageListing.data.length>0" class="container d-flex flex-wrap slide-bottom-div " #imageContainer>
+          <button (click)="previous()" class="slide-bottom-btn"><i class="fa-solid fa-chevron-left"></i></button>
+
+          <ng-container *ngFor="let image of imageListing.data.slice(startIndex,endIndex); let i = index">
+            <img [src]="getHouseListingImagePath(image)" class="d-block border-end border-start slide-bottom"
+              (click)="showImageInCarousel(i)">
+          </ng-container>
+
+          <button (click)="next()" class="slide-bottom-btn"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+
+
+        <div routerLink="/profile/{{houseDetail.userId}}" class="container mt-2 padding-down">
+          <div class="row user-card">
+            <div class="col-14">
+              <p class="ilan">İlan Sahibi</p>
+            </div>
+            <div class="col-3 mb-3 ms-3">
+              <img *ngIf="userImg.length>0" [src]="getUserImagePath(userImg[0])" class="user-image">
+              <img *ngIf="userImg.length<=0" src="../../../assets/img/user.png" class="user-image">
+            </div>
+            <div class="col-8">
+              <div class="user-details">
+                <h3 class="user-name">{{houseDetail.firstName}} {{houseDetail.lastName}}</h3>
+                <p class="user-email">{{houseDetail.userEmail}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-
-    </div>
-
-    <div class="col">
-      <div>
-
+      <div class="col">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title d-flex justify-content-between">
@@ -103,7 +98,7 @@
               </div>
               <div class="card mb-2 border border-0 ">
                 <div class="card-body">
-                  <h5 class="card-title">{{ houseDetail.description }}</h5>
+                  <h5 class="card-title text-sub">{{ houseDetail.description }}</h5>
                 </div>
               </div>
               <div class="d-flex  count-li text-center">
@@ -169,10 +164,8 @@
             </ul>
           </div>
         </div>
-
       </div>
     </div>
-
   </div>
   <div *ngIf="landDetail != null" class="row align-items-start">
 
@@ -180,148 +173,148 @@
       <div class="card-body">
         <h5 class="card-title d-flex justify-content-between">{{ landDetail.title }} <small
             class=" text-end  opacity-50">{{
-            landDetail.listingId }}</small></h5>
-
+            landDetail.listingId }}</small>
+        </h5>
       </div>
     </div>
+    <div class="col d-flex">
+      <div class="col">
 
-    <div class="col">
-
-      <div class="container d-flex flex-wrap ">
-        <div *ngIf="imageListing.data.length>0" id="carouselExampleRide" class="carousel slide slide-div mb-3 "
-          data-bs-ride="true">
-          <div class="carousel-inner ">
-            <div class="carousel-item " *ngFor="let image of imageListing.data; let isFirst = first"
-              [ngClass]="{ 'active': isFirst }">
-              <img [src]="getHouseListingImagePath(image)" class="d-block w-100 slide-style ">
-            </div>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bxs-target="#carouselExampleRide"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleRide"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="container d-flex flex-wrap">
-        <div *ngIf="imageListing.data.length<=0" id="carouselExampleAutoplaying" class="carousel slide slide-div mb-3"
-          data-bs-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="../../../assets/img/defaultHouse.png" class="d-block w-100 slide-style-default" alt="...">
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div *ngIf="imageListing.data.length>0" class="container d-flex flex-wrap slide-bottom-div " #imageContainer>
-        <button (click)="previous()" class="slide-bottom-btn"><i class="fa-solid fa-chevron-left"></i></button>
-
-        <ng-container *ngFor="let image of imageListing.data.slice(startIndex,endIndex); let i = index">
-          <img [src]="getHouseListingImagePath(image)" class="d-block border-end border-start slide-bottom"
-            (click)="showImageInCarousel(i)">
-        </ng-container>
-
-        <button (click)="next()" class="slide-bottom-btn"><i class="fa-solid fa-chevron-right"></i></button>
-      </div>
-
-
-      <div routerLink="/profile/{{landDetail.userId}}" class="container  mt-2 padding-down">
-        <div class="row user-card">
-          <div class="col-14">
-            <p class="ilan">İlan Sahibi</p>
-          </div>
-          <div class="col-3 mb-3 ms-3">
-            <img *ngIf="userImg.length>0" [src]="getUserImagePath(userImg[0])" class="user-image">
-            <img *ngIf="userImg.length<=0" src="../../../assets/img/user.png" class="user-image">
-          </div>
-          <div class="col-8">
-            <div class="user-details">
-              <h3 class="user-name">{{landDetail.firstName}} {{landDetail.lastName}}</h3>
-              <p class="user-email">{{landDetail.userEmail}}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-    </div>
-
-    <div class="col">
-      <div>
-
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title d-flex justify-content-between">
-              İlan Bilgileri
-              <small class="float-end">{{ landDetail.date | date:'dd/MM/YYYY' }}</small>
-            </h5>
-            <ul class="list-group list-group-flush">
-              <div class="price mt-3">
-                <li class="list-group-item">{{ landDetail.price | priceFormat}}</li>
+        <div class="container d-flex flex-wrap ">
+          <div *ngIf="imageListing.data.length>0" id="carouselExampleRide" class="carousel slide slide-div mb-3 "
+            data-bs-ride="true">
+            <div class="carousel-inner ">
+              <div class="carousel-item " *ngFor="let image of imageListing.data; let isFirst = first"
+                [ngClass]="{ 'active': isFirst }">
+                <img [src]="getHouseListingImagePath(image)" class="d-block w-100 slide-style ">
               </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bxs-target="#carouselExampleRide"
+              data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleRide"
+              data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
 
-              <div>
-                <li class="list-group-item border border-0 d-flex justify-content-between">
-                  <h4>{{ landDetail.listingTypeName }}</h4>
-                  <h5>{{landDetail.cityName}} <br>
-                    <small class="text-body-secondary">{{landDetail.districtName}}</small>
-                  </h5>
-                </li>
+        <div class="container d-flex flex-wrap">
+          <div *ngIf="imageListing.data.length<=0" id="carouselExampleAutoplaying" class="carousel slide slide-div mb-3"
+            data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="../../../assets/img/defaultHouse.png" class="d-block w-100 slide-style-default" alt="...">
               </div>
-              <div class="card mb-2 border border-0 ">
-                <div class="card-body">
-                  <h5 class="card-title">{{ landDetail.description }}</h5>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="imageListing.data.length>0" class="container d-flex flex-wrap slide-bottom-div " #imageContainer>
+          <button (click)="previous()" class="slide-bottom-btn"><i class="fa-solid fa-chevron-left"></i></button>
+
+          <ng-container *ngFor="let image of imageListing.data.slice(startIndex,endIndex); let i = index">
+            <img [src]="getHouseListingImagePath(image)" class="d-block border-end border-start slide-bottom"
+              (click)="showImageInCarousel(i)">
+          </ng-container>
+
+          <button (click)="next()" class="slide-bottom-btn"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+
+
+        <div routerLink="/profile/{{landDetail.userId}}" class="container  mt-2 padding-down">
+          <div class="row user-card">
+            <div class="col-14">
+              <p class="ilan">İlan Sahibi</p>
+            </div>
+            <div class="col-3 mb-3 ms-3">
+              <img *ngIf="userImg.length>0" [src]="getUserImagePath(userImg[0])" class="user-image">
+              <img *ngIf="userImg.length<=0" src="../../../assets/img/user.png" class="user-image">
+            </div>
+            <div class="col-8">
+              <div class="user-details">
+                <h3 class="user-name">{{landDetail.firstName}} {{landDetail.lastName}}</h3>
+                <p class="user-email">{{landDetail.userEmail}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div class="col">
+        <div>
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title d-flex justify-content-between">
+                İlan Bilgileri
+                <small class="float-end">{{ landDetail.date | date:'dd/MM/YYYY' }}</small>
+              </h5>
+              <ul class="list-group list-group-flush">
+                <div class="price mt-3">
+                  <li class="list-group-item">{{ landDetail.price | priceFormat}}</li>
                 </div>
-              </div>
-              <div class="col">
-                <div class="d-flex col count-li text-center">
 
-                  <div class="col">
-                    <div class="col ">
-                      <li class="list-group-item border border-0 ">Parsel No: <br>
-                        <p>{{ landDetail.parcelNo }}</p>
-                      </li>
-                    </div>
-                    <div class="col">
-                      <li class="list-group-item border border-0">Ada No: <br>
-                        <p>{{ landDetail.islandNo }}</p>
-                    </div>
+                <div>
+                  <li class="list-group-item border border-0 d-flex justify-content-between">
+                    <h4>{{ landDetail.listingTypeName }}</h4>
+                    <h5>{{landDetail.cityName}} <br>
+                      <small class="text-body-secondary">{{landDetail.districtName}}</small>
+                    </h5>
+                  </li>
+                </div>
+                <div class="card mb-2 border border-0 ">
+                  <div class="card-body">
+                    <h5 class="card-title text-sub">{{ landDetail.description }}</h5>
                   </div>
-                  <div class="col">
+                </div>
+                <div class="col">
+                  <div class="d-flex col count-li text-center">
+
                     <div class="col">
-                      <li class="list-group-item border border-0">Pafta No: <br>
-                        <p>{{ landDetail.sheetNo }}</p>
-                      </li>
+                      <div class="col ">
+                        <li class="list-group-item border border-0 ">Parsel No: <br>
+                          <p>{{ landDetail.parcelNo }}</p>
+                        </li>
+                      </div>
+                      <div class="col">
+                        <li class="list-group-item border border-0">Ada No: <br>
+                          <p>{{ landDetail.islandNo }}</p>
+                      </div>
                     </div>
                     <div class="col">
-                      <li class="list-group-item border border-0">Boyut: <br>
-                        <p>{{ landDetail.squareMeter }}m²</p>
-                      </li>
+                      <div class="col">
+                        <li class="list-group-item border border-0">Pafta No: <br>
+                          <p>{{ landDetail.sheetNo }}</p>
+                        </li>
+                      </div>
+                      <div class="col">
+                        <li class="list-group-item border border-0">Boyut: <br>
+                          <p>{{ landDetail.squareMeter }}m²</p>
+                        </li>
+                      </div>
                     </div>
+
                   </div>
-
+                  <div class="col  count-li text-center">
+                    <li class="list-group-item border border-0">Kat Karşılığı: <i
+                        class="fa-solid {{ landDetail.floorEquivalent ? 'fa-check text-success' : 'fa-xmark text-danger' }}"></i>
+                    </li>
+                  </div>
                 </div>
-                <div class="col  count-li text-center">
-                  <li class="list-group-item border border-0">Kat Karşılığı: <i
-                    class="fa-solid {{ landDetail.floorEquivalent ? 'fa-check text-success' : 'fa-xmark text-danger' }}"></i>
-                </li>
-                </div>
-              </div>
-              <li class="list-group-item"><strong>Adres:</strong> {{ landDetail.address }}</li>
+                <li class="list-group-item"><strong>Adres:</strong> {{ landDetail.address }}</li>
 
-            </ul>
+              </ul>
+            </div>
           </div>
-        </div>
 
+        </div>
       </div>
     </div>
-
   </div>
 </div>

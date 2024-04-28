@@ -23,7 +23,6 @@ export class IlanComponent implements OnInit {
   squareMeter: number = 0;
   price: number = 0;
   filterObject: any = {};
-  filterApiUrl = "https://localhost:44318/api/Listings/getallbyfilter"
 
   city: City[] = [];
   districts: District[] = [];
@@ -93,7 +92,7 @@ export class IlanComponent implements OnInit {
 
 
 
-    this.httpClient.post<any>(this.filterApiUrl, this.filterObject)
+    this.listingService.getByFilter(this.filterObject)
       .subscribe(response => {
         this.listings = response.data
         this.toastrService.success("Başarıyla Filtrelendi", "İşlem Başarılı")

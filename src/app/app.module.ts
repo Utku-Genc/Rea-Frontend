@@ -17,7 +17,6 @@ import { IlanComponent } from './components/ilan/ilan.component';
 import { HouseListingComponent } from './components/house-listing/house-listing.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { HouseFilterComponent } from './components/house-filter/house-filter.component';
 
 import { SummaryPipe } from './pipes/summary.pipe';
 import { PriceFormatPipe } from './pipes/price-format.pipe';
@@ -45,7 +44,6 @@ import { ListingEditingComponent } from './components/listing-editing/listing-ed
     PriceFormatPipe,
     LoginComponent,
     RegisterComponent,
-    HouseFilterComponent,
     ProfileComponent,
     ListingAddComponent,
     LandListingComponent,

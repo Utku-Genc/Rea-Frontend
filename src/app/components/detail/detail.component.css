@@ -19,7 +19,7 @@
     background-color: rgb(43, 48, 53);
 }
 
-.slide-bottom{
+.slide-bottom {
     width: 12vh;
     height: 12vh;
     background-color: rgb(43, 48, 53);
@@ -27,13 +27,14 @@
     object-position: center;
 }
 
-.slide-bottom-btn{
+.slide-bottom-btn {
     background-color: rgb(43, 48, 53);
-    color: rgb(255,188,0);
+    color: rgb(255, 188, 0);
     border: none;
     width: 1.5vh;
     font-size: 1vh;
 }
+
 .user-card {
     display: flex;
     align-items: center;
@@ -41,18 +42,20 @@
     border-radius: 5px;
 }
 
-.padding-down{
+.padding-down {
     padding: 20px;
 }
-.ilan{
+
+.ilan {
     font-size: 3vh;
-    color: rgb(255,188,0);
+    color: rgb(255, 188, 0);
 }
+
 .user-image {
     width: 12vh;
     height: 12vh;
     object-fit: cover;
-    background-color: rgb(255,188,0);
+    background-color: rgb(255, 188, 0);
     border-radius: 50%;
     margin-bottom: 1vh;
 }
@@ -60,10 +63,11 @@
 .user-details {
     flex-grow: 1;
 }
+
 .user-name {
     margin-top: -30px;
     font-size: 3vh;
-    color: rgb(255,188,0);
+    color: rgb(255, 188, 0);
 
 }
 
@@ -72,22 +76,30 @@
     color: rgba(255, 187, 0, 0.801);
 }
 
-.price{
+.price {
     text-align: center;
     font-size: 3vh;
     width: 100%;
-    background-color: rgb(255,188,0);
+    background-color: rgb(255, 188, 0);
     border-radius: 10px;
 }
-.price li{
+
+.price li {
     background: none;
     border: 0;
 }
 
-.count-li{
+.count-li {
     font-size: 3vh;
 
 }
-.count-li p{
+
+.count-li p {
     font-size: 3vh;
+}
+
+.text-sub {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-all;
 }
