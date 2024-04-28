@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { ListingResponseModel } from '../models/listingResponseModel';
 import { ResponseModel } from '../models/responseModel';
 import { ListResponseModel } from '../models/listResponseModel';
 import { Listing } from '../models/listing';
@@ -13,12 +12,17 @@ export class ListingService {
   apiUrl = "https://localhost:44318/api/Listings/"
 
   constructor(private httpClient: HttpClient) { }
-  getListing(): Observable<ListingResponseModel> {
-    return this.httpClient.get<ListingResponseModel>(this.apiUrl+"getalldetails");
+  getListing(): Observable<ListResponseModel<Listing>> {
+    return this.httpClient.get<ListResponseModel<Listing>>(this.apiUrl+"getalldetails");
   }
-  getListingByUserId(userId:number):Observable<ListingResponseModel> {
-    return this.httpClient.get<ListingResponseModel>(this.apiUrl+"getbyuserid?userId="+userId);
+  getListingByUserId(userId:number):Observable<ListResponseModel<Listing>> {
+    return this.httpClient.get<ListResponseModel<Listing>>(this.apiUrl+"getbyuserid?userId="+userId);
   }
+
+  getByFilter(filterObject: any): Observable<ListResponseModel<Listing>>{
+    return this.httpClient.post<any>(this.apiUrl + "getallbyfilter", filterObject);
+  }
+
   getByToken(){
     return this.httpClient.get<ListResponseModel<Listing>>(this.apiUrl+"getbytoken");
   }

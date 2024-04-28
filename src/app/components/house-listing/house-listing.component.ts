@@ -67,9 +67,8 @@ export class HouseListingComponent {
   }
 
   filterHouseListings(filterObject: HouseFilter) {
-    this.httpClient.post<HouseListing[]>(this.filterApiUrl, filterObject)
-      .subscribe((response) => {
-        this.houseListings = response;
+this.houseListingService.getByFilter(filterObject).subscribe((response) => {
+        this.houseListings = response.data;
         this.toastrService.success("Başarıyla Filtrelendi","İşlem Başarılı")
       },
       (errorResponse)=>{

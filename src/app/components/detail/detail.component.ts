@@ -1,15 +1,14 @@
 import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router'; // ActivatedRoute ekleyin
+import { ActivatedRoute } from '@angular/router'; 
 import { HouseDetail } from '../../models/houseDetail';
-import { HouseDetailResponseModel } from '../../models/HouseDetailResponseModel';
-import { HttpClient } from '@angular/common/http';
 import { ListingImage } from '../../models/listingImage';
-import { ListingImageResponseModel } from '../../models/listingImageResponseModel';
 import { UserImageService } from '../../services/user-image.service';
 import { UserImage } from '../../models/userImage';
 import { LandListingService } from '../../services/land-listing.service';
 import { LandDetail } from '../../models/landDetail';
 import { HouseListingService } from '../../services/house-listing.service';
+import { ListResponseModel } from '../../models/listResponseModel';
+import { ListingImageService } from '../../services/listing-image.service';
 
 @Component({
   selector: 'detail',
@@ -18,7 +17,7 @@ import { HouseListingService } from '../../services/house-listing.service';
 })
 export class DetailComponent implements OnInit {
   @ViewChild('imageContainer') imageContainer!: ElementRef;
-  imageListing!: ListingImageResponseModel; // Resimler buraya atanacak
+  imageListing!: ListResponseModel<ListingImage>;
   startIndex = 0;
   endIndex = 5;
   visibleImages: string[] = [];
@@ -27,16 +26,14 @@ export class DetailComponent implements OnInit {
 
   houseDetail!: HouseDetail;
   landDetail!: LandDetail;
-  apiUrl = "https://localhost:44318/api/HouseListings/getdetails?listingId=";
-  apiUrlImg = "https://localhost:44318/api/ListingImages/getbylistingid?listingId="
 
-  constructor(private httpClient: HttpClient,
+  constructor(
     private route: ActivatedRoute,
     private userImageService: UserImageService,
     private landListingService: LandListingService,
-    private houseListingService: HouseListingService  
-  ) { } // ActivatedRoute ekleyin
-
+    private houseListingService: HouseListingService,
+    private listingImageService: ListingImageService,
+  ) { } 
   ngOnInit() {
     const listingId = this.route.snapshot.paramMap.get('id'); // URL'den listingId'yi al
     if (listingId != null) {
@@ -53,7 +50,7 @@ export class DetailComponent implements OnInit {
 
   getImage(listingId: string | null) {
     if (!listingId) return;
-    this.httpClient.get<ListingImageResponseModel>(this.apiUrlImg + listingId).subscribe((response) => {
+    this.listingImageService.getImage(listingId).subscribe((response) => {
       this.imageListing = response;
       console.log(response);
     })

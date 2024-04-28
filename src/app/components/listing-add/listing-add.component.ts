@@ -151,7 +151,7 @@ export class ListingAddComponent implements OnInit {
                  this.toastrService.success("Resimler Eklendi");
                 })
           });
-          this.router.navigate(["profile/ilanlarım"]);
+          this.router.navigate(["profile/ilanlarim"]);
         },
         responseError=>{
           if(responseError.error.ValidationErrors.length>0){
@@ -173,7 +173,7 @@ export class ListingAddComponent implements OnInit {
           this.addLandListing.images.forEach(image => {
             this.listingImageService.uploadImage(this.addLandListingResponse.listingId, image).subscribe(response => { console.log("Resimler Eklendi") })
           });
-          this.router.navigate(["profile/ilanlarım"]);
+          this.router.navigate(["profile/ilanlarim"]);
         },
         responseError=>{
           if(responseError.error.ValidationErrors.length>0){
@@ -187,12 +187,16 @@ export class ListingAddComponent implements OnInit {
   }
 
   onFileSelectedHouse(event: any) {
+    this.addHouseListing.images = [];
+    
     const files: FileList = event.target.files;
     for (let i = 0; i < files.length; i++) {
       this.addHouseListing.images.push(files[i]);
     }
   }
   onFileSelectedLand(event: any) {
+    this.addLandListing.images = [];
+
     const files: FileList = event.target.files;
     for (let i = 0; i < files.length; i++) {
       this.addLandListing.images.push(files[i]);
