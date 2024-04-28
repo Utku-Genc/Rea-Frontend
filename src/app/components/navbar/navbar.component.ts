@@ -4,8 +4,10 @@ import { UserImage } from '../../models/userImage';
 import { UserImageService } from '../../services/user-image.service';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
-import { Router } from '@angular/router';
-import { startWith } from 'rxjs';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter, startWith } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+import { event } from 'jquery';
 
 @Component({
   selector: 'navbar',
@@ -28,18 +30,26 @@ export class NavbarComponent implements OnInit {
     private userImageService: UserImageService,
     private userService: UserService,
     private router: Router,
+    private route: ActivatedRoute,
+    private toastrService:ToastrService
   ) { }
 
   ngOnInit(): void {
+    this.router.events.pipe(filter(event=>event instanceof NavigationEnd)).subscribe(()=>{
+      console.log(this.isLoggedIn + " Navbar");
+      const isAlreadyLoggedIn = this.isLoggedIn
+      this.isLoggedIn = this.authService.isAuthenticated();
+      console.log(isAlreadyLoggedIn+"  "+this.isLoggedIn)
+      if(isAlreadyLoggedIn == true && isAlreadyLoggedIn != this.isLoggedIn){
+        this.toastrService.info("Token süreniz doldu tekrardan giriş yapiniz","Lütfen Tekrardan Giriş Yapınız")
+        this.router.navigate(["login"])
+      }
+      if (this.isLoggedIn) {
+        this.getUser();
+        this.getUserImageByToken();
+      }
+    })
 
-
-
-    console.log(this.isLoggedIn + " Navbar");
-    this.isLoggedIn = this.authService.isAuthenticated();
-    if (this.isLoggedIn) {
-      this.getUser();
-      this.getUserImageByToken();
-    }
 
   }
 
