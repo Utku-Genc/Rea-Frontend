@@ -149,9 +149,10 @@ export class ListingAddComponent implements OnInit {
             this.listingImageService.uploadImage(this.addHouseListingResponse.listingId, image).subscribe(response =>
                {
                  this.toastrService.success("Resimler Eklendi");
+                 this.router.navigate(["profile/ilanlarim"]);
                 })
           });
-          this.router.navigate(["profile/ilanlarim"]);
+
         },
         responseError=>{
           if(responseError.error.ValidationErrors.length>0){
