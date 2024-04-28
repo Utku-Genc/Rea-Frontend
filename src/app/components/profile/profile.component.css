@@ -24,5 +24,10 @@
     padding-bottom: 5px;
     background: #80dad0;
 }
+.text-sub{
+    word-wrap: break-word; 
+    overflow-wrap: break-word; 
+    word-break: break-all;
+}
 
  

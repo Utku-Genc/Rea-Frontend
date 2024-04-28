@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: 'landlisting', component: LandListingComponent},
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
-  { path: 'profile/:id', component: ProfileComponent , canActivate:[LoginGuard]},
+  { path: 'profile/:id', component: ProfileComponent },
   { path:'profile/ilanlarim', component:ProfileComponent, canActivate:[LoginGuard]},
   { path:'listing/add', component:ListingAddComponent, canActivate:[LoginGuard]},
   { path: 'listing/edit/:id', component:ListingEditingComponent, canActivate:[LoginGuard]}
