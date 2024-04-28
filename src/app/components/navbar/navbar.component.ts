@@ -12,6 +12,7 @@ import { startWith } from 'rxjs';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
+
 export class NavbarComponent implements OnInit {
   @Output() updateNavbar = new EventEmitter<void>();
 
@@ -41,6 +42,7 @@ export class NavbarComponent implements OnInit {
     }
 
   }
+
 
   checkLink(): boolean {
     if (this.router.url.startsWith("/listing")) {

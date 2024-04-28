@@ -12,8 +12,11 @@ export class UserService {
  apiUrl ="https://localhost:44318/api/User/"
   constructor(private httpClient: HttpClient) { }
 getUserByToken(): Observable<SingleResponseModel<User>>{
-  return this.httpClient.get<SingleResponseModel<User>>(this.apiUrl+"getuserdetails");
+  return this.httpClient.get<SingleResponseModel<User>>(this.apiUrl+"getuserdetailsbytoken");
 
+}
+getUserById(userId:number):Observable<SingleResponseModel<User>>{
+  return this.httpClient.get<SingleResponseModel<User>>(this.apiUrl+"getuserdetailsbyid?userId="+userId)
 }
 
 }

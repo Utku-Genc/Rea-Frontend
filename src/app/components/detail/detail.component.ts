@@ -136,5 +136,12 @@ export class DetailComponent implements OnInit {
       return 'https://localhost:44318/Uploads/ListingImages/DefaultImage.png';
     }
   }
+
+  getUserId():number{
+    if(this.houseDetail == null){
+      return this.landDetail.userId
+    }
+      return this.houseDetail.userId
+  }
 }
 
