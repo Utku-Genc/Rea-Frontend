@@ -41,7 +41,7 @@ export class ListingEditingComponent implements OnInit {
     city: City[]= [];
     districts: District[]=[];
 
-    hasError: boolean = false;
+
 
     houseDetail!: HouseDetail;
     landDetail!: LandDetail;
@@ -179,29 +179,30 @@ export class ListingEditingComponent implements OnInit {
   }
 
   updateHouse(){
+    let hasError = false;
     if(this.updateHouseListing.cityId == 0){
       this.toastrService.error("Şehir Bilgisi Boş Olamaz", "Dikkat!");
-      this.hasError = true;
+      hasError = true;
     }
     if(this.updateHouseListing.districtId == 0){
       this.toastrService.error("İlçe Bilgisi Boş Olamaz", "Dikkat!");
-      this.hasError = true;
+      hasError = true;
 
     }
     if(this.updateHouseListing.typeId == 0){
       this.toastrService.error("Ev Tipi Boş Olamaz", "Dikkat!");
-      this.hasError = true;
+      hasError = true;
 
     }
     if(this.updateHouseListing.listingTypeId == 0){
       this.toastrService.error("İlan Tipi Bilgisi Boş Olamaz", "Dikkat!");
-      this.hasError = true;
+      hasError = true;
 
     }
-    if(this.hasError == true)return      
+    if(hasError == true)return      
     
     this.houseListingService.updateHouse(this.updateHouseListing).subscribe(response =>{
-        this.router.navigate(["profile/ilanlarım"]);
+        this.router.navigate(["profile/ilanlarim"]);
         this.toastrService.success("İlan Başarıyla Güncellendi", "İşlem Başarılı")
       })
   
@@ -232,24 +233,25 @@ export class ListingEditingComponent implements OnInit {
   }
 
   updateLand(){
+    let hasError = false;
     if(this.updateLandListing.cityId == 0){
       this.toastrService.error("Şehir Bilgisi Boş Olamaz", "Dikkat!");
-      this.hasError = true;
+      hasError = true;
     }
     if(this.updateLandListing.districtId == 0){
       this.toastrService.error("İlçe Bilgisi Boş Olamaz", "Dikkat!");
-      this.hasError = true;
+      hasError = true;
 
     }
     if(this.updateLandListing.listingTypeId == 0){
       this.toastrService.error("İlan Tipi Boş Olamaz", "Dikkat!");
-      this.hasError = true;
+      hasError = true;
 
     }
-    if(this.hasError == true)return
+    if(hasError == true)return
 
     this.landListingService.updateLand(this.updateLandListing).subscribe(response =>{
-        this.router.navigate(["profile/ilanlarım"]);
+        this.router.navigate(["profile/ilanlarim"]);
         this.toastrService.success("İlan Başarıyla Güncellendi", "İşlem Başarılı")
       })
   

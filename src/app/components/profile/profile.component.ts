@@ -139,11 +139,13 @@ export class ProfileComponent implements OnInit {
 
   setDeleteToListingId(listingId: number) {
     this.deleteToListingId = listingId;
+    console.log("deleteToListing"+this.setDeleteToListingId)
   }
+  
   deleteListing() {
     this.listingService.deleteListing(this.deleteToListingId).subscribe(response => {
-      window.location.reload();
       this.toastrService.info("İlan Başarıyla Silindi", "İşlem Başarılı")
+      window.location.reload();
     });
   }
   onFileSelected(event: any) {
