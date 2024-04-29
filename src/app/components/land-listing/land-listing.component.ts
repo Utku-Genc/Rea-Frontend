@@ -84,14 +84,17 @@ export class LandListingComponent implements OnInit {
     })
   }
 
-onCityChange(event: any) {
+  onCityChange(event: any) {
     const cityId = event.target.value;
-    if (cityId) {
-        this.getDistrict(cityId);
-    } else {
-        this.districts = []; // Şehir seçilmediyse ilçe listesini temizle
+    if (cityId > 0) {
+      this.getDistrict(cityId);
+    }else if(cityId ==  undefined){
+      this.districts = [];
+    } 
+    else {
+      this.districts = []; // Şehir seçilmediyse ilçe listesini temizle
     }
-}
+  }
 
 
 

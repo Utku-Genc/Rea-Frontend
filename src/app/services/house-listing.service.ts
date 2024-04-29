@@ -8,6 +8,7 @@ import { UpdateHouse } from '../models/updateHouse';
 import { ListResponseModel } from '../models/listResponseModel';
 import { HouseListing } from '../models/houseListing';
 import { HouseFilter } from '../models/houseFilter';
+import { SortingObject } from '../models/sortingObject';
 
 @Injectable({
   providedIn: 'root'
@@ -39,5 +40,12 @@ export class HouseListingService {
 
   updateHouse(data: any): Observable<SingleResponseModel<UpdateHouse>>{
     return this.httpClient.post<SingleResponseModel<UpdateHouse>>(this.apiUrl+"update", data)
+  }
+
+  getPaginatedListings(filter: HouseFilter, sorting: SortingObject, pageNumber: number, pageSize: number): Observable<ListResponseModel<HouseListing>> {
+    return this.httpClient.get<ListResponseModel<HouseListing>>(
+      `${this.apiUrl}getpaginatedlistings?pageNumber=${pageNumber}&pageSize=${pageSize}&` +
+      `filter=${JSON.stringify(filter)}&sorting=${JSON.stringify(sorting)}`
+    );
   }
 }
