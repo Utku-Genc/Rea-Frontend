@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/internal/Observable';
 import { ResponseModel } from '../models/responseModel';
 import { ListResponseModel } from '../models/listResponseModel';
 import { Listing } from '../models/listing';
+import { ListingFilter } from '../models/listingFilter';
+import { SortingObject } from '../models/sortingObject';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +30,12 @@ export class ListingService {
   }
   deleteListing(listingId:number):Observable<ResponseModel>{
     return this.httpClient.post<ResponseModel>(this.apiUrl+"deletebyid?listingId="+listingId,{})
+  }
+  getPaginatedListings(filter: ListingFilter, sorting: SortingObject, pageNumber: number, pageSize: number): Observable<ListResponseModel<Listing>> {
+    return this.httpClient.get<ListResponseModel<Listing>>(
+      `${this.apiUrl}getpaginatedlistings?pageNumber=${pageNumber}&pageSize=${pageSize}&` +
+      `filter=${JSON.stringify(filter)}&sorting=${JSON.stringify(sorting)}`
+    );
   }
   
 }

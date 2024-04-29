@@ -102,16 +102,18 @@ this.houseListingService.getByFilter(filterObject).subscribe((response) => {
       this.city = response.data;
     })
   }
-
-onCityChange(event: any) {
+  onCityChange(event: any) {
     const cityId = event.target.value;
-    if (cityId) {
-      console.log(cityId)
-        this.getDistrict(cityId);
-    } else {
-        this.districts = []; // Şehir seçilmediyse ilçe listesini temizle
+    if (cityId > 0) {
+      this.getDistrict(cityId);
+    }else if(cityId ==  undefined){
+      this.districts = [];
+    } 
+    else {
+      this.districts = []; // Şehir seçilmediyse ilçe listesini temizle
     }
-}
+  }
+
 
 
 

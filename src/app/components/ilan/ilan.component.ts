@@ -123,12 +123,16 @@ export class IlanComponent implements OnInit {
 
   onCityChange(event: any) {
     const cityId = event.target.value;
-    if (cityId) {
+    if (cityId > 0) {
       this.getDistrict(cityId);
-    } else {
+    }else if(cityId ==  undefined){
+      this.districts = [];
+    } 
+    else {
       this.districts = []; // Şehir seçilmediyse ilçe listesini temizle
     }
   }
+
 
 
 

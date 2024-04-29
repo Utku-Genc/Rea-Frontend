@@ -5,6 +5,10 @@ import { LandListing } from '../../models/landListing';
 import { HouseListingService } from '../../services/house-listing.service';
 import { LandListingService } from '../../services/land-listing.service';
 import { ListingService } from '../../services/listing.service';
+import { ListingFilter } from '../../models/listingFilter';
+import { SortingObject } from '../../models/sortingObject';
+import { HouseFilter } from '../../models/houseFilter';
+import { LandFilter } from '../../models/landFilter';
 
 @Component({
   selector: 'homepage',
@@ -27,11 +31,34 @@ export class HomepageComponent {
     ) { }
 
   ngOnInit(): void {
-    this.getListing();
-    this.getHouseListing();
-    this.getLandListing()
+    this.getListingByPage(1,6);
+    this.getHouseListingByPage(1,6);
+    this.getLandListingByPage(1,6);
+
 
   }
+  getListingByPage(page:number,pageSize:number){
+    let filter! : ListingFilter
+    let sortingObject! : SortingObject
+    this.listingService.getPaginatedListings(filter,sortingObject,1,6).subscribe(response=>{
+      this.listings = response.data;
+    })
+  }
+  getHouseListingByPage(page:number,pageSize:number){
+    let filter! : HouseFilter
+    let sortingObject! : SortingObject
+    this.houseListingService.getPaginatedListings(filter,sortingObject,1,6).subscribe(response=>{
+      this.houseListings = response.data;
+    })
+  }
+  getLandListingByPage(page:number,pageSize:number){
+    let filter! : LandFilter
+    let sortingObject! : SortingObject
+    this.landListingService.getPaginatedListings(filter,sortingObject,1,6).subscribe(response=>{
+      this.landListings = response.data;
+    })
+  }
+
   getListing = () => {
       this.listingService.getListing().subscribe((response) => {
         this.listings = response.data;
