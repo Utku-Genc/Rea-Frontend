@@ -10,7 +10,7 @@
                             <input [(ngModel)]="searchText" type="text" class="form-control input-lg"
                                 placeholder="Hayalinde ki ev ve arsa bir adım uzağında"
                                 aria-label="Recipient's username" aria-describedby="button-addon2">
-                            <button routerLink="/listing/searchText/{{searchText}}" class="btn btn-light btn-lg" type="button"
+                            <button routerLink="/listing/searchText/{{searchText}}/page/1" class="btn btn-light btn-lg" type="button"
                                 id="button-addon2"><i class="fa-solid fa-magnifying-glass fs-lg"></i></button>
                         </div>
 
@@ -28,7 +28,7 @@
                             </div>
                         </a>
 
-                        <a routerLink="/listing">
+                        <a routerLink="/listing/page/1">
                             <div class="position-absolute top-100 start-50 translate-middle-x" style="width: 25%;">
                                 <div class="card text-bg-dark border-0 ">
                                     <img src="../../assets/img/homeAndLand.jpg" class="card-img">

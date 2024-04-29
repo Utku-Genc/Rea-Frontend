@@ -6,6 +6,7 @@ import { ListResponseModel } from '../models/listResponseModel';
 import { Listing } from '../models/listing';
 import { ListingFilter } from '../models/listingFilter';
 import { SortingObject } from '../models/sortingObject';
+import { ListingRequestModel } from '../models/listingRequestModel';
 
 @Injectable({
   providedIn: 'root'
@@ -32,9 +33,21 @@ export class ListingService {
     return this.httpClient.post<ResponseModel>(this.apiUrl+"deletebyid?listingId="+listingId,{})
   }
   getPaginatedListings(filter: ListingFilter, sorting: SortingObject, pageNumber: number, pageSize: number): Observable<ListResponseModel<Listing>> {
-    return this.httpClient.get<ListResponseModel<Listing>>(
-      `${this.apiUrl}getpaginatedlistings?pageNumber=${pageNumber}&pageSize=${pageSize}&` +
-      `filter=${JSON.stringify(filter)}&sorting=${JSON.stringify(sorting)}`
+    let requestBody: ListingRequestModel = {
+      pageNumber: pageNumber,
+      pageSize: pageSize,
+      filter: null,
+      sorting: null
+    };
+    if(filter){
+      requestBody.filter = filter
+    }
+    if(sorting){
+      requestBody.sorting = sorting
+    }
+  
+    return this.httpClient.post<ListResponseModel<Listing>>(
+      this.apiUrl+"getpaginatedlistings",requestBody
     );
   }
   
