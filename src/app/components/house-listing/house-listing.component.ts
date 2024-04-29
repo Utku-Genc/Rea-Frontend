@@ -24,7 +24,27 @@ export class HouseListingComponent {
 
   squareMeter: number=0;
   price: number=0;
-  filterObject: any = {};
+  filterObject: HouseFilter = {
+    bathroomCount:null,
+    cityId:null,
+    districtId:null,
+    hasBalcony:null,
+    hasElevator:null,
+    hasFurniture:null,
+    hasGarden:null,
+    hasParking:null,
+    houseTypeId:null,
+    isInGatedCommunity:null,
+    listingTypeId:null,
+    livingRoomCount:null,
+    maxBuildAge:null,
+    maxPrice:null,
+    minPrice:null,
+    maxSquareMeter:null,
+    minSquareMeter:null,
+    roomCount:null,
+    searchText:null,
+  };
   filterApiUrl = "https://localhost:44318/api/HouseListings/getallbyfilter"
 
   city: City[] = [];
@@ -84,9 +104,10 @@ this.houseListingService.getByFilter(filterObject).subscribe((response) => {
   }
 
 onCityChange(event: any) {
-    const cityName = event.target.value;
-    if (cityName) {
-        this.getDistrict(cityName);
+    const cityId = event.target.value;
+    if (cityId) {
+      console.log(cityId)
+        this.getDistrict(cityId);
     } else {
         this.districts = []; // Şehir seçilmediyse ilçe listesini temizle
     }
@@ -94,8 +115,8 @@ onCityChange(event: any) {
 
 
 
-  getDistrict(cityName: string) {
-    this.districService.getDistrictByName(cityName).subscribe(respone => {
+  getDistrict(ciytyId: number) {
+    this.districService.getDistrict(ciytyId).subscribe(respone => {
       this.districts = respone.data;
     })
   }
@@ -111,13 +132,13 @@ onCityChange(event: any) {
     })
   }
   onSubmit() {
-    if(this.filterObject.minSquareMeter > this.filterObject.maxSquareMeter){
+    if(this.filterObject.minSquareMeter && this.filterObject.maxSquareMeter && this.filterObject.minSquareMeter > this.filterObject.maxSquareMeter){
       this.squareMeter = this.filterObject.minSquareMeter;
       this.filterObject.minSquareMeter = this.filterObject.maxSquareMeter;
       this.filterObject.maxSquareMeter = this.squareMeter;
     }
 
-    if(this.filterObject.minPrice > this.filterObject.maxPrice){
+    if(this.filterObject.minPrice && this.filterObject.maxPrice && this.filterObject.minPrice > this.filterObject.maxPrice){
       this.price = this.filterObject.minPrice;
       this.filterObject.minPrice = this.filterObject.maxPrice;
       this.filterObject.maxPrice = this.price;

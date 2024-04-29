@@ -38,18 +38,18 @@
                         <div class="col mb-3">
                             <label for="listingTypeName" class="form-label">İlan Türü</label>
                             <select class="form-select" id="listingTypeName" name="listingTypeName"
-                                [(ngModel)]="filterObject.listingTypeName">
+                                [(ngModel)]="filterObject.listingTypeId">
                                 <option value="">Seçiniz</option>
-                                <option  *ngFor="let listingType of listingTypes" value="{{listingType.listingTypeName}}">{{listingType.listingTypeName}}</option>
+                                <option  *ngFor="let listingType of listingTypes" value="{{listingType.id}}">{{listingType.listingTypeName}}</option>
 
                             </select>
                         </div>
                         <div class="col mb-3">
                             <label for="houseTypeName" class="form-label">Ev Türü</label>
                             <select class="form-select" id="propertyType" name="propertyType"
-                                [(ngModel)]="filterObject.houseTypeName">
+                                [(ngModel)]="filterObject.houseTypeId">
                                 <option value="">Seçiniz</option>
-                                <option *ngFor="let houseType of houseTypes" value={{houseType.name}}>{{houseType.name}}</option>
+                                <option *ngFor="let houseType of houseTypes" value={{houseType.id}}>{{houseType.name}}</option>
 
                             </select>
                         </div>
@@ -57,16 +57,16 @@
                     <div class="mb-3">
                         <label for="city" class="form-label">Şehir</label>
                         <select class="form-select" id="city" name="city" (change)="onCityChange($event)"
-                            [(ngModel)]="filterObject.cityName">
-                            <option value="">Şehir Seçin</option>
-                            <option *ngFor="let city of city" [value]="city.cityName">{{ city.cityName }}</option>
+                            [(ngModel)]="filterObject.cityId">
+                            <option [ngValue]="undefined">Şehir Seçin</option>
+                            <option *ngFor="let city of city" [value]="city.id">{{ city.cityName }}</option>
                         </select>
 
                         <label for="district" class="form-label">İlçe</label>
                         <select class="form-select" id="district" name="district"
-                            [(ngModel)]="filterObject.districtName">
-                            <option value=NULL>İlçe Seçin</option>
-                            <option *ngFor="let district of districts" [value]="district.districtName">{{
+                            [(ngModel)]="filterObject.districtId">
+                            <option [ngValue]="undefined">İlçe Seçin</option>
+                            <option *ngFor="let district of districts" [value]="district.id">{{
                                 district.districtName }}</option>
                         </select>
                     </div>

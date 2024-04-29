@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ListingType } from '../../models/listingType';
 import { ListingTypeService } from '../../services/listing-type.service';
+import { ListingFilter } from '../../models/listingFilter';
 
 @Component({
   selector: 'ilan',
@@ -22,7 +23,16 @@ export class IlanComponent implements OnInit {
 
   squareMeter: number = 0;
   price: number = 0;
-  filterObject: any = {};
+  filterObject : ListingFilter = {
+    cityId : null,
+    districtId:null,
+    listingTypeId:null,
+    maxPrice:null,
+    maxSquareMeter:null,
+    minPrice:null,
+    minSquareMeter:null,
+    searchText:null
+  }
 
   city: City[] = [];
   districts: District[] = [];
@@ -32,7 +42,6 @@ export class IlanComponent implements OnInit {
   listingsPerPage = 12;
 
   constructor(private listingService: ListingService,
-    private httpClient: HttpClient,
     private cityService: CityService,
     private districService: DistrictService,
     private route: ActivatedRoute,
@@ -43,12 +52,15 @@ export class IlanComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log("1")
     const searchText = this.route.snapshot.paramMap.get('searchText');
     if (searchText !== null) {
       this.filterObject.searchText = searchText;
       this.onSubmit();
+      console.log("2")
     } else {
       this.getListing();
+      console.log("3")
     }
 
     this.getCity();
@@ -56,6 +68,7 @@ export class IlanComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.currentPage = params['page'] || 1;
     });
+
   }
   getListing = () => {
     this.listingService.getListing().subscribe((response) => {
@@ -70,13 +83,13 @@ export class IlanComponent implements OnInit {
 
   onSubmit() {
 
-    if (this.filterObject.minSquareMeter > this.filterObject.maxSquareMeter) {
+    if (this.filterObject.minSquareMeter && this.filterObject.maxSquareMeter&& this.filterObject.minSquareMeter > this.filterObject.maxSquareMeter) {
       this.squareMeter = this.filterObject.minSquareMeter;
       this.filterObject.minSquareMeter = this.filterObject.maxSquareMeter;
       this.filterObject.maxSquareMeter = this.squareMeter;
     }
 
-    if (this.filterObject.minPrice > this.filterObject.maxPrice) {
+    if (this.filterObject.minPrice && this.filterObject.maxPrice && this.filterObject.minPrice > this.filterObject.maxPrice) {
       this.price = this.filterObject.minPrice;
       this.filterObject.minPrice = this.filterObject.maxPrice;
       this.filterObject.maxPrice = this.price;
@@ -89,7 +102,7 @@ export class IlanComponent implements OnInit {
       this.router.navigateByUrl(`/listing/searchText/${searchText}`); // Sadece link kısmını güncelle
     }
 
-
+    console.log(this.filterObject)
 
 
     this.listingService.getByFilter(this.filterObject)
@@ -109,9 +122,9 @@ export class IlanComponent implements OnInit {
   }
 
   onCityChange(event: any) {
-    const cityName = event.target.value;
-    if (cityName) {
-      this.getDistrict(cityName);
+    const cityId = event.target.value;
+    if (cityId) {
+      this.getDistrict(cityId);
     } else {
       this.districts = []; // Şehir seçilmediyse ilçe listesini temizle
     }
@@ -119,10 +132,13 @@ export class IlanComponent implements OnInit {
 
 
 
-  getDistrict(cityName: string) {
-    this.districService.getDistrictByName(cityName).subscribe(respone => {
-      this.districts = respone.data;
-    })
+  getDistrict(cityId: number) {
+    if(cityId != null){
+      this.districService.getDistrict(cityId).subscribe(respone => {
+        this.districts = respone.data;
+      })
+    }
+
   }
   getListingImagePath(listing: Listing): string {
     if (listing.imagePath) {
