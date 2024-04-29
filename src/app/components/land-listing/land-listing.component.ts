@@ -22,7 +22,17 @@ export class LandListingComponent implements OnInit {
 
   currentPage = 1; 
   listingsPerPage = 12; 
-  filterObject: any= {}
+  filterObject: LandFilter= {
+    cityId:null,
+    districtId:null,
+    floorEquivalen:null,
+    listingTypeId:null,
+    maxPrice:null,
+    maxSquareMeter:null,
+    minPrice:null,
+    minSquareMeter:null,
+    searchText:null
+  }
 
   city: City[] = [];
   districts: District[] = [];
@@ -75,9 +85,9 @@ export class LandListingComponent implements OnInit {
   }
 
 onCityChange(event: any) {
-    const cityName = event.target.value;
-    if (cityName) {
-        this.getDistrict(cityName);
+    const cityId = event.target.value;
+    if (cityId) {
+        this.getDistrict(cityId);
     } else {
         this.districts = []; // Şehir seçilmediyse ilçe listesini temizle
     }
@@ -85,8 +95,8 @@ onCityChange(event: any) {
 
 
 
-  getDistrict(cityName: string) {
-    this.districService.getDistrictByName(cityName).subscribe(respone => {
+  getDistrict(cityId: number) {
+    this.districService.getDistrict(cityId).subscribe(respone => {
       this.districts = respone.data;
     })
   }
@@ -97,13 +107,13 @@ onCityChange(event: any) {
     })
   }
   onSubmit() {
-    if(this.filterObject.minSquareMeter > this.filterObject.maxSquareMeter){
+    if(this.filterObject.minSquareMeter && this.filterObject.maxSquareMeter &&  this.filterObject.minSquareMeter > this.filterObject.maxSquareMeter){
       this.squareMeter = this.filterObject.minSquareMeter;
       this.filterObject.minSquareMeter = this.filterObject.maxSquareMeter;
       this.filterObject.maxSquareMeter = this.squareMeter;
     }
 
-    if(this.filterObject.minPrice > this.filterObject.maxPrice){
+    if(this.filterObject.minPrice && this.filterObject.maxPrice && this.filterObject.minPrice > this.filterObject.maxPrice){
       this.price = this.filterObject.minPrice;
       this.filterObject.minPrice = this.filterObject.maxPrice;
       this.filterObject.maxPrice = this.price;
