@@ -23,3 +23,10 @@
     padding-bottom: 5px;
     background: #80dad0;
 }
+
+.set-page{
+    background-color: rgb(43, 48, 53);
+    color: rgb(255, 188, 0); 
+    border: none;
+    width: 100px;
+}

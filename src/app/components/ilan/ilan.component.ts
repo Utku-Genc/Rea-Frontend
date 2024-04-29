@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ListingType } from '../../models/listingType';
 import { ListingTypeService } from '../../services/listing-type.service';
 import { ListingFilter } from '../../models/listingFilter';
+import { SortingObject } from '../../models/sortingObject';
 
 @Component({
   selector: 'ilan',
@@ -23,23 +24,23 @@ export class IlanComponent implements OnInit {
 
   squareMeter: number = 0;
   price: number = 0;
-  filterObject : ListingFilter = {
-    cityId : null,
-    districtId:null,
-    listingTypeId:null,
-    maxPrice:null,
-    maxSquareMeter:null,
-    minPrice:null,
-    minSquareMeter:null,
-    searchText:null
+  filterObject: ListingFilter = {
+    cityId: null,
+    districtId: null,
+    listingTypeId: null,
+    maxPrice: null,
+    maxSquareMeter: null,
+    minPrice: null,
+    minSquareMeter: null,
+    searchText: null
   }
 
   city: City[] = [];
   districts: District[] = [];
   listingTypes: ListingType[] = [];
 
-  currentPage = 1;
-  listingsPerPage = 12;
+  currentPage: number = 1;
+  listingsPerPage: number = 12;
 
   constructor(private listingService: ListingService,
     private cityService: CityService,
@@ -52,24 +53,43 @@ export class IlanComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log("1")
-    const searchText = this.route.snapshot.paramMap.get('searchText');
-    if (searchText !== null) {
-      this.filterObject.searchText = searchText;
-      this.onSubmit();
-      console.log("2")
-    } else {
-      this.getListing();
-      console.log("3")
+    let id = this.route.snapshot.paramMap.get('pageId');
+    if (id) {
+      this.currentPage = parseInt(id, 10);
+      this.getListingByPage(this.currentPage, this.listingsPerPage);
+
+      const searchText = this.route.snapshot.paramMap.get('searchText');
+      console.log("cons" + searchText)
+      if (searchText !== null) {
+        this.filterObject.searchText = searchText;
+        this.onSubmit();
+        console.log("2")
+      } else {
+        this.getListingByPage(this.currentPage, this.listingsPerPage);
+        console.log("3")
+      }
+      this.getCity();
+      this.getListingTypes();
+      return;
     }
 
     this.getCity();
     this.getListingTypes();
-    this.route.queryParams.subscribe(params => {
-      this.currentPage = params['page'] || 1;
-    });
 
   }
+
+  getListingByPage(page: number, pageSize: number) {
+    console.log(this.currentPage, this.listingsPerPage)
+    console.log(this.filterObject)
+    let sortingObject!: SortingObject
+    this.listingService.getPaginatedListings(this.filterObject, sortingObject, this.currentPage, this.listingsPerPage).subscribe(response => {
+      this.listings = response.data;
+      console.log(response.data)
+      console.log(this.filterObject)
+
+    })
+  }
+
   getListing = () => {
     this.listingService.getListing().subscribe((response) => {
       this.listings = response.data;
@@ -83,7 +103,7 @@ export class IlanComponent implements OnInit {
 
   onSubmit() {
 
-    if (this.filterObject.minSquareMeter && this.filterObject.maxSquareMeter&& this.filterObject.minSquareMeter > this.filterObject.maxSquareMeter) {
+    if (this.filterObject.minSquareMeter && this.filterObject.maxSquareMeter && this.filterObject.minSquareMeter > this.filterObject.maxSquareMeter) {
       this.squareMeter = this.filterObject.minSquareMeter;
       this.filterObject.minSquareMeter = this.filterObject.maxSquareMeter;
       this.filterObject.maxSquareMeter = this.squareMeter;
@@ -99,19 +119,18 @@ export class IlanComponent implements OnInit {
 
     if (this.filterObject.searchText !== null && this.router.url.startsWith("/listing/searchText/")) {
       const searchText = this.filterObject.searchText;
-      this.router.navigateByUrl(`/listing/searchText/${searchText}`); // Sadece link kısmını güncelle
+      this.router.navigateByUrl(`/listing/searchText/${searchText}/page/.`);
+      this.currentPage = 1
+      this.router.navigateByUrl(`/listing/searchText/${searchText}/page/${this.currentPage}`); // Sadece link kısmını güncelle
+      this.getListingByPage(this.currentPage, this.listingsPerPage)
+      return
     }
 
     console.log(this.filterObject)
+    this.router.navigateByUrl(`/listing/page/1`);
+    this.currentPage = 1
 
-
-    this.listingService.getByFilter(this.filterObject)
-      .subscribe(response => {
-        this.listings = response.data
-        this.toastrService.success("Başarıyla Filtrelendi", "İşlem Başarılı")
-      }, error => {
-        this.toastrService.error("Bir hatayla karşılaşıldı", "Hata");
-      });
+    this.getListingByPage(this.currentPage, this.listingsPerPage)
   }
 
 
@@ -125,9 +144,9 @@ export class IlanComponent implements OnInit {
     const cityId = event.target.value;
     if (cityId > 0) {
       this.getDistrict(cityId);
-    }else if(cityId ==  undefined){
+    } else if (cityId == undefined) {
       this.districts = [];
-    } 
+    }
     else {
       this.districts = []; // Şehir seçilmediyse ilçe listesini temizle
     }
@@ -137,7 +156,7 @@ export class IlanComponent implements OnInit {
 
 
   getDistrict(cityId: number) {
-    if(cityId != null){
+    if (cityId != null) {
       this.districService.getDistrict(cityId).subscribe(respone => {
         this.districts = respone.data;
       })
@@ -154,14 +173,59 @@ export class IlanComponent implements OnInit {
   }
 
 
-  get startIndex(): number {
-    return (this.currentPage - 1) * this.listingsPerPage;
+  previousPage() {
+    if (this.filterObject.searchText !== null && this.router.url.startsWith("/listing/searchText/") && this.currentPage == 1) {
+      this.toastrService.info("Zaten ilk sayfadasınız.", "Bilgilendirme")
+      const searchText = this.filterObject.searchText;
+      this.router.navigateByUrl(`/listing/searchText/${searchText}/page/${this.currentPage}`); // Sadece link kısmını güncelle
+      this.getListingByPage(this.currentPage, this.listingsPerPage)
+      return
+    } else if (this.filterObject.searchText !== null && this.router.url.startsWith("/listing/searchText/") && this.currentPage != 1) {
+      const searchText = this.filterObject.searchText;
+      this.currentPage = this.currentPage - 1;
+      this.getListingByPage(this.currentPage, this.listingsPerPage);
+      this.router.navigateByUrl(`/listing/searchText/${searchText}/page/${this.currentPage}`)
+    }
+    else if (this.currentPage == 1) {
+      this.toastrService.info("Zaten ilk sayfadasınız.", "Bilgilendirme")
+      return
+    } else {
+      this.currentPage = this.currentPage - 1
+      this.getListingByPage(this.currentPage, this.listingsPerPage);
+      this.router.navigateByUrl(`/listing/page/${this.currentPage}`); // Sadece link kısmını güncelle
+    }
   }
 
-  get endIndex(): number {
-    return this.startIndex + this.listingsPerPage;
+
+  nextPage() {
+    if (this.filterObject.searchText !== null && this.router.url.startsWith("/listing/searchText/") && this.listings.length < 12) {
+      const searchText = this.filterObject.searchText;
+      this.router.navigateByUrl(`/listing/searchText/${searchText}/page/${this.currentPage}`); // Sadece link kısmını güncelle
+      this.getListingByPage(this.currentPage, this.listingsPerPage)
+      this.toastrService.info("Son sayfaya ulaştınız.", "Bilgilendirme");
+      return
+    }else if(this.filterObject.searchText !== null && this.router.url.startsWith("/listing/searchText/") && this.listings.length >= 12){
+      const searchText = this.filterObject.searchText;
+      this.currentPage = this.currentPage + 1;
+      this.router.navigateByUrl(`/listing/searchText/${searchText}/page/${this.currentPage}`); // Sadece link kısmını güncelle
+      this.getListingByPage(this.currentPage, this.listingsPerPage)
+    }
+    else if (this.listings.length < 12) {
+      this.toastrService.info("Son sayfaya ulaştınız.", "Bilgilendirme");
+      return
+    } else {
+      this.currentPage = this.currentPage + 1;
+      this.getListingByPage(this.currentPage, this.listingsPerPage);
+
+      this.router.navigateByUrl(`/listing/page/${this.currentPage}`); // Sadece link kısmını güncelle
+
+    }
   }
 
+  setPageNumber(pageNumber: number) {
+    this.currentPage = pageNumber;
+    this.getListingByPage(this.currentPage, this.listingsPerPage);
+  }
   onPageChange(newPage: number) {
     this.currentPage = newPage;
     console.log(this.currentPage)
@@ -173,18 +237,5 @@ export class IlanComponent implements OnInit {
   }
 
 
-  get totalPages(): number {
-    return Math.ceil(this.listings.length / this.listingsPerPage);
-  }
-
-  get totalPagesArray(): number[] {
-    return Array(this.totalPages).fill(0).map((x, i) => i + 1);
-  }
-  get visiblePages(): number[] {
-    const start = Math.max(1, this.currentPage - 1);
-    const end = Math.min(start + 3, this.totalPagesArray.length);
-
-    return Array(end - start + 1).fill(0).map((_, index) => start + index);
-  }
 
 }

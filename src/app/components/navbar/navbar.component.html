@@ -9,7 +9,7 @@
 
           <div class="d-flex" *ngIf="checkLink()">
             <input class="form-control" [(ngModel)]="searchText" type="search" placeholder="Ara" aria-label="Search">
-            <button routerLink="/listing/searchText/{{searchText}}" class="btn btn-outline-success" type="button">
+            <button routerLink="/listing/searchText/{{searchText}}/page/1" class="btn btn-outline-success" type="button">
               <i class="fa-solid fa-magnifying-glass fs-lg"></i>
             </button>
           </div>
