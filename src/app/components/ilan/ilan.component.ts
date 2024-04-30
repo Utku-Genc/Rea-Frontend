@@ -35,9 +35,9 @@ export class IlanComponent implements OnInit {
     searchText: null
   }
 
-  sorting:SortingObject = {
-    sortBy : "date",
-    sortDirection:SortDirection.Descending
+  sorting: SortingObject = {
+    sortBy: "date",
+    sortDirection: SortDirection.Descending
   }
 
   city: City[] = [];
@@ -46,6 +46,8 @@ export class IlanComponent implements OnInit {
 
   currentPage: number = 1;
   listingsPerPage: number = 12;
+  selectedSorting: string="date-1";
+
 
   constructor(private listingService: ListingService,
     private cityService: CityService,
@@ -162,8 +164,20 @@ export class IlanComponent implements OnInit {
         this.districts = respone.data;
       })
     }
-
   }
+
+
+  setSorting() {
+    if (this.selectedSorting) {
+      const [sortBy, sortDirection] = this.selectedSorting.split('-');
+      this.sorting.sortBy = sortBy;
+      this.sorting.sortDirection = +sortDirection; // "+" kullanarak stringi number'a çeviriyoruz
+      this.currentPage = 1;
+      this.getListingByPage(this.currentPage, this.listingsPerPage);
+    }
+  }
+
+
   getListingImagePath(listing: Listing): string {
     if (listing.imagePath) {
       return 'https://localhost:44318/Uploads/ListingImages/' + listing.imagePath;
@@ -205,7 +219,7 @@ export class IlanComponent implements OnInit {
       this.getListingByPage(this.currentPage, this.listingsPerPage)
       this.toastrService.info("Son sayfaya ulaştınız.", "Bilgilendirme");
       return
-    }else if(this.filterObject.searchText !== null && this.router.url.startsWith("/listing/searchText/") && this.listings.length >= 12){
+    } else if (this.filterObject.searchText !== null && this.router.url.startsWith("/listing/searchText/") && this.listings.length >= 12) {
       const searchText = this.filterObject.searchText;
       this.currentPage = this.currentPage + 1;
       this.router.navigateByUrl(`/listing/searchText/${searchText}/page/${this.currentPage}`); // Sadece link kısmını güncelle

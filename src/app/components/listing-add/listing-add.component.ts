@@ -80,15 +80,15 @@ export class ListingAddComponent implements OnInit {
   listingTypes: ListingType[] = [];
 
   constructor(
-    private houseListingService: HouseListingService, 
-    private landListingService: LandListingService, 
-    private listingImageService: ListingImageService, 
-    private cityService: CityService, 
+    private houseListingService: HouseListingService,
+    private landListingService: LandListingService,
+    private listingImageService: ListingImageService,
+    private cityService: CityService,
     private districService: DistrictService,
-    private listingTypeService: ListingTypeService, 
+    private listingTypeService: ListingTypeService,
     private houseTypeService: HouseTypeService,
     private router: Router,
-    private toastrService:ToastrService
+    private toastrService: ToastrService
   ) { }
   ngOnInit(): void {
     this.getCity();
@@ -143,22 +143,23 @@ export class ListingAddComponent implements OnInit {
     this.houseListingService.addListing(this.addHouseListing)
       .subscribe(
         response => {
-          this.toastrService.success("İlan Başarıyla eklendi",response.data.listingId.toString())
+          this.toastrService.success("İlan Başarıyla eklendi", response.data.listingId.toString())
           this.addHouseListingResponse = response.data;
           this.addHouseListing.images.forEach(image => {
-            this.listingImageService.uploadImage(this.addHouseListingResponse.listingId, image).subscribe(response =>
-               {
-                 this.toastrService.success("Resimler Eklendi");
-                 this.router.navigate(["profile/ilanlarim"]);
-                })
+            this.listingImageService.uploadImage(this.addHouseListingResponse.listingId, image).subscribe(response => {
+              this.toastrService.success("Resimler Eklendi");
+              this.router.navigate(["profile/ilanlarim"]);
+
+            })
           });
+          this.router.navigate(["profile/ilanlarim"]);
 
         },
-        responseError=>{
-          if(responseError.error.ValidationErrors.length>0){
+        responseError => {
+          if (responseError.error.ValidationErrors.length > 0) {
             console.log(responseError.error.ValidationErrors)
             for (let i = 0; i < responseError.error.ValidationErrors.length; i++) {
-              this.toastrService.error(responseError.error.ValidationErrors[i].ErrorMessage,"Doğrulama Hatası")
+              this.toastrService.error(responseError.error.ValidationErrors[i].ErrorMessage, "Doğrulama Hatası")
             }
           }
         }
@@ -169,18 +170,20 @@ export class ListingAddComponent implements OnInit {
     this.landListingService.addLandListing(this.addLandListing)
       .subscribe(
         response => {
-          this.toastrService.success("İlan Başarıyla eklendi",response.data.listingId.toString())
+          this.toastrService.success("İlan Başarıyla eklendi", response.data.listingId.toString())
           this.addLandListingResponse = response.data;
           this.addLandListing.images.forEach(image => {
             this.listingImageService.uploadImage(this.addLandListingResponse.listingId, image).subscribe(response => { console.log("Resimler Eklendi") })
+            this.router.navigate(["profile/ilanlarim"]);
+
           });
           this.router.navigate(["profile/ilanlarim"]);
         },
-        responseError=>{
-          if(responseError.error.ValidationErrors.length>0){
+        responseError => {
+          if (responseError.error.ValidationErrors.length > 0) {
             console.log(responseError.error.ValidationErrors)
             for (let i = 0; i < responseError.error.ValidationErrors.length; i++) {
-              this.toastrService.error(responseError.error.ValidationErrors[i].ErrorMessage,"Doğrulama Hatası")
+              this.toastrService.error(responseError.error.ValidationErrors[i].ErrorMessage, "Doğrulama Hatası")
             }
           }
         }
@@ -189,7 +192,7 @@ export class ListingAddComponent implements OnInit {
 
   onFileSelectedHouse(event: any) {
     this.addHouseListing.images = [];
-    
+
     const files: FileList = event.target.files;
     for (let i = 0; i < files.length; i++) {
       this.addHouseListing.images.push(files[i]);
