@@ -7,13 +7,26 @@
                 Filtrele
             </div>
             <div class="card-body">
+                <div class="row">
+                    <div class="col mb-3">
+                        <label for="listingSorting" class="form-label">Sıralama</label>
+                        <select class="form-select" [(ngModel)]="selectedSorting" (change)="setSorting()">,
+                            <option value="date-1">Yeniden Eskiye</option>
+                            <option value="date-0">Eskiden Yeniye</option>
+                            <option value="price-0">Artan Fiyat</option>
+                            <option value="price-1">Azalan Fiyat</option>
+                            <option value="squareMeter-0">Artan Metrekare</option>
+                            <option value="squareMeter-1">Azalan Metrekare</option>
+                        </select>
+                    </div>
+                </div>
                 <form (ngSubmit)="onSubmit()" (reset)="getListing()">
                     <div class="mb-3">
                         <label for="searchText" class="form-label">Arama Metni</label>
                         <input type="text" class="form-control" id="searchText" name="searchText"
                             [(ngModel)]="filterObject.searchText">
                     </div>
-
+                    
                     <div class="row">
                         <div class="col mb-3">
                             <label for="listingTypeName" class="form-label">İlan Türü</label>
