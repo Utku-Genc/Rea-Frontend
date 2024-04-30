@@ -13,6 +13,7 @@ import { HouseTypeService } from '../../services/house-type.service';
 import { ListingTypeService } from '../../services/listing-type.service';
 import { HouseType } from '../../models/houseType';
 import { ListingType } from '../../models/listingType';
+import { SortDirection, SortingObject } from '../../models/sortingObject';
 
 @Component({
   selector: 'house-listing',
@@ -22,28 +23,28 @@ import { ListingType } from '../../models/listingType';
 export class HouseListingComponent {
   houseListings: HouseListing[] = [];
 
-  squareMeter: number=0;
-  price: number=0;
+  squareMeter: number = 0;
+  price: number = 0;
   filterObject: HouseFilter = {
-    bathroomCount:null,
-    cityId:null,
-    districtId:null,
-    hasBalcony:null,
-    hasElevator:null,
-    hasFurniture:null,
-    hasGarden:null,
-    hasParking:null,
-    houseTypeId:null,
-    isInGatedCommunity:null,
-    listingTypeId:null,
-    livingRoomCount:null,
-    maxBuildAge:null,
-    maxPrice:null,
-    minPrice:null,
-    maxSquareMeter:null,
-    minSquareMeter:null,
-    roomCount:null,
-    searchText:null,
+    bathroomCount: null,
+    cityId: null,
+    districtId: null,
+    hasBalcony: null,
+    hasElevator: null,
+    hasFurniture: null,
+    hasGarden: null,
+    hasParking: null,
+    houseTypeId: null,
+    isInGatedCommunity: null,
+    listingTypeId: null,
+    livingRoomCount: null,
+    maxBuildAge: null,
+    maxPrice: null,
+    minPrice: null,
+    maxSquareMeter: null,
+    minSquareMeter: null,
+    roomCount: null,
+    searchText: null,
   };
   filterApiUrl = "https://localhost:44318/api/HouseListings/getallbyfilter"
 
@@ -52,10 +53,15 @@ export class HouseListingComponent {
   houseTypes: HouseType[] = [];
   listingTypes: ListingType[] = [];
 
-  currentPage = 1; 
-  listingsPerPage = 12;  
-  
+  currentPage = 1;
+  listingsPerPage = 12;
+  selectedSorting: string = "date-1";
 
+
+  sorting: SortingObject = {
+    sortBy: "date",
+    sortDirection: SortDirection.Descending
+  }
   constructor(
     private houseListingService: HouseListingService,
     private cityService: CityService,
@@ -63,13 +69,13 @@ export class HouseListingComponent {
     private router: Router,
     private httpClient: HttpClient,
     private route: ActivatedRoute,
-    private toastrService:ToastrService,
-    private listingTypeService: ListingTypeService, 
+    private toastrService: ToastrService,
+    private listingTypeService: ListingTypeService,
     private houseTypeService: HouseTypeService,
   ) { }
 
   ngOnInit(): void {
-    this.getHouseListing();
+    this.getListingByPage(this.currentPage, this.listingsPerPage);
     this.getCity();
     this.getHouseTypes();
     this.getListingTypes();
@@ -86,13 +92,22 @@ export class HouseListingComponent {
 
   }
 
+
+  getListingByPage(page: number, pageSize: number) {
+
+    this.houseListingService.getPaginatedListings(this.filterObject, this.sorting, this.currentPage, this.listingsPerPage).subscribe(response => {
+      this.houseListings = response.data;
+
+    })
+  }
+
   filterHouseListings(filterObject: HouseFilter) {
-this.houseListingService.getByFilter(filterObject).subscribe((response) => {
-        this.houseListings = response.data;
-        this.toastrService.success("Başarıyla Filtrelendi","İşlem Başarılı")
-      },
-      (errorResponse)=>{
-        this.toastrService.error("Bir hata ile karşılaşıldı","Hata")
+    this.houseListingService.getByFilter(filterObject).subscribe((response) => {
+      this.houseListings = response.data;
+      this.toastrService.success("Başarıyla Filtrelendi", "İşlem Başarılı")
+    },
+      (errorResponse) => {
+        this.toastrService.error("Bir hata ile karşılaşıldı", "Hata")
       }
     );
   }
@@ -106,9 +121,9 @@ this.houseListingService.getByFilter(filterObject).subscribe((response) => {
     const cityId = event.target.value;
     if (cityId > 0) {
       this.getDistrict(cityId);
-    }else if(cityId ==  undefined){
+    } else if (cityId == undefined) {
       this.districts = [];
-    } 
+    }
     else {
       this.districts = []; // Şehir seçilmediyse ilçe listesini temizle
     }
@@ -134,13 +149,13 @@ this.houseListingService.getByFilter(filterObject).subscribe((response) => {
     })
   }
   onSubmit() {
-    if(this.filterObject.minSquareMeter && this.filterObject.maxSquareMeter && this.filterObject.minSquareMeter > this.filterObject.maxSquareMeter){
+    if (this.filterObject.minSquareMeter && this.filterObject.maxSquareMeter && this.filterObject.minSquareMeter > this.filterObject.maxSquareMeter) {
       this.squareMeter = this.filterObject.minSquareMeter;
       this.filterObject.minSquareMeter = this.filterObject.maxSquareMeter;
       this.filterObject.maxSquareMeter = this.squareMeter;
     }
 
-    if(this.filterObject.minPrice && this.filterObject.maxPrice && this.filterObject.minPrice > this.filterObject.maxPrice){
+    if (this.filterObject.minPrice && this.filterObject.maxPrice && this.filterObject.minPrice > this.filterObject.maxPrice) {
       this.price = this.filterObject.minPrice;
       this.filterObject.minPrice = this.filterObject.maxPrice;
       this.filterObject.maxPrice = this.price;
@@ -150,10 +165,15 @@ this.houseListingService.getByFilter(filterObject).subscribe((response) => {
       .subscribe(response => {
         this.houseListings = response.data
         console.log(response);
-        this.toastrService.success("Başarıyla Filtrelendi","İşlem Başarılı")
+        this.toastrService.success("Başarıyla Filtrelendi", "İşlem Başarılı")
       }, error => {
-        this.toastrService.error("Bir hata ile karşılaşıldı","Hata")
+        this.toastrService.error("Bir hata ile karşılaşıldı", "Hata")
       });
+
+      this.router.navigateByUrl(`/houselisting/page/1`);
+    this.currentPage = 1
+
+    this.getListingByPage(this.currentPage, this.listingsPerPage)
   }
 
   getHouseListingImagePath(houseListing: HouseListing): string {
@@ -165,15 +185,46 @@ this.houseListingService.getByFilter(filterObject).subscribe((response) => {
     }
   }
 
-
-  get startIndex(): number {
-    return (this.currentPage - 1) * this.listingsPerPage;
+  setSorting() {
+    if (this.selectedSorting) {
+      const [sortBy, sortDirection] = this.selectedSorting.split('-');
+      this.sorting.sortBy = sortBy;
+      this.sorting.sortDirection = +sortDirection; // "+" kullanarak stringi number'a çeviriyoruz
+      this.currentPage = 1;
+      this.getListingByPage(this.currentPage, this.listingsPerPage);
+    }
   }
 
-  get endIndex(): number {
-    return this.startIndex + this.listingsPerPage;
+
+  previousPage() {
+    if (this.currentPage == 1) {
+      this.toastrService.info("Zaten ilk sayfadasınız.", "Bilgilendirme")
+      return
+    } else {
+      this.currentPage = this.currentPage - 1
+      this.getListingByPage(this.currentPage, this.listingsPerPage);
+      this.router.navigateByUrl(`/houselisting/page/${this.currentPage}`); // Sadece link kısmını güncelle
+    }
   }
-  
+
+
+  nextPage() {
+    if (this.houseListings.length < 12) {
+      this.toastrService.info("Son sayfaya ulaştınız.", "Bilgilendirme");
+      return
+    } else {
+      this.currentPage = this.currentPage + 1;
+      this.getListingByPage(this.currentPage, this.listingsPerPage);
+
+      this.router.navigateByUrl(`/houselisting/page/${this.currentPage}`); // Sadece link kısmını güncelle
+
+    }
+  }
+
+  setPageNumber(pageNumber: number) {
+    this.currentPage = pageNumber;
+    this.getListingByPage(this.currentPage, this.listingsPerPage);
+  }
   onPageChange(newPage: number) {
     this.currentPage = newPage;
     console.log(this.currentPage)
@@ -184,20 +235,4 @@ this.houseListingService.getByFilter(filterObject).subscribe((response) => {
     });
   }
 
-  
-  get totalPages(): number {
-    return Math.ceil(this.houseListings.length / this.listingsPerPage);
-  }
-  
-  get totalPagesArray(): number[] {
-    return Array(this.totalPages).fill(0).map((x, i) => i + 1);
-  }
-  get visiblePages(): number[] {
-    const start = Math.max(1, this.currentPage - 1);
-    const end = Math.min(start + 3, this.totalPagesArray.length);
-
-    return Array(end - start + 1).fill(0).map((_, index) => start + index);
-}
-
-  
 }

@@ -17,14 +17,15 @@ import { ListingEditingComponent } from './components/listing-editing/listing-ed
 const routes: Routes = [
   { path: '', redirectTo: '/homepage', pathMatch: 'full' },
   { path: 'homepage', component: HomepageComponent },
+
   { path: ':listingName/detail/:id', component: DetailComponent },
+
   { path: 'listing', component: IlanComponent },
   { path: 'listing/page/:pageId', component: IlanComponent },
-
   { path: 'listing/searchText/:searchText/page/:pageId', component: IlanComponent },
 
-  { path: 'houselisting', component: HouseListingComponent},
-  { path: 'landlisting', component: LandListingComponent},
+  { path: 'houselisting/page/:pageId', component: HouseListingComponent},
+  { path: 'landlisting/page/:pageId', component: LandListingComponent},
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
   { path: 'profile/:id', component: ProfileComponent },
