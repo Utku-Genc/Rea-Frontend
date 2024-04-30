@@ -58,7 +58,7 @@ export class LandListingComponent implements OnInit {
   ){}
 
   ngOnInit(): void {
-    this.getLandListing();
+    this.getListingByPage(this.currentPage,this.listingsPerPage);
     this.getCity();
     this.getListingTypes();
 
@@ -149,15 +149,8 @@ export class LandListingComponent implements OnInit {
       this.filterObject.maxPrice = this.price;
     }
 
-    this.landListingService.getAllByFilter(this.filterObject).subscribe(response => {
-        this.landListing = response.data
-        console.log(response);
-        this.toastrService.success("Başarıyla Filtrelendi","İşlem Başarılı")
-      }, error => {
-        this.toastrService.error("Bir hata ile karşılaşıldı","Hata")
-      });
 
-      this.router.navigateByUrl(`/LANDlisting/page/1`);
+      this.router.navigateByUrl(`/Landlisting/page/1`);
     this.currentPage = 1
 
     this.getListingByPage(this.currentPage, this.listingsPerPage)
@@ -170,7 +163,7 @@ export class LandListingComponent implements OnInit {
     } else {
       this.currentPage = this.currentPage - 1
       this.getListingByPage(this.currentPage, this.listingsPerPage);
-      this.router.navigateByUrl(`/houselisting/page/${this.currentPage}`); // Sadece link kısmını güncelle
+      this.router.navigateByUrl(`/landlisting/page/${this.currentPage}`); // Sadece link kısmını güncelle
     }
   }
 
@@ -183,7 +176,7 @@ export class LandListingComponent implements OnInit {
       this.currentPage = this.currentPage + 1;
       this.getListingByPage(this.currentPage, this.listingsPerPage);
 
-      this.router.navigateByUrl(`/houselisting/page/${this.currentPage}`); // Sadece link kısmını güncelle
+      this.router.navigateByUrl(`/landlisting/page/${this.currentPage}`); // Sadece link kısmını güncelle
 
     }
   }
