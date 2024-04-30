@@ -161,16 +161,8 @@ export class HouseListingComponent {
       this.filterObject.maxPrice = this.price;
     }
 
-    this.httpClient.post<any>(this.filterApiUrl, this.filterObject)
-      .subscribe(response => {
-        this.houseListings = response.data
-        console.log(response);
-        this.toastrService.success("Başarıyla Filtrelendi", "İşlem Başarılı")
-      }, error => {
-        this.toastrService.error("Bir hata ile karşılaşıldı", "Hata")
-      });
 
-      this.router.navigateByUrl(`/houselisting/page/1`);
+    this.router.navigateByUrl(`/houselisting/page/1`);
     this.currentPage = 1
 
     this.getListingByPage(this.currentPage, this.listingsPerPage)
