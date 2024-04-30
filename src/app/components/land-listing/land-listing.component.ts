@@ -10,6 +10,7 @@ import { District } from '../../models/district';
 import { ToastrService } from 'ngx-toastr';
 import { ListingTypeService } from '../../services/listing-type.service';
 import { ListingType } from '../../models/listingType';
+import { SortDirection, SortingObject } from '../../models/sortingObject';
 
 @Component({
   selector: 'app-land-listing',
@@ -40,6 +41,13 @@ export class LandListingComponent implements OnInit {
   squareMeter: number=0;
   price: number=0;
 
+  sorting: SortingObject = {
+    sortBy: "date",
+    sortDirection: SortDirection.Descending
+  }
+  selectedSorting: string="date-1";
+
+
   constructor(
     private landListingService: LandListingService, 
     private route: ActivatedRoute, private router:Router,
@@ -68,6 +76,13 @@ export class LandListingComponent implements OnInit {
 
   }
 
+  getListingByPage(page: number, pageSize: number) {
+
+    this.landListingService.getPaginatedListings(this.filterObject, this.sorting, this.currentPage, this.listingsPerPage).subscribe(response => {
+      this.landListing = response.data;
+
+    })
+  }
   getLandListingImagePath(landListing: LandListing): string {
     if (landListing.imagePath && landListing.imagePath.length > 0) {
       return 'https://localhost:44318/Uploads/ListingImages/' + landListing.imagePath;
@@ -109,6 +124,18 @@ export class LandListingComponent implements OnInit {
       this.listingTypes = response.data;
     })
   }
+
+  setSorting() {
+    if (this.selectedSorting) {
+      const [sortBy, sortDirection] = this.selectedSorting.split('-');
+      this.sorting.sortBy = sortBy;
+      this.sorting.sortDirection = +sortDirection; // "+" kullanarak stringi number'a çeviriyoruz
+      this.currentPage = 1;
+      this.getListingByPage(this.currentPage, this.listingsPerPage);
+    }
+  }
+
+
   onSubmit() {
     if(this.filterObject.minSquareMeter && this.filterObject.maxSquareMeter &&  this.filterObject.minSquareMeter > this.filterObject.maxSquareMeter){
       this.squareMeter = this.filterObject.minSquareMeter;
@@ -129,17 +156,42 @@ export class LandListingComponent implements OnInit {
       }, error => {
         this.toastrService.error("Bir hata ile karşılaşıldı","Hata")
       });
+
+      this.router.navigateByUrl(`/LANDlisting/page/1`);
+    this.currentPage = 1
+
+    this.getListingByPage(this.currentPage, this.listingsPerPage)
+  }
+
+  previousPage() {
+    if (this.currentPage == 1) {
+      this.toastrService.info("Zaten ilk sayfadasınız.", "Bilgilendirme")
+      return
+    } else {
+      this.currentPage = this.currentPage - 1
+      this.getListingByPage(this.currentPage, this.listingsPerPage);
+      this.router.navigateByUrl(`/houselisting/page/${this.currentPage}`); // Sadece link kısmını güncelle
+    }
   }
 
 
-  get startIndex(): number {
-    return (this.currentPage - 1) * this.listingsPerPage;
+  nextPage() {
+    if (this.landListing.length < 12) {
+      this.toastrService.info("Son sayfaya ulaştınız.", "Bilgilendirme");
+      return
+    } else {
+      this.currentPage = this.currentPage + 1;
+      this.getListingByPage(this.currentPage, this.listingsPerPage);
+
+      this.router.navigateByUrl(`/houselisting/page/${this.currentPage}`); // Sadece link kısmını güncelle
+
+    }
   }
 
-  get endIndex(): number {
-    return this.startIndex + this.listingsPerPage;
+  setPageNumber(pageNumber: number) {
+    this.currentPage = pageNumber;
+    this.getListingByPage(this.currentPage, this.listingsPerPage);
   }
-  
   onPageChange(newPage: number) {
     this.currentPage = newPage;
     console.log(this.currentPage)
@@ -150,20 +202,6 @@ export class LandListingComponent implements OnInit {
     });
   }
 
-  
-  get totalPages(): number {
-    return Math.ceil(this.landListing.length / this.listingsPerPage);
-  }
-  
-  get totalPagesArray(): number[] {
-    return Array(this.totalPages).fill(0).map((x, i) => i + 1);
-  }
-  get visiblePages(): number[] {
-    const start = Math.max(1, this.currentPage - 1);
-    const end = Math.min(start + 3, this.totalPagesArray.length);
-
-    return Array(end - start + 1).fill(0).map((_, index) => start + index);
-}
 
   
 }
