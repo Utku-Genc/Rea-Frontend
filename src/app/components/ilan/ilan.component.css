@@ -28,5 +28,16 @@
     background-color: rgb(43, 48, 53);
     color: rgb(255, 188, 0); 
     border: none;
-    width: 100px;
+    width: 47px;
+    margin-top: auto;
+    text-align: center;
+}
+
+.bg-color{
+    background-color:rgb(214, 214, 214);
+}
+
+#pageNum::-webkit-inner-spin-button,
+#pageNum::-webkit-outer-spin-button{
+    display: none;
 }

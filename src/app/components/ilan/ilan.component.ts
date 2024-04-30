@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ListingType } from '../../models/listingType';
 import { ListingTypeService } from '../../services/listing-type.service';
 import { ListingFilter } from '../../models/listingFilter';
-import { SortingObject } from '../../models/sortingObject';
+import { SortDirection, SortingObject } from '../../models/sortingObject';
 
 @Component({
   selector: 'ilan',
@@ -33,6 +33,11 @@ export class IlanComponent implements OnInit {
     minPrice: null,
     minSquareMeter: null,
     searchText: null
+  }
+
+  sorting:SortingObject = {
+    sortBy : "date",
+    sortDirection:SortDirection.Descending
   }
 
   city: City[] = [];
@@ -79,13 +84,9 @@ export class IlanComponent implements OnInit {
   }
 
   getListingByPage(page: number, pageSize: number) {
-    console.log(this.currentPage, this.listingsPerPage)
-    console.log(this.filterObject)
-    let sortingObject!: SortingObject
-    this.listingService.getPaginatedListings(this.filterObject, sortingObject, this.currentPage, this.listingsPerPage).subscribe(response => {
+
+    this.listingService.getPaginatedListings(this.filterObject, this.sorting, this.currentPage, this.listingsPerPage).subscribe(response => {
       this.listings = response.data;
-      console.log(response.data)
-      console.log(this.filterObject)
 
     })
   }

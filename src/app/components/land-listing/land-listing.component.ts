@@ -56,7 +56,7 @@ export class LandListingComponent implements OnInit {
 
     
     this.route.queryParams.subscribe(params => {
-      this.currentPage = params['page'] || 1;
+      this.currentPage = params['page'].toNumber() || 1;
     });
   }
 

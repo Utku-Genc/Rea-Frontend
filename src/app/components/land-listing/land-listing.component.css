@@ -19,3 +19,7 @@ color: rgb(255,188,0);
     padding-bottom: 5px;
     background: #80dad0;
 }
+
+.bg-color{
+    background-color:rgb(214, 214, 214);
+}
