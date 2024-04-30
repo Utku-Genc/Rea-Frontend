@@ -9,6 +9,7 @@ import { LandDetail } from '../../models/landDetail';
 import { HouseListingService } from '../../services/house-listing.service';
 import { ListResponseModel } from '../../models/listResponseModel';
 import { ListingImageService } from '../../services/listing-image.service';
+import { startWith } from 'rxjs';
 
 @Component({
   selector: 'detail',
@@ -38,7 +39,7 @@ export class DetailComponent implements OnInit {
     const listingId = this.route.snapshot.paramMap.get('id'); // URL'den listingId'yi al
     if (listingId != null) {
       console.log(listingId)
-      if (parseInt(listingId, 10) < 20000000) {
+      if (listingId.startsWith("1")) {
         this.getHouseDetail(listingId); // Parametre olarak listingId'yi geçir
       } else {
         this.getLandListingDetail(listingId);
