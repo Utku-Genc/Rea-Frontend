@@ -32,22 +32,22 @@ export class ListingService {
   deleteListing(listingId:number):Observable<ResponseModel>{
     return this.httpClient.post<ResponseModel>(this.apiUrl+"deletebyid?listingId="+listingId,{})
   }
-  getPaginatedListings(filter: ListingFilter, sorting: SortingObject, pageNumber: number, pageSize: number): Observable<ListResponseModel<Listing>> {
-    let requestBody: ListingRequestModel = {
+  getPaginatedListings(filter: ListingFilter | null, sorting: SortingObject |null, pageNumber: number, pageSize: number): Observable<ListResponseModel<Listing>> {
+    let reguestModel: ListingRequestModel = {
       pageNumber: pageNumber,
       pageSize: pageSize,
       filter: null,
       sorting: null
     };
     if(filter){
-      requestBody.filter = filter
+      reguestModel.filter = filter
     }
     if(sorting){
-      requestBody.sorting = sorting
+      reguestModel.sorting = sorting
     }
-  
+    console.log(reguestModel);
     return this.httpClient.post<ListResponseModel<Listing>>(
-      this.apiUrl+"getpaginatedlistings",requestBody
+      this.apiUrl+"getpaginatedlistings",reguestModel
     );
   }
   

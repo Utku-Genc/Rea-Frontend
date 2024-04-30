@@ -9,6 +9,7 @@ import { ListResponseModel } from '../models/listResponseModel';
 import { HouseListing } from '../models/houseListing';
 import { HouseFilter } from '../models/houseFilter';
 import { SortingObject } from '../models/sortingObject';
+import { HouseListingRequestModel } from '../models/HouseListingRequestModel';
 
 @Injectable({
   providedIn: 'root'
@@ -42,10 +43,22 @@ export class HouseListingService {
     return this.httpClient.post<SingleResponseModel<UpdateHouse>>(this.apiUrl+"update", data)
   }
 
-  getPaginatedListings(filter: HouseFilter, sorting: SortingObject, pageNumber: number, pageSize: number): Observable<ListResponseModel<HouseListing>> {
-    return this.httpClient.get<ListResponseModel<HouseListing>>(
-      `${this.apiUrl}getpaginatedlistings?pageNumber=${pageNumber}&pageSize=${pageSize}&` +
-      `filter=${JSON.stringify(filter)}&sorting=${JSON.stringify(sorting)}`
+  getPaginatedListings(filter: HouseFilter | null, sorting: SortingObject |null, pageNumber: number, pageSize: number): Observable<ListResponseModel<HouseListing>> {
+    let reguestModel: HouseListingRequestModel = {
+      pageNumber: pageNumber,
+      pageSize: pageSize,
+      filter: null,
+      sorting: null
+    };
+    if(filter){
+      reguestModel.filter = filter
+    }
+    if(sorting){
+      reguestModel.sorting = sorting
+    }
+    console.log(reguestModel);
+    return this.httpClient.post<ListResponseModel<HouseListing>>(
+      this.apiUrl+"getpaginatedlistings",reguestModel
     );
   }
 }

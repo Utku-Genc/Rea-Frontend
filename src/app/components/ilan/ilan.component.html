@@ -45,12 +45,12 @@
                     <div class="row">
                         <div class="col mb-3">
                             <label for="minPrice" class="form-label">Minimum Fiyat</label>
-                            <input type="number" class="form-control" id="minPrice" name="minPrice"
+                            <input type="number" class="form-control" id="minPrice" name="minPrice" min="0" 
                                 [(ngModel)]="filterObject.minPrice">
                         </div>
                         <div class="col mb-3">
                             <label for="maxPrice" class="form-label">Maksimum Fiyat</label>
-                            <input type="number" class="form-control" id="maxPrice" name="maxPrice"
+                            <input type="number" class="form-control" id="maxPrice" name="maxPrice" min="0"
                                 [(ngModel)]="filterObject.maxPrice">
                         </div>
 
@@ -58,12 +58,12 @@
                     <div class="row">
                         <div class="col mb-3">
                             <label for="minSquareMeter" class="form-label">Minimum Metrekare</label>
-                            <input type="number" class="form-control" id="minSquareMeter" name="minSquareMeter"
+                            <input type="number" class="form-control" id="minSquareMeter" name="minSquareMeter" min="0"
                                 [(ngModel)]="filterObject.minSquareMeter">
                         </div>
                         <div class="col mb-3">
                             <label for="maxSquareMeter" class="form-label">Maksimum Metrekare</label>
-                            <input type="number" class="form-control" id="maxSquareMeter" name="maxSquareMeter"
+                            <input type="number" class="form-control" id="maxSquareMeter" name="maxSquareMeter" min="0"
                                 [(ngModel)]="filterObject.maxSquareMeter">
                         </div>
                     </div>
@@ -99,7 +99,7 @@
                         <p>{{item.listingTypeName}}</p>
                     </div>
                     <div *ngIf="item.listingTypeName !=='Kiralık' && item.listingTypeName!=='Satılık'"
-                        class="pt-3 text-center bg-secondary rounded-bottom rounded-5">
+                        class="pt-3 text-center rounded-bottom rounded-5 bg-color">
                         <p>{{item.listingTypeName}}</p>
                     </div>
                 </div>
@@ -131,7 +131,7 @@
     <button class="btn page-btn ms-1" (click)="previousPage()">
         <i class="fa-solid fa-chevron-left"></i>
     </button>
-    <form class="ms-1 " (ngSubmit)="setPageNumber(currentPage)"><input type="number" class="form-control set-page " id="pageNum" name="pageNum" [(ngModel)]="currentPage">
+    <form class="ms-1" (ngSubmit)="setPageNumber(currentPage)"><input type="number" class="form-control set-page" id="pageNum" name="pageNum" [(ngModel)]="currentPage">
     </form>
 
 

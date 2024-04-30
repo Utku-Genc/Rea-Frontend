@@ -1,9 +1,9 @@
 export interface SortingObject {
-    sortBy: string; // Sıralama yapılacak sütun adı
-    sortDirection: SortDirection; // Sıralama yönü (artan veya azalan)
+    sortBy: string |null; // Sıralama yapılacak sütun adı
+    sortDirection: SortDirection |null; // Sıralama yönü (artan veya azalan)
   }
   
   export enum SortDirection {
-    Ascending = 'Ascending',
-    Descending = 'Descending'
+    Ascending = 0,
+    Descending = 1
   }

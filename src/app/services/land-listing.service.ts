@@ -9,6 +9,7 @@ import { AddLandListingResponse } from '../models/addLandListingResponse';
 import { LandFilter } from '../models/landFilter';
 import { UpdateLand } from '../models/updateLand';
 import { SortingObject } from '../models/sortingObject';
+import { LandListingRequestModel } from '../models/LandListingRequestModel';
 
 @Injectable({
   providedIn: 'root'
@@ -36,10 +37,22 @@ export class LandListingService {
     return this.httpClient.post<SingleResponseModel<UpdateLand>>(this.apiUrl + "update", data);
   }
 
-  getPaginatedListings(filter: LandFilter, sorting: SortingObject, pageNumber: number, pageSize: number): Observable<ListResponseModel<LandListing>> {
-    return this.httpClient.get<ListResponseModel<LandListing>>(
-      `${this.apiUrl}getpaginatedlistings?pageNumber=${pageNumber}&pageSize=${pageSize}&` +
-      `filter=${JSON.stringify(filter)}&sorting=${JSON.stringify(sorting)}`
+  getPaginatedListings(filter: LandFilter | null, sorting: SortingObject |null, pageNumber: number, pageSize: number): Observable<ListResponseModel<LandListing>> {
+    let reguestModel: LandListingRequestModel = {
+      pageNumber: pageNumber,
+      pageSize: pageSize,
+      filter: null,
+      sorting: null
+    };
+    if(filter){
+      reguestModel.filter = filter
+    }
+    if(sorting){
+      reguestModel.sorting = sorting
+    }
+    console.log(reguestModel);
+    return this.httpClient.post<ListResponseModel<LandListing>>(
+      this.apiUrl+"getpaginatedlistings",reguestModel
     );
   }
 }
