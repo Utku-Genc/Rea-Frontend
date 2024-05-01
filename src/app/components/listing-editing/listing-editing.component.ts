@@ -107,7 +107,7 @@ export class ListingEditingComponent implements OnInit {
     ngOnInit() {
       const listingId = this.route.snapshot.paramMap.get('id');
       if (listingId != null) {
-        if (parseInt(listingId, 10) < 20000000) {
+        if (listingId.startsWith("1")) {
           this.getHouseDetail(listingId);
         } else {
           this.getLandListingDetail(listingId);

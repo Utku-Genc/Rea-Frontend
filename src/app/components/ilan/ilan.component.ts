@@ -45,7 +45,7 @@ export class IlanComponent implements OnInit {
   listingTypes: ListingType[] = [];
 
   currentPage: number = 1;
-  listingsPerPage: number = 12;
+  listingsPerPage: number = 21;
   selectedSorting: string="date-1";
 
 
@@ -225,7 +225,7 @@ export class IlanComponent implements OnInit {
       this.router.navigateByUrl(`/listing/searchText/${searchText}/page/${this.currentPage}`); // Sadece link kısmını güncelle
       this.getListingByPage(this.currentPage, this.listingsPerPage)
     }
-    else if (this.listings.length < 12) {
+    else if (this.listings.length < this.listingsPerPage) {
       this.toastrService.info("Son sayfaya ulaştınız.", "Bilgilendirme");
       return
     } else {

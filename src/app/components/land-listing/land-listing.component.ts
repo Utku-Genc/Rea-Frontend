@@ -22,7 +22,7 @@ export class LandListingComponent implements OnInit {
   landListing : LandListing[] = [];
 
   currentPage = 1; 
-  listingsPerPage = 12; 
+  listingsPerPage = 21; 
   filterObject: LandFilter= {
     cityId:null,
     districtId:null,
@@ -169,7 +169,7 @@ export class LandListingComponent implements OnInit {
 
 
   nextPage() {
-    if (this.landListing.length < 12) {
+    if (this.landListing.length < this.listingsPerPage) {
       this.toastrService.info("Son sayfaya ulaştınız.", "Bilgilendirme");
       return
     } else {

@@ -54,7 +54,7 @@ export class HouseListingComponent {
   listingTypes: ListingType[] = [];
 
   currentPage = 1;
-  listingsPerPage = 12;
+  listingsPerPage = 21;
   selectedSorting: string = "date-1";
 
 
@@ -201,7 +201,7 @@ export class HouseListingComponent {
 
 
   nextPage() {
-    if (this.houseListings.length < 12) {
+    if (this.houseListings.length < this.listingsPerPage) {
       this.toastrService.info("Son sayfaya ulaştınız.", "Bilgilendirme");
       return
     } else {

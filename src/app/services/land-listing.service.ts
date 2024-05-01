@@ -9,7 +9,7 @@ import { AddLandListingResponse } from '../models/addLandListingResponse';
 import { LandFilter } from '../models/landFilter';
 import { UpdateLand } from '../models/updateLand';
 import { SortingObject } from '../models/sortingObject';
-import { LandListingRequestModel } from '../models/LandListingRequestModel';
+import { LandListingRequestModel } from '../models/landListingRequestModel';
 
 @Injectable({
   providedIn: 'root'
