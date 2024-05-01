@@ -72,9 +72,9 @@ Proje raporuna [Rapor] linkinden erişebilirsiniz.
 
 ## Hazırlayanlar
 
-- Ahmet Efe Tosun
-- Umut Gülfidan
-- Utku Genç
+- Ahmet Efe Tosun - ahefto@gmail.com
+- Umut Gülfidan - umutgulfidan41@gmail.com
+- Utku Genç - utkugenc2003@gmail.com
 
 ## İletişim
 
@@ -149,9 +149,9 @@ You can access the project report via the [Report] link.
 
 ## Contributors
 
-- Ahmet Efe Tosun
-- Umut Gülfidan
-- Utku Genç
+- Ahmet Efe Tosun - ahefto@gmail.com
+- Umut Gülfidan - umutgulfidan41@gmail.com
+- Utku Genç - utkugenc2003@gmail.com
 
 ## Contact
 
