@@ -1,4 +1,4 @@
-# Rea Emlak Frontend - TR
+# REA Emlak Frontend - TR
 
 Bu proje, Veritabanı Yönetim Sistemleri dersi kapsamında geliştirilmiştir. Proje kapsamında bir emlak sitesi geliştirilmiştir. Proje ile ilgili tüm detayları rapor dosyasında bulabilirsiniz.
 
