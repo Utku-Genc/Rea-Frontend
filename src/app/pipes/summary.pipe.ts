@@ -1,3 +1,5 @@
+//https://gist.github.com/salmanx/2475b587a7413bcd9de5dd4d8db82d7c
+
 import { Pipe, PipeTransform } from "@angular/core";
 
 //Metin Kısaltma Pipe

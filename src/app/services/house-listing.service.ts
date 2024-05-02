@@ -9,7 +9,7 @@ import { ListResponseModel } from '../models/listResponseModel';
 import { HouseListing } from '../models/houseListing';
 import { HouseFilter } from '../models/houseFilter';
 import { SortingObject } from '../models/sortingObject';
-import { HouseListingRequestModel } from '../models/HouseListingRequestModel';
+import { HouseListingRequestModel } from '../models/houseListingRequestModel';
 
 @Injectable({
   providedIn: 'root'

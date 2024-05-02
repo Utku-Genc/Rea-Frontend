@@ -6,7 +6,7 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col mb-3">
+                    <div class="col">
                         <label for="listingSorting" class="form-label">Sıralama</label>
                         <select class="form-select" [(ngModel)]="selectedSorting" (change)="setSorting()">,
                             <option value="date-1">Yeniden Eskiye</option>
@@ -18,6 +18,7 @@
                         </select>
                     </div>
                 </div>
+                <hr>
                 <form (ngSubmit)="onSubmit()" (reset)="getLandListing()">
                     <div class="mb-3">
                         <label for="searchText" class="form-label">Arama Metni</label>
@@ -79,20 +80,20 @@
                         </div>
                     </div>
 
-                    <div>
+                    <div class="text-center">
                         <div class="row">
-                            <div class="col mb-3">
+                            <div class="col mb-3 d-flex justify-content-center">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="floorEquivalen"
                                         name="floorEquivalen" [(ngModel)]="filterObject.floorEquivalen">
                                     <label class="form-check-label" for="floorEquivalen">
-                                        Mobilya
+                                        Kat Karşılığı
                                     </label>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                    
                     <div class="row">
                         <div class="col d-grid"><button type="submit" class="btn btn-primary ">Filtrele</button></div>
                         <div class="col d-grid"><button type="reset" class="btn btn-primary">Sıfırla</button></div>
