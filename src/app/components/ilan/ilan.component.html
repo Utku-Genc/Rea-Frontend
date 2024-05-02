@@ -8,7 +8,7 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col mb-3">
+                    <div class="col ">
                         <label for="listingSorting" class="form-label">Sıralama</label>
                         <select class="form-select" [(ngModel)]="selectedSorting" (change)="setSorting()">,
                             <option value="date-1">Yeniden Eskiye</option>
@@ -20,6 +20,7 @@
                         </select>
                     </div>
                 </div>
+                <hr>
                 <form (ngSubmit)="onSubmit()" (reset)="getListing()">
                     <div class="mb-3">
                         <label for="searchText" class="form-label">Arama Metni</label>

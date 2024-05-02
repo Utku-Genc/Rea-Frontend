@@ -7,7 +7,7 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col mb-3">
+                    <div class="col ">
                         <label for="listingSorting" class="form-label">Sıralama</label>
                         <select class="form-select" [(ngModel)]="selectedSorting" (change)="setSorting()">,
                             <option value="date-1">Yeniden Eskiye</option>
@@ -19,31 +19,52 @@
                         </select>
                     </div>
                 </div>
+                <hr>
                 <form (ngSubmit)="onSubmit()" (reset)="getHouseListing()">
                     <div class="mb-3">
                         <label for="searchText" class="form-label">Arama Metni</label>
                         <input type="text" class="form-control" id="searchText" name="searchText"
                             [(ngModel)]="filterObject.searchText">
                     </div>
+                    <div class="row ">
+                        <div class=" mb-1">
+                            <label for="city" class="form-label">Şehir</label>
+                                <select class="form-select" id="city" name="city" (change)="onCityChange($event)"
+                                    [(ngModel)]="filterObject.cityId">
+                                    <option [ngValue]="undefined">Şehir Seçin</option>
+                                    <option *ngFor="let city of city" [value]="city.id">{{ city.cityName }}</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="district" class="form-label">İlçe</label>
+                                <select class="form-select" id="district" name="district"
+                                    [(ngModel)]="filterObject.districtId">
+                                    <option [ngValue]="undefined">İlçe Seçin</option>
+                                    <option *ngFor="let district of districts" [value]="district.id">{{
+                                        district.districtName }}</option>
+                                </select>
+                            </div>
+                    </div>
                     <div class="row">
                         <div class="d-flex ">
-                            <div class="col mb-3 me-3">
+                            <div class="col mb-3 me-2">
                                 <label for="roomCount" class="form-label">Oda Sayısı</label>
                                 <input type="number" class="form-control" id="roomCount" name="roomCount" min="0"
-                                [(ngModel)]="filterObject.roomCount">
+                                    [(ngModel)]="filterObject.roomCount">
                             </div>
 
-                            <div class="col mb-3 ms-3">
+                            <div class="col mb-2">
                                 <label for="livingRoomCount" class="form-label">Salon Sayısı</label>
-                                <input type="number" class="form-control" id="livingRoomCount" name="livingRoomCount" min="0"
-                                [(ngModel)]="filterObject.livingRoomCount">
+                                <input type="number" class="form-control" id="livingRoomCount" name="livingRoomCount"
+                                    min="0" [(ngModel)]="filterObject.livingRoomCount">
+                            </div>
+                            <div class="col mb-3 ms-2">
+                                <label for="bathroomCount" class="form-label">Banyo Sayısı</label>
+                                <input type="number" class="form-control" id="bathroomCount" name="bathroomCount" min="0"
+                                    [(ngModel)]="filterObject.bathroomCount">
                             </div>
                         </div>
-                        <div class=" mb-3">
-                            <label for="bathroomCount" class="form-label">Banyo Sayısı</label>
-                            <input type="number" class="form-control" id="bathroomCount" name="bathroomCount" min="0"
-                                [(ngModel)]="filterObject.bathroomCount">
-                        </div>
+                        
 
                     </div>
                     <div class="row">
@@ -53,7 +74,8 @@
                             <select class="form-select" id="listingTypeName" name="listingTypeName"
                                 [(ngModel)]="filterObject.listingTypeId">
                                 <option value="">Seçiniz</option>
-                                <option  *ngFor="let listingType of listingTypes" value="{{listingType.id}}">{{listingType.listingTypeName}}</option>
+                                <option *ngFor="let listingType of listingTypes" value="{{listingType.id}}">
+                                    {{listingType.listingTypeName}}</option>
 
                             </select>
                         </div>
@@ -62,28 +84,13 @@
                             <select class="form-select" id="propertyType" name="propertyType"
                                 [(ngModel)]="filterObject.houseTypeId">
                                 <option value="">Seçiniz</option>
-                                <option *ngFor="let houseType of houseTypes" value={{houseType.id}}>{{houseType.name}}</option>
+                                <option *ngFor="let houseType of houseTypes" value={{houseType.id}}>{{houseType.name}}
+                                </option>
 
                             </select>
                         </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="city" class="form-label">Şehir</label>
-                        <select class="form-select" id="city" name="city" (change)="onCityChange($event)"
-                            [(ngModel)]="filterObject.cityId">
-                            <option [ngValue]="undefined">Şehir Seçin</option>
-                            <option *ngFor="let city of city" [value]="city.id">{{ city.cityName }}</option>
-                        </select>
-
-                        <label for="district" class="form-label">İlçe</label>
-                        <select class="form-select" id="district" name="district"
-                            [(ngModel)]="filterObject.districtId">
-                            <option [ngValue]="undefined">İlçe Seçin</option>
-                            <option *ngFor="let district of districts" [value]="district.id">{{
-                                district.districtName }}</option>
-                        </select>
-                    </div>
-
+                    
                     <div class="row">
                         <div class="col mb-3">
                             <label for="minPrice" class="form-label">Minimum Fiyat</label>
@@ -99,18 +106,18 @@
                     </div>
                     <div class="row">
                         <div class="col mb-3">
-                            <label for="minSquareMeter" class="form-label">Minimum Metrekare</label>
+                            <label for="minSquareMeter" class="form-label">Min. Metrekare</label>
                             <input type="number" class="form-control" id="minSquareMeter" name="minSquareMeter" min="0"
                                 [(ngModel)]="filterObject.minSquareMeter">
                         </div>
                         <div class="col mb-3">
-                            <label for="maxSquareMeter" class="form-label">Maksimum Metrekare</label>
+                            <label for="maxSquareMeter" class="form-label">Maks. Metrekare</label>
                             <input type="number" class="form-control" id="maxSquareMeter" name="maxSquareMeter" min="0"
                                 [(ngModel)]="filterObject.maxSquareMeter">
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col mb-3">
+                        <div class="col mb-1">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="hasGarden" name="hasGarden"
                                     [(ngModel)]="filterObject.hasGarden">
@@ -119,7 +126,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="col mb-3">
+                        <div class="col mb-1">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="hasElevator" name="hasElevator"
                                     [(ngModel)]="filterObject.hasElevator">
@@ -130,7 +137,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col mb-3">
+                        <div class="col mb-1">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="hasParking" name="hasParking"
                                     [(ngModel)]="filterObject.hasParking">
@@ -139,7 +146,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="col mb-3">
+                        <div class="col mb-1">
 
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="isInGatedCommunity"
@@ -152,7 +159,7 @@
                     </div>
                     <div>
                         <div class="row">
-                            <div class="col mb-3">
+                            <div class="col mb-1">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="hasFurniture"
                                         name="hasFurniture" [(ngModel)]="filterObject.hasFurniture">
@@ -161,7 +168,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="col mb-3">
+                            <div class="col mb-1">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="hasBalcony" name="hasBalcony"
                                         [(ngModel)]="filterObject.hasBalcony">
@@ -187,29 +194,34 @@
     </div>
 
     <div class=" d-flex flex-wrap col-9">
-        <div class="card d-flex flex-wrap mb-3 mx-2 rounded-bottom rounded-5 align-self-start" style="width: 19.2rem; " *ngFor="let item of houseListings">
+        <div class="card d-flex flex-wrap mb-3 mx-2 rounded-bottom rounded-5 align-self-start" style="width: 19.2rem; "
+            *ngFor="let item of houseListings">
             <div routerLink="/houselisting/detail/{{ item.listingId }}">
 
-               
-                    <div style="margin-bottom: -16px;">
-                        <div *ngIf="item.listingTypeName=='Satılık'" class="pt-3 text-center sell-col rounded-bottom rounded-5 ">
-                            <p>{{item.listingTypeName}}</p>
-                        </div>
-                        <div *ngIf="item.listingTypeName=='Kiralık'" class="pt-3 text-center rent-col rounded-bottom rounded-5" >
-                            <p>{{item.listingTypeName}}</p>
-                        </div>
-                        <div *ngIf="item.listingTypeName !=='Kiralık' && item.listingTypeName!=='Satılık'"
-                            class="pt-3 text-center bg-color rounded-bottom rounded-5">
-                            <p>{{item.listingTypeName}}</p>
-                        </div>
-                    </div>
-                
 
-                <img [src]="getHouseListingImagePath(item)" class="card-img-top  rounded-0 aspect-ratio-16x9"
-                    alt="..." style="background-color: rgb(255,255,255);">
+                <div style="margin-bottom: -16px;">
+                    <div *ngIf="item.listingTypeName=='Satılık'"
+                        class="pt-3 text-center sell-col rounded-bottom rounded-5 ">
+                        <p>{{item.listingTypeName}}</p>
+                    </div>
+                    <div *ngIf="item.listingTypeName=='Kiralık'"
+                        class="pt-3 text-center rent-col rounded-bottom rounded-5">
+                        <p>{{item.listingTypeName}}</p>
+                    </div>
+                    <div *ngIf="item.listingTypeName !=='Kiralık' && item.listingTypeName!=='Satılık'"
+                        class="pt-3 text-center bg-color rounded-bottom rounded-5">
+                        <p>{{item.listingTypeName}}</p>
+                    </div>
+                </div>
+
+
+                <img [src]="getHouseListingImagePath(item)" class="card-img-top  rounded-0 aspect-ratio-16x9" alt="..."
+                    style="background-color: rgb(255,255,255);">
                 <div class="card-body">
-                    <h5 class="card-title text-sub" style="min-height: 3rem; max-height: 3rem;">{{item.title | summary:40 }}</h5>
-                    <p class="card-text text-sub" style="min-height: 8rem;max-height: 8rem;">{{item.description | summary:120}}</p>
+                    <h5 class="card-title text-sub" style="min-height: 3rem; max-height: 3rem;">{{item.title |
+                        summary:40 }}</h5>
+                    <p class="card-text text-sub" style="min-height: 8rem;max-height: 8rem;">{{item.description |
+                        summary:120}}</p>
                 </div>
                 <ul class="list-group list-group-flush">
                     <li
@@ -263,7 +275,8 @@
     <button class="btn page-btn ms-1" (click)="previousPage()">
         <i class="fa-solid fa-chevron-left"></i>
     </button>
-    <form class="ms-1" (ngSubmit)="setPageNumber(currentPage)"><input type="number" class="form-control set-page" id="pageNum" name="pageNum" [(ngModel)]="currentPage">
+    <form class="ms-1" (ngSubmit)="setPageNumber(currentPage)"><input type="number" class="form-control set-page"
+            id="pageNum" name="pageNum" [(ngModel)]="currentPage">
     </form>
 
 
