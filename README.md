@@ -1,28 +1,3 @@
-<<<<<<< HEAD
-# Rea Emlak Frontend - TR
-The listing page is a page where users can filter and list all real estate listings. Users can filter listings by criteria such as price, location, etc.
-
-![Listing Page](https://github.com/Utku-Genc/Rea-Frontend/assets/129175686/d3c422cd-f3d8-4949-9ef1-d18bd936ba9c)
-
-## Listing Detail Page
-
-The listing detail page is a page where users can view all the details of a real estate listing. The listing's photos, description, location, and other features are displayed on this page.
-
-![Listing Detail](https://github.com/Utku-Genc/Rea-Frontend/assets/129175686/eeb0a9ee-360d-4ad5-9545-b66a4e0f46d9)
-
-## Listing Upload and Edit Page
-
-The listing upload page is a page where users can add a new real estate listing to the site by entering all the details. The listing's photos, description, location, and other features can be added on this page.
-
-![Listing Upload](https://github.com/Utku-Genc/Rea-Frontend/assets/129175686/fb579e0c-773c-4b36-8f82-d8a64739fe01)
-
-The listing edit page is a page where users can edit the details of an existing real estate listing. The listing's description, location, and other features can be edited on this page.
-
-![Listing Edit](https://github.com/Utku-Genc/Rea-Frontend/assets/129175686/cca54f9e-9654-4d34-84e8-3d01e88f8a87)
-
-## Profile Page
-
-=======
 # REA Emlak Frontend - TR
 
 Bu proje, Veritabanı Yönetim Sistemleri dersi kapsamında geliştirilmiştir. Proje kapsamında bir emlak sitesi geliştirilmiştir. Proje ile ilgili tüm detayları rapor dosyasında bulabilirsiniz.
@@ -97,9 +72,10 @@ Proje raporuna [Rapor] linkinden erişebilirsiniz.
 
 ## Hazırlayanlar
 
-- Ahmet Efe Tosun - ahefto@gmail.com
-- Umut Gülfidan - umutgulfidan41@gmail.com
-- Utku Genç - utkugenc2003@gmail.com
+- Ahmet Efe Tosun - [ahefto@gmail.com](mailto:ahefto@gmail.com)
+- Umut Gülfidan - [umutgulfidan41@gmail.com](mailto:utkugenc2003@gmail.com)
+- Utku Genç - [utkugenc2003@gmail.com](mailto:utkugenc2003@gmail.com)
+
 
 ## İletişim
 
@@ -140,7 +116,6 @@ The listing edit page is a page where users can edit the details of an existing 
 
 ## Profile Page
 
->>>>>>> master
 ### Your Profile
 
 The profile page is a page where users can view and edit their account information and listings. Users can update or delete information such as profile photo and listing details from here.
@@ -175,18 +150,10 @@ You can access the project report via the [Report] link.
 
 ## Contributors
 
-<<<<<<< HEAD
-- Ahmet Efe Tosun
-- Umut Gülfidan
-- Utku Genç
-=======
-- Ahmet Efe Tosun - ahefto@gmail.com
-- Umut Gülfidan - umutgulfidan41@gmail.com
-- Utku Genç - utkugenc2003@gmail.com
->>>>>>> master
+- Ahmet Efe Tosun - [ahefto@gmail.com](mailto:ahefto@gmail.com)
+- Umut Gülfidan - [umutgulfidan41@gmail.com](mailto:utkugenc2003@gmail.com)
+- Utku Genç - [utkugenc2003@gmail.com](mailto:utkugenc2003@gmail.com)
 
 ## Contact
 
 If you have any questions or feedback, feel free to contact me: [utkugenc2003@gmail.com](mailto:utkugenc2003@gmail.com).
-
-
