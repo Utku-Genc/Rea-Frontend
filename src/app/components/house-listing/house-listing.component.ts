@@ -112,6 +112,36 @@ export class HouseListingComponent {
     );
   }
 
+  reset() {
+    this.sorting = {
+      sortBy: "date",
+      sortDirection: SortDirection.Descending
+    }
+    this.selectedSorting = "date-1";
+    this.filterObject = {
+      bathroomCount: null,
+      cityId: null,
+      districtId: null,
+      hasBalcony: null,
+      hasElevator: null,
+      hasFurniture: null,
+      hasGarden: null,
+      hasParking: null,
+      houseTypeId: null,
+      isInGatedCommunity: null,
+      listingTypeId: null,
+      livingRoomCount: null,
+      maxBuildAge: null,
+      maxPrice: null,
+      minPrice: null,
+      maxSquareMeter: null,
+      minSquareMeter: null,
+      roomCount: null,
+      searchText: null,
+    }
+    this.getListingByPage(this.currentPage, this.listingsPerPage)
+  }
+
   getCity() {
     this.cityService.getCity().subscribe(response => {
       this.city = response.data;
