@@ -92,6 +92,25 @@ export class LandListingComponent implements OnInit {
     }
   }
 
+  reset() {
+    this.sorting = {
+      sortBy: "date",
+      sortDirection: SortDirection.Descending
+    }
+    this.selectedSorting = "date-1";
+    this.filterObject ={
+      cityId:null,
+      districtId:null,
+      floorEquivalen:null,
+      listingTypeId:null,
+      maxPrice:null,
+      maxSquareMeter:null,
+      minPrice:null,
+      minSquareMeter:null,
+      searchText:null
+    }
+    this.getListingByPage(this.currentPage, this.listingsPerPage)
+  }
 
   getCity() {
     this.cityService.getCity().subscribe(response => {
