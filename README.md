@@ -68,7 +68,8 @@ Backend için [ReaProject](https://github.com/umutgulfidan/ReaProject) adresine 
 
 ## Proje Raporu
 
-Proje raporuna [Rapor] linkinden erişebilirsiniz.
+Proje raporuna [Rapor](https://github.com/Utku-Genc/Rea-Frontend/files/15212555/26_rapor.pdf)
+linkinden erişebilirsiniz.
 
 ## Hazırlayanlar
 
@@ -146,7 +147,7 @@ For backend setup, visit [ReaProject](https://github.com/umutgulfidan/ReaProject
 
 ## Project Report
 
-You can access the project report via the [Report] link.
+You can access the project report via the [Report](https://github.com/Utku-Genc/Rea-Frontend/files/15212555/26_rapor.pdf) link.
 
 ## Contributors
 
