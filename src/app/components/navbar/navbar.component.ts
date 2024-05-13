@@ -26,7 +26,8 @@ export class NavbarComponent implements OnInit {
   update() {
     this.updateNavbar.emit();
   }
-  constructor(private authService: AuthService,
+  constructor(
+    private authService: AuthService,
     private userImageService: UserImageService,
     private userService: UserService,
     private router: Router,
