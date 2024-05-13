@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'register',
@@ -12,17 +13,31 @@ import { ToastrService } from 'ngx-toastr';
 export class RegisterComponent implements OnInit {
 
   registerForm!: FormGroup;
+  isLoggedIn: boolean = false;
+
 
   constructor(private formBuilder: FormBuilder,
     private authService: AuthService,
     private localStorageService: LocalStorageService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private router:Router,
   ) {
 
   }
 
   ngOnInit(): void {
     this.createRegisterForm();
+    const isAlreadyLoggedIn = this.isLoggedIn
+      this.isLoggedIn = this.authService.isAuthenticated();
+      console.log(isAlreadyLoggedIn+"  "+this.isLoggedIn)
+      if(isAlreadyLoggedIn == true && isAlreadyLoggedIn != this.isLoggedIn){
+        this.toastrService.info("Token süreniz doldu tekrardan giriş yapiniz","Lütfen Tekrardan Giriş Yapınız")
+        this.router.navigate(["login"])
+      }
+      if (this.isLoggedIn) {
+        this.toastrService.info("Oturumunuz açık olduğu için anasayfaya yönlendiriliyorsunuz...","Bilgilendirme")
+        this.router.navigate(["/"])
+      }
   }
 
   createRegisterForm() {

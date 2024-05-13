@@ -21,15 +21,22 @@ const routes: Routes = [
   { path: ':listingName/detail/:id', component: DetailComponent },
 
   { path: 'listing', component: IlanComponent },
+  { path: 'listing', redirectTo: '/listing/page/1', pathMatch: 'full' },
   { path: 'listing/page/:pageId', component: IlanComponent },
   { path: 'listing/searchText/:searchText/page/:pageId', component: IlanComponent },
 
   { path: 'houselisting/page/:pageId', component: HouseListingComponent},
+  { path: 'houselisting', redirectTo: '/houselisting/page/1', pathMatch: 'full' },
+
   { path: 'landlisting/page/:pageId', component: LandListingComponent},
+  { path: 'landlisting', redirectTo: '/landlisting/page/1', pathMatch: 'full' },
+
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
+
   { path: 'profile/:id', component: ProfileComponent },
   { path:'profile/ilanlarim', component:ProfileComponent, canActivate:[LoginGuard]},
+  
   { path:'listing/add', component:ListingAddComponent, canActivate:[LoginGuard]},
   { path: 'listing/edit/:id', component:ListingEditingComponent, canActivate:[LoginGuard]}
 

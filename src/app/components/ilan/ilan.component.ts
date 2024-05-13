@@ -257,16 +257,20 @@ export class IlanComponent implements OnInit {
 
   setPageNumber(pageNumber: number) {
     this.currentPage = pageNumber;
+    this.router.navigateByUrl(`/listing/page/${this.currentPage}`);
     this.getListingByPage(this.currentPage, this.listingsPerPage);
   }
   onPageChange(newPage: number) {
     this.currentPage = newPage;
     console.log(this.currentPage)
+    
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { page: this.currentPage },
       queryParamsHandling: 'merge'
     });
+
+    
   }
 
 

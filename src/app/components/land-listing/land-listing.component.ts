@@ -202,6 +202,7 @@ export class LandListingComponent implements OnInit {
 
   setPageNumber(pageNumber: number) {
     this.currentPage = pageNumber;
+    this.router.navigateByUrl(`/landlisting/page/${this.currentPage}`);
     this.getListingByPage(this.currentPage, this.listingsPerPage);
   }
   onPageChange(newPage: number) {

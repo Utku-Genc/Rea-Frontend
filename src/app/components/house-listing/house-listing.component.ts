@@ -245,6 +245,8 @@ export class HouseListingComponent {
 
   setPageNumber(pageNumber: number) {
     this.currentPage = pageNumber;
+    this.router.navigateByUrl(`/houselisting/page/${this.currentPage}`);
+
     this.getListingByPage(this.currentPage, this.listingsPerPage);
   }
   onPageChange(newPage: number) {

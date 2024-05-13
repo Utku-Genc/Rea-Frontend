@@ -15,8 +15,11 @@ import { ToastrService } from 'ngx-toastr';
 export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
+  isLoggedIn: boolean = false;
 
-  constructor(    private formBuilder:FormBuilder,
+
+  constructor(
+    private formBuilder:FormBuilder,
     private authService:AuthService,
     private localStorageService:LocalStorageService,
     private router:Router,
@@ -27,6 +30,17 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.createLoginForm();
+    const isAlreadyLoggedIn = this.isLoggedIn
+      this.isLoggedIn = this.authService.isAuthenticated();
+      console.log(isAlreadyLoggedIn+"  "+this.isLoggedIn)
+      if(isAlreadyLoggedIn == true && isAlreadyLoggedIn != this.isLoggedIn){
+        this.toastrService.info("Token süreniz doldu tekrardan giriş yapiniz","Lütfen Tekrardan Giriş Yapınız")
+        this.router.navigate(["login"])
+      }
+      if (this.isLoggedIn) {
+        this.toastrService.info("Oturumunuz açık olduğu için anasayfaya yönlendiriliyorsunuz...","Bilgilendirme")
+        this.router.navigate(["/"])
+      }
   }
 
   createLoginForm(){
