@@ -35,4 +35,8 @@
     /* İkonun sol içeriğini ayarlama */
     margin-right: 5px;
   }
+
+  .text_area{
+    min-height: 150px;
+  }
   

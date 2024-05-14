@@ -218,9 +218,9 @@
                 <img [src]="getHouseListingImagePath(item)" class="card-img-top  rounded-0 aspect-ratio-16x9" alt="..."
                     style="background-color: rgb(255,255,255);">
                 <div class="card-body">
-                    <h5 class="card-title text-sub" style="min-height: 3rem; max-height: 3rem;">{{item.title |
+                    <h5 class="card-title " style="min-height: 3rem; max-height: 3rem;">{{item.title |
                         summary:40 }}</h5>
-                    <p class="card-text text-sub" style="min-height: 8rem;max-height: 8rem;">{{item.description |
+                    <p class="card-text " style="min-height: 8rem;max-height: 8rem;">{{item.description |
                         summary:120}}</p>
                 </div>
                 <ul class="list-group list-group-flush">
@@ -248,9 +248,11 @@
                     <li
                         class="list-group-item bg-info bg-opacity-10 border border-info border border-1 border-end-0 border-start-0 border-top-0 text-center">
                         <h5>
-                            {{item.houseTypeName}}
+                            {{item.houseTypeName}} - {{item.squareMeter}}m²
+
                         </h5>
                     </li>
+    
                     <li
                         class="list-group-item bg-info bg-opacity-10 border border-info border border-1 border-end-0 border-start-0 border-top-0 text-center">
                         <h5>
