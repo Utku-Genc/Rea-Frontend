@@ -53,22 +53,38 @@ export class RegisterComponent implements OnInit {
   register() {
     if (this.registerForm.valid) {
       let registerModel = Object.assign({}, this.registerForm.value)
+      console.log("1");
       this.authService.register(registerModel).subscribe(response => {
         console.log("kayıt başarılı")
+        console.log("2");
+
         this.localStorageService.remove("token");
         this.localStorageService.remove("expiration")
         this.localStorageService.setItem("token", response.data.token);
         this.localStorageService.setItem("expiration", response.data.expiration)
         window.location.href = "/";
+        console.log("3");
+
       }, responseError=>{
-        if(responseError.error.ValidationErrors.length>0){
+        console.log("4");
+
+        if(responseError.error.ValidationErrors && responseError.error.ValidationErrors.length>0 ){
+          console.log("7");
+
           console.log(responseError.error.ValidationErrors)
           for (let i = 0; i < responseError.error.ValidationErrors.length; i++) {
             this.toastrService.error(responseError.error.ValidationErrors[i].ErrorMessage,"Doğrulama Hatası")
           }
+          return;
         }
+        console.log("5");
+
+          this.toastrService.error("Bir hata ile karşılaşıldı. Lütfen tekrar deneyin. Hatanın devam etmesi durumunda iletisim@reaemlak.com üzerinden bizimle iletişime geçebilirsiniz.", "Dikkat!")
+        
       });
     } else {
+      console.log("6");
+
       this.toastrService.error("Lütfen Tüm Alanları Doldurun", "Dikkat!");
     }
 

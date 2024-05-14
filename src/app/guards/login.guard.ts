@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,9 @@ export class LoginGuard implements CanActivate {
 
   constructor(
     private authService:AuthService,
-    private router:Router
+    private router:Router,
+    private toastrService: ToastrService,
+
     ){}
 
   canActivate(
@@ -21,7 +24,7 @@ export class LoginGuard implements CanActivate {
     } else {
       this.authService.logOut();
       this.router.navigate(["login"])
-      console.log("giriş yapmalısınız");
+      this.toastrService.info("Bu sayfaya erişmek için giriş yapmanız lazım!","Dikkat")
       return false;
     }
   }
