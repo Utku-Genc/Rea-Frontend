@@ -8,9 +8,11 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { LoginGuard } from './guards/login.guard';
+
 import { ListingAddComponent } from './components/listing-add/listing-add.component';
 import { LandListingComponent } from './components/land-listing/land-listing.component';
 import { ListingEditingComponent } from './components/listing-editing/listing-editing.component';
+import { ListingOwnerGuard } from './guards/listing-owner.guard';
 
 
 
@@ -38,7 +40,7 @@ const routes: Routes = [
   { path:'profile/ilanlarim', component:ProfileComponent, canActivate:[LoginGuard]},
   
   { path:'listing/add', component:ListingAddComponent, canActivate:[LoginGuard]},
-  { path: 'listing/edit/:id', component:ListingEditingComponent, canActivate:[LoginGuard]}
+  { path: 'listing/edit/:id', component:ListingEditingComponent, canActivate:[LoginGuard,ListingOwnerGuard]}
 
 
 ];  

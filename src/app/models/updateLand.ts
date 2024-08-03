@@ -1,4 +1,5 @@
 export interface UpdateLand {
+    userId:number
     cityId: number;
     listingTypeId: number;
     propertyTypeId: number;
