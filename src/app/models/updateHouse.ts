@@ -1,4 +1,5 @@
 export interface UpdateHouse {
+    userId:number;
     cityId: number;
     listingTypeId: number;
     propertyTypeId: number;

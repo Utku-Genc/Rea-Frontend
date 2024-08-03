@@ -47,6 +47,7 @@ export class ListingEditingComponent implements OnInit {
     apiUrlImg = "https://localhost:44318/api/ListingImages/getbylistingid?listingId=";
   
     updateHouseListing: UpdateHouse = {
+      userId:0,
       cityId: 0,
       listingTypeId:0,
       propertyTypeId: 1,
@@ -74,6 +75,7 @@ export class ListingEditingComponent implements OnInit {
     };
 
     updateLandListing: UpdateLand = {
+      userId:0,
       cityId: 0,
       listingTypeId: 0,
       propertyTypeId: 1,
@@ -174,6 +176,7 @@ export class ListingEditingComponent implements OnInit {
         this.updateHouseListing.hasFurniture= response.data.hasFurniture;
         this.updateHouseListing.hasElevator= response.data.hasElevator;
         this.updateHouseListing.isInGatedCommunity= response.data.isInGatedCommunity;
+        this.updateHouseListing.userId = response.data.userId;
       });
   }
 
@@ -222,6 +225,7 @@ export class ListingEditingComponent implements OnInit {
       this.updateLandListing.sheetNo = response.data.sheetNo;
       this.updateLandListing.floorEquivalent = response.data.floorEquivalent;
       this.updateLandListing.squareMeter = response.data.squareMeter;
+      this.updateLandListing.userId = response.data.userId
 
       console.log(this.updateLandListing)
 
