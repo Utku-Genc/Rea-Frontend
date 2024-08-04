@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        display: flex;
+      }
+
+      .sidebar {
+        width: 250px;
+        height: 100vh;
+        background-color: #343a40;
+        color: white;
+        padding: 15px;
+        position: fixed;
+      }
+
+      .content {
+        margin-left: 250px;
+        padding: 20px;
+        width: calc(100% - 250px);
+      }
+
+      .card {
+        margin-bottom: 20px;
+      }
+
+      .navbar {
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2>Yönetim</h2>
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">İlanları Yönet</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">Üyeleri Yönet</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="#">Şikayetleri Yönet</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Admin Paneli</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Profilime git</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Çıkış Yap</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+              <div class="card-header">Üye Sayısı</div>
+              <div class="card-body">
+                <h5 class="card-title">123</h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+              <div class="card-header">Aktif Üye Sayısı</div>
+              <div class="card-body">
+                <h5 class="card-title">100</h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card text-white bg-danger mb-3">
+              <div class="card-header">Deaktif Üye Sayısı</div>
+              <div class="card-body">
+                <h5 class="card-title">23</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card text-white bg-info mb-3">
+              <div class="card-header">İlan Sayısı</div>
+              <div class="card-body">
+                <h5 class="card-title">45</h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card text-white bg-warning mb-3">
+              <div class="card-header">Aktif İlan Sayısı</div>
+              <div class="card-body">
+                <h5 class="card-title">35</h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card text-white bg-secondary mb-3">
+              <div class="card-header">Deaktif İlan Sayısı</div>
+              <div class="card-body">
+                <h5 class="card-title">10</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card text-white bg-dark mb-3">
+                  <div class="card-header">Toplam Şikayet Sayısı</div>
+                  <div class="card-body">
+                    <h5 class="card-title">5</h5>
+                  </div>
+                </div>
+              </div>
+          <div class="col-md-4">
+            <div class="card text-white bg-dark mb-3">
+              <div class="card-header">Cevaplanmış Şikayet Sayısı</div>
+              <div class="card-body">
+                <h5 class="card-title">5</h5>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card text-white bg-dark mb-3">
+              <div class="card-header">Cevaplanmamış Şikayet Sayısı</div>
+              <div class="card-body">
+                <h5 class="card-title">5</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </body>
+</html>

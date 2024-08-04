@@ -27,7 +27,8 @@ import { LandListingComponent } from './components/land-listing/land-listing.com
 
 import{ToastrModule} from "ngx-toastr";
 import{BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { ListingEditingComponent } from './components/listing-editing/listing-editing.component'
+import { ListingEditingComponent } from './components/listing-editing/listing-editing.component';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component'
 
 
 
@@ -48,6 +49,7 @@ import { ListingEditingComponent } from './components/listing-editing/listing-ed
     ListingAddComponent,
     LandListingComponent,
     ListingEditingComponent,
+    AdminDashboardComponent,
   ],
   imports: [
     BrowserModule,

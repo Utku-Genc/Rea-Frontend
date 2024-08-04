@@ -13,6 +13,8 @@ import { ListingAddComponent } from './components/listing-add/listing-add.compon
 import { LandListingComponent } from './components/land-listing/land-listing.component';
 import { ListingEditingComponent } from './components/listing-editing/listing-editing.component';
 import { ListingOwnerGuard } from './guards/listing-owner.guard';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { AdminGuard } from './guards/admin.guard';
 
 
 
@@ -40,7 +42,9 @@ const routes: Routes = [
   { path:'profile/ilanlarim', component:ProfileComponent, canActivate:[LoginGuard]},
   
   { path:'listing/add', component:ListingAddComponent, canActivate:[LoginGuard]},
-  { path: 'listing/edit/:id', component:ListingEditingComponent, canActivate:[LoginGuard,ListingOwnerGuard]}
+  { path: 'listing/edit/:id', component:ListingEditingComponent, canActivate:[LoginGuard,ListingOwnerGuard]},
+
+  { path:"dashboard", component:AdminDashboardComponent, canActivate:[AdminGuard]}
 
 
 ];  

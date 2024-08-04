@@ -6,6 +6,7 @@ import { TokenModel } from '../models/tokenModel';
 import { RegisterModel } from '../models/registerModel';
 import { LocalStorageService } from './local-storage.service';
 import { getLocaleDateFormat } from '@angular/common';
+import {jwtDecode} from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +37,38 @@ export class AuthService {
       this.logOut()
       return false;
     }
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  getDecodedToken(): any {
+    const token = this.getToken();
+    if (token) {
+      try {
+        return jwtDecode(token);
+      } catch (error) {
+        console.error('Invalid token', error);
+        return null;
+      }
+    }
+    return null;
+  }
+
+  getUserRoles(): string[] {
+    const decodedToken = this.getDecodedToken();
+    console.log(decodedToken);
+    if (decodedToken) {
+      const roles = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+      return Array.isArray(roles) ? roles : [roles];
+    }
+    return [];
+  }
+
+  isAdmin(): boolean {
+    const roles = this.getUserRoles();
+    return roles.includes('admin');
   }
 
 

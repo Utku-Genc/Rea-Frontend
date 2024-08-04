@@ -54,6 +54,9 @@ export class NavbarComponent implements OnInit {
 
   }
 
+  isAdmin():boolean{
+    return this.authService.isAdmin()
+  }
 
   checkLink(): boolean {
     if (this.router.url.startsWith("/listing")) {
