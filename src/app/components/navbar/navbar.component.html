@@ -13,7 +13,29 @@
               <i class="fa-solid fa-magnifying-glass fs-lg"></i>
             </button>
           </div>
+
+
+
           <div class="d-flex align-items-center">
+            <div *ngIf="isAdmin()" class="d-flex align-items-center me-2">
+              <div *ngIf="isLoggedIn" class="dropdown ">
+                <button class="btn dropdown-toggle bg-danger text-black" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                 ADMİN
+                </button>
+  
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item" routerLink="dashboard">Dashboarda Git</a></li>
+                  <li><a class="dropdown-item">Kullanıcıları Yönet</a></li>
+                  <li><a class="dropdown-item">İlanları Yönet</a></li>
+                  <li><a class="dropdown-item">Şikayetleri Yönet</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item">Admin Paneline Git</a></li>
+                  <li><a class="dropdown-item" (click)="logout()">Çıkış Yap</a></li>
+                </ul>
+  
+              </div>
+            </div>
+
             <button *ngIf="!isLoggedIn" class="btn me-2 login-btn" style="color:rgb(43,48,53);" routerLink="/login">Giriş Yap</button>
             <button *ngIf="!isLoggedIn" class="btn btn-outline-secondary"  routerLink="/register">Kayıt Ol</button>
             <div *ngIf="isLoggedIn" class="dropdown ">
@@ -23,12 +45,14 @@
                 <img *ngIf="userImg.length<=0" src="../../../assets/img/user.png" alt="Profil Fotoğrafı" class="rounded-circle me-2 " style="width: 32px; height: 32px;">
                 {{user.firstName}} {{user.lastName}}
               </button>
+
               <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
                 <li><a class="dropdown-item" routerLink="listing/add">İlan Ekle</a></li>
                 <li><a class="dropdown-item" [routerLink]="['/profile', 'ilanlarim']">İlanlarım</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" (click)="logout()">Çıkış Yap</a></li>
               </ul>
+
             </div>
           </div>
         </div>
