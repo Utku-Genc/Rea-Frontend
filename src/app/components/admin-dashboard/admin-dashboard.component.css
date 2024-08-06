@@ -1,0 +1,67 @@
+/* Genel stiller */
+
+
+.sidebar {
+    width: 250px;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    height: 100%;
+    background-color: rgb(43, 48, 53);
+    padding-top: 20px;
+}
+
+.sidebar h2 {
+    color: rgb(255, 188, 0);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.sidebar .nav {
+    display: block;
+    width: 100%;
+}
+
+.sidebar .nav-item {
+    width: 100%;
+    color: #000;
+}
+
+.sidebar .nav-link {
+    color: white;
+    padding: 10px;
+    text-align: left;
+    display: block;
+}
+
+.sidebar .nav-link:hover {
+    color: #000;
+    background-color: rgba(255, 187, 0);
+}
+
+.content {
+    margin-left: 250px;
+    padding: 20px;
+}
+
+.navbar {
+    margin-bottom: 20px;
+    border-radius: 10px;
+
+}
+
+.bg-rea {
+    background-color: rgb(43, 48, 53);
+}
+
+.h-rea {
+    max-height: 100px;
+}
+
+.hr-rea {
+    opacity: .8;
+    height: 5px;
+    border-width: 0;
+    color: rgb(43, 48, 53);
+    background-color: rgb(43, 48, 53)
+}
