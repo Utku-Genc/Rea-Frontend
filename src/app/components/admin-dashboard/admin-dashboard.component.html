@@ -1,171 +1,347 @@
-<!DOCTYPE html>
-<html lang="tr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard</title>
-    <link
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        display: flex;
-      }
+<div class="sidebar">
+  <h2>Yönetim</h2>
+  <ul class="nav flex-column">
+    <li class="nav-item">
+      <a class="nav-link" href="#">İlanları Yönet</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Üyeleri Yönet</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Şikayetleri Yönet</a>
+    </li>
+  </ul>
+</div>
 
-      .sidebar {
-        width: 250px;
-        height: 100vh;
-        background-color: #343a40;
-        color: white;
-        padding: 15px;
-        position: fixed;
-      }
+<div class="content">
 
-      .content {
-        margin-left: 250px;
-        padding: 20px;
-        width: calc(100% - 250px);
-      }
 
-      .card {
-        margin-bottom: 20px;
-      }
-
-      .navbar {
-        margin-bottom: 20px;
-      }
-    </style>
-  </head>
-
-  <body>
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <h2>Yönetim</h2>
-      <ul class="nav flex-column">
-        <li class="nav-item">
-          <a class="nav-link text-white" href="#">İlanları Yönet</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="#">Üyeleri Yönet</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="#">Şikayetleri Yönet</a>
-        </li>
-      </ul>
+  <nav class="navbar bg-rea">
+    <div class="container-fluid">
+      <h1 class="navbar-brand text-white">Yönetici Bilgi Ekranı</h1>
+      <div class="d-flex me-2">
+        <button type="button" class="btn btn-warning me-2">Profilim</button>
+        <button type="button" class="btn btn-danger">Çıkış</button>
+      </div>
     </div>
+  </nav>
 
-    <!-- Content -->
-    <div class="content">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Admin Paneli</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="#">Profilime git</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Çıkış Yap</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
 
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-4">
-            <div class="card text-white bg-primary mb-3">
-              <div class="card-header">Üye Sayısı</div>
-              <div class="card-body">
-                <h5 class="card-title">123</h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card text-white bg-success mb-3">
-              <div class="card-header">Aktif Üye Sayısı</div>
-              <div class="card-body">
-                <h5 class="card-title">100</h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card text-white bg-danger mb-3">
-              <div class="card-header">Deaktif Üye Sayısı</div>
-              <div class="card-body">
-                <h5 class="card-title">23</h5>
-              </div>
+  <div class="container-fluid">
+    <div>
+      <div>
+      <h2>Üye Yönetimi</h2>
+      <div class="d-flex col row">
+        <div class="col-md-4">
+          <div class="card text-white bg-rea mb-3">
+            <div class="card-header">Toplam Üye Sayısı</div>
+            <div class="card-body d-flex col">
+              <h5 class="card-title col-9">123</h5>
+              <button type="button" class="btn btn-outline-light col">Görüntüle</button>
             </div>
           </div>
         </div>
-
-        <div class="row">
-          <div class="col-md-4">
-            <div class="card text-white bg-info mb-3">
-              <div class="card-header">İlan Sayısı</div>
-              <div class="card-body">
-                <h5 class="card-title">45</h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card text-white bg-warning mb-3">
-              <div class="card-header">Aktif İlan Sayısı</div>
-              <div class="card-body">
-                <h5 class="card-title">35</h5>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card text-white bg-secondary mb-3">
-              <div class="card-header">Deaktif İlan Sayısı</div>
-              <div class="card-body">
-                <h5 class="card-title">10</h5>
-              </div>
+        <div class="col-md-4">
+          <div class="card text-white bg-success mb-3">
+            <div class="card-header">Aktif Üye Sayısı</div>
+            <div class="card-body d-flex col">
+              <h5 class="card-title col-9">100</h5>
+              <button type="button" class="btn btn-outline-light col">Görüntüle</button>
             </div>
           </div>
         </div>
+        <div class="col-md-4">
+          <div class="card text-white bg-danger mb-3">
+            <div class="card-header">Deaktif Üye Sayısı</div>
+            <div class="card-body d-flex col">
+              <h5 class="card-title col-9">23</h5>
+              <button type="button" class="btn btn-outline-light col">Görüntüle</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h5>Son Üyeler</h5>
+      <div class="d-flex col row">
 
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card text-white bg-dark mb-3">
-                  <div class="card-header">Toplam Şikayet Sayısı</div>
-                  <div class="card-body">
-                    <h5 class="card-title">5</h5>
-                  </div>
+        
+        <div class="col-md-3">
+          <div class="card mb-3 ">
+            <div class="row g-0 col h-rea">
+              <div class="col-3">
+                <img src="../../assets/img/home.jpg" class="img h-rea rounded-start">
+              </div>
+              <div class="col">
+                <div class="card-body">
+                  <h5 class="card-title">Kullanıcı Adı</h5>
+                  <p class="card-text"><small class="text-body-secondary">Profili Görüntüle</small></p>
                 </div>
               </div>
-          <div class="col-md-4">
-            <div class="card text-white bg-dark mb-3">
-              <div class="card-header">Cevaplanmış Şikayet Sayısı</div>
-              <div class="card-body">
-                <h5 class="card-title">5</h5>
-              </div>
             </div>
           </div>
-          <div class="col-md-4">
-            <div class="card text-white bg-dark mb-3">
-              <div class="card-header">Cevaplanmamış Şikayet Sayısı</div>
-              <div class="card-body">
-                <h5 class="card-title">5</h5>
+        </div>
+
+        <div class="col-md-3">
+          <div class="card mb-3 ">
+            <div class="row g-0 col h-rea">
+              <div class="col-3">
+                <img src="../../assets/img/home.jpg" class="img h-rea rounded-start">
+              </div>
+              <div class="col">
+                <div class="card-body">
+                  <h5 class="card-title">Kullanıcı Adı</h5>
+                  <p class="card-text"><small class="text-body-secondary">Profili Görüntüle</small></p>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
+        <div class="col-md-3">
+          <div class="card mb-3 ">
+            <div class="row g-0 col h-rea">
+              <div class="col-3">
+                <img src="../../assets/img/home.jpg" class="img h-rea rounded-start">
+              </div>
+              <div class="col">
+                <div class="card-body">
+                  <h5 class="card-title">Kullanıcı Adı</h5>
+                  <p class="card-text"><small class="text-body-secondary">Profili Görüntüle</small></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="card mb-3 ">
+            <div class="row g-0 col h-rea">
+              <div class="col-3">
+                <img src="../../assets/img/home.jpg" class="img h-rea rounded-start">
+              </div>
+              <div class="col">
+                <div class="card-body">
+                  <h5 class="card-title">Kullanıcı Adı</h5>
+                  <p class="card-text"><small class="text-body-secondary">Profili Görüntüle</small></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
       </div>
     </div>
-  </body>
-</html>
+
+    <hr class="hr-rea">
+
+    <div>
+      <h2>İlan Yönetimi</h2>
+      <div class="d-flex col row">
+        <div class="col-md-4">
+          <div class="card text-white bg-rea mb-3">
+            <div class="card-header">Toplam İlan Sayısı</div>
+            <div class="card-body d-flex col">
+              <h5 class="card-title col-9">45</h5>
+              <button type="button" class="btn btn-outline-light col">Görüntüle</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card text-white bg-success mb-3">
+            <div class="card-header">Aktif İlan Sayısı</div>
+            <div class="card-body d-flex col">
+              <h5 class="card-title col-9">35</h5>
+              <button type="button" class="btn btn-outline-light col">Görüntüle</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card text-white bg-secondary mb-3">
+            <div class="card-header">Deaktif İlan Sayısı</div>
+            <div class="card-body d-flex col">
+              <h5 class="card-title col-9">10</h5>
+              <button type="button" class="btn btn-outline-light col">Görüntüle</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h5>Son İlanlar</h5>
+      <div class="d-flex col row">
+        
+        <div class="col-md-3">
+          <div class="card mb-3 ">
+            <div class="row g-0 col h-rea">
+              <div class="col-3">
+                <img src="../../assets/img/home.jpg" class="img h-rea rounded-start">
+              </div>
+              <div class="col">
+                <div class="card-body">
+                  <h5 class="card-title">İlan Başlığı</h5>
+                  <p class="card-text"><small class="text-body-secondary">İlanı Görüntüle</small></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="card mb-3 ">
+            <div class="row g-0 col h-rea">
+              <div class="col-3">
+                <img src="../../assets/img/home.jpg" class="img h-rea rounded-start">
+              </div>
+              <div class="col">
+                <div class="card-body">
+                  <h5 class="card-title">İlan Başlığı</h5>
+                  <p class="card-text"><small class="text-body-secondary">İlanı Görüntüle</small></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="card mb-3 ">
+            <div class="row g-0 col h-rea">
+              <div class="col-3">
+                <img src="../../assets/img/home.jpg" class="img h-rea rounded-start">
+              </div>
+              <div class="col">
+                <div class="card-body">
+                  <h5 class="card-title">İlan Başlığı</h5>
+                  <p class="card-text"><small class="text-body-secondary">İlanı Görüntüle</small></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="card mb-3 ">
+            <div class="row g-0 col h-rea">
+              <div class="col-3">
+                <img src="../../assets/img/home.jpg" class="img h-rea rounded-start">
+              </div>
+              <div class="col">
+                <div class="card-body">
+                  <h5 class="card-title">İlan Başlığı</h5>
+                  <p class="card-text"><small class="text-body-secondary">İlanı Görüntüle</small></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+<hr class="hr-rea">
+
+    <div>
+      <h2>Şikayet Yönetimi</h2>
+      <div class="d-flex col row">
+        <div class="col-md-4">
+          <div class="card text-white bg-rea mb-3">
+            <div class="card-header">Toplam Şikayet Sayısı</div>
+            <div class="card-body d-flex col">
+              <h5 class="card-title col-9">45</h5>
+              <button type="button" class="btn btn-outline-light col">Görüntüle</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card text-white bg-success mb-3">
+            <div class="card-header">Cevaplanmış Şikayet Sayısı</div>
+            <div class="card-body d-flex col">
+              <h5 class="card-title col-9">30</h5>
+              <button type="button" class="btn btn-outline-light col">Görüntüle</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card text-white bg-danger mb-3">
+            <div class="card-header">Cevaplanmamış Şikayet Sayısı</div>
+            <div class="card-body d-flex col">
+              <h5 class="card-title col-9">15</h5>
+              <button type="button" class="btn btn-outline-light col">Görüntüle</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h5>Son Şikayetler</h5>
+      <div class="d-flex col row">
+
+        
+        <div class="col-md-3">
+          <div class="card mb-3 ">
+            <div class="row g-0 col h-rea">
+              <div class="col-3">
+                <img src="../../assets/img/home.jpg" class="img h-rea rounded-start">
+              </div>
+              <div class="col">
+                <div class="card-body">
+                  <h5 class="card-title">Şikayet Başlığı |
+                    summary:20</h5>
+                  <p class="card-text"><small class="text-body-secondary">Şikayeti Görüntüle</small></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="card mb-3 ">
+            <div class="row g-0 col h-rea">
+              <div class="col-3">
+                <img src="../../assets/img/home.jpg" class="img h-rea rounded-start">
+              </div>
+              <div class="col">
+                <div class="card-body">
+                  <h5 class="card-title">Şikayet Başlığı |
+                    summary:20</h5>
+                  <p class="card-text"><small class="text-body-secondary">Şikayeti Görüntüle</small></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="card mb-3 ">
+            <div class="row g-0 col h-rea">
+              <div class="col-3">
+                <img src="../../assets/img/home.jpg" class="img h-rea rounded-start">
+              </div>
+              <div class="col">
+                <div class="card-body">
+                  <h5 class="card-title">Şikayet Başlığı |
+                    summary:20</h5>
+                  <p class="card-text"><small class="text-body-secondary">Şikayeti Görüntüle</small></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="card mb-3 ">
+            <div class="row g-0 col h-rea">
+              <div class="col-3">
+                <img src="../../assets/img/home.jpg" class="img h-rea rounded-start">
+              </div>
+              <div class="col">
+                <div class="card-body">
+                  <h5 class="card-title">Şikayet Başlığı |
+                    summary:20</h5>
+                  <p class="card-text"><small class="text-body-secondary">Şikayeti Görüntüle</small></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    </div>
+  </div>
