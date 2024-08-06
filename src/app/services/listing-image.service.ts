@@ -9,6 +9,7 @@ import { ListingImage } from '../models/listingImage';
 })
 export class ListingImageService {
   apiUrl = "https://localhost:44318/api/ListingImages/";
+  public defaultImagePath = 'https://localhost:44318/Uploads/ListingImages/DefaultImage.png'
 
   constructor(private httpClient: HttpClient) { }
 
