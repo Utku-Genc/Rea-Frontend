@@ -58,7 +58,6 @@ export class AuthService {
 
   getUserRoles(): string[] {
     const decodedToken = this.getDecodedToken();
-    console.log(decodedToken);
     if (decodedToken) {
       const roles = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
       return Array.isArray(roles) ? roles : [roles];

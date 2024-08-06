@@ -4,6 +4,8 @@ import { UserImage } from '../models/userImage';
 import { Observable } from 'rxjs/internal/Observable';
 import { HttpClient } from '@angular/common/http';
 import { ResponseModel } from '../models/responseModel';
+import { map } from 'rxjs';
+import { SingleResponseModel } from '../models/singleReponseModel';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +13,7 @@ import { ResponseModel } from '../models/responseModel';
 export class UserImageService {
 
   apiUrl = "https://localhost:44318/api/UserImages/"
+  public defaultUserImage = 'https://localhost:44318/Uploads/UserImages/DefaultUserImage.png'
   constructor(private httpClient: HttpClient) { }
   getUserImageByToken(): Observable<ListResponseModel<UserImage>> {
     return this.httpClient.get<ListResponseModel<UserImage>>(this.apiUrl + "getbytoken");
@@ -18,6 +21,10 @@ export class UserImageService {
 
   getUserImageByUserId(userId:number): Observable<ListResponseModel<UserImage>> {
     return this.httpClient.get<ListResponseModel<UserImage>>(this.apiUrl + "getallbyuserid?userId="+userId);
+  }
+
+  getProfileImagePath(userId:number): Observable<SingleResponseModel<string>> {
+    return this.httpClient.get<SingleResponseModel<string>>(this.apiUrl+"getprofileimagepath?=userId"+userId);
   }
   
   addUserImageByToken(imageFile: FormData): Observable<any> {

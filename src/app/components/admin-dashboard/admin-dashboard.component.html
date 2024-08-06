@@ -20,8 +20,8 @@
     <div class="container-fluid">
       <h1 class="navbar-brand text-white">Yönetici Bilgi Ekranı</h1>
       <div class="d-flex me-2">
-        <button type="button" class="btn btn-warning me-2">Profilim</button>
-        <button type="button" class="btn btn-danger">Çıkış</button>
+        <button routerLink="/profile/ilanlarim" type="button" class="btn btn-warning me-2">Profilim</button>
+        <button (click)="logout()" type="button" class="btn btn-danger">Çıkış</button>
       </div>
     </div>
   </nav>
@@ -36,7 +36,7 @@
           <div class="card text-white bg-rea mb-3">
             <div class="card-header">Toplam Üye Sayısı</div>
             <div class="card-body d-flex col">
-              <h5 class="card-title col-9">123</h5>
+              <h5 class="card-title col-9">{{this.userCount}}</h5>
               <button type="button" class="btn btn-outline-light col">Görüntüle</button>
             </div>
           </div>
@@ -45,7 +45,7 @@
           <div class="card text-white bg-success mb-3">
             <div class="card-header">Aktif Üye Sayısı</div>
             <div class="card-body d-flex col">
-              <h5 class="card-title col-9">100</h5>
+              <h5 class="card-title col-9">{{this.activeUserCount}}</h5>
               <button type="button" class="btn btn-outline-light col">Görüntüle</button>
             </div>
           </div>
@@ -54,7 +54,7 @@
           <div class="card text-white bg-danger mb-3">
             <div class="card-header">Deaktif Üye Sayısı</div>
             <div class="card-body d-flex col">
-              <h5 class="card-title col-9">23</h5>
+              <h5 class="card-title col-9">{{this.passiveUserCount}}</h5>
               <button type="button" class="btn btn-outline-light col">Görüntüle</button>
             </div>
           </div>
@@ -63,64 +63,15 @@
       <h5>Son Üyeler</h5>
       <div class="d-flex col row">
 
-        
-        <div class="col-md-3">
+        <div routerLink="/profile/{{ user.id }}" class="col-md-3" *ngFor="let user of latestUsers">
           <div class="card mb-3 ">
             <div class="row g-0 col h-rea">
               <div class="col-3">
-                <img src="../../assets/img/home.jpg" class="img h-rea rounded-start">
+                <img [src]="getUserImagePath(user)" class="img h-rea rounded-start">
               </div>
               <div class="col">
                 <div class="card-body">
-                  <h5 class="card-title">Kullanıcı Adı</h5>
-                  <p class="card-text"><small class="text-body-secondary">Profili Görüntüle</small></p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3">
-          <div class="card mb-3 ">
-            <div class="row g-0 col h-rea">
-              <div class="col-3">
-                <img src="../../assets/img/home.jpg" class="img h-rea rounded-start">
-              </div>
-              <div class="col">
-                <div class="card-body">
-                  <h5 class="card-title">Kullanıcı Adı</h5>
-                  <p class="card-text"><small class="text-body-secondary">Profili Görüntüle</small></p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3">
-          <div class="card mb-3 ">
-            <div class="row g-0 col h-rea">
-              <div class="col-3">
-                <img src="../../assets/img/home.jpg" class="img h-rea rounded-start">
-              </div>
-              <div class="col">
-                <div class="card-body">
-                  <h5 class="card-title">Kullanıcı Adı</h5>
-                  <p class="card-text"><small class="text-body-secondary">Profili Görüntüle</small></p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3">
-          <div class="card mb-3 ">
-            <div class="row g-0 col h-rea">
-              <div class="col-3">
-                <img src="../../assets/img/home.jpg" class="img h-rea rounded-start">
-              </div>
-              <div class="col">
-                <div class="card-body">
-                  <h5 class="card-title">Kullanıcı Adı</h5>
+                  <h5 class="card-title">{{user.firstName+" "+user.lastName}}</h5>
                   <p class="card-text"><small class="text-body-secondary">Profili Görüntüle</small></p>
                 </div>
               </div>
@@ -140,7 +91,7 @@
           <div class="card text-white bg-rea mb-3">
             <div class="card-header">Toplam İlan Sayısı</div>
             <div class="card-body d-flex col">
-              <h5 class="card-title col-9">45</h5>
+              <h5 class="card-title col-9">{{this.listingCount}}</h5>
               <button type="button" class="btn btn-outline-light col">Görüntüle</button>
             </div>
           </div>
@@ -149,16 +100,16 @@
           <div class="card text-white bg-success mb-3">
             <div class="card-header">Aktif İlan Sayısı</div>
             <div class="card-body d-flex col">
-              <h5 class="card-title col-9">35</h5>
+              <h5 class="card-title col-9">{{this.activeListingCount}}</h5>
               <button type="button" class="btn btn-outline-light col">Görüntüle</button>
             </div>
           </div>
         </div>
         <div class="col-md-4">
-          <div class="card text-white bg-secondary mb-3">
+          <div class="card text-white bg-danger mb-3">
             <div class="card-header">Deaktif İlan Sayısı</div>
             <div class="card-body d-flex col">
-              <h5 class="card-title col-9">10</h5>
+              <h5 class="card-title col-9">{{this.passiveListingCount}}</h5>
               <button type="button" class="btn btn-outline-light col">Görüntüle</button>
             </div>
           </div>
@@ -167,63 +118,15 @@
       <h5>Son İlanlar</h5>
       <div class="d-flex col row">
         
-        <div class="col-md-3">
+        <div routerLink="/landlisting/detail/{{ listing.id }}" class="col-md-3" *ngFor="let listing of latestListings">
           <div class="card mb-3 ">
             <div class="row g-0 col h-rea">
               <div class="col-3">
-                <img src="../../assets/img/home.jpg" class="img h-rea rounded-start">
+                <img [src]="getListingImagePath(listing.imagePath)" class="img h-rea rounded-start">
               </div>
               <div class="col">
                 <div class="card-body">
-                  <h5 class="card-title">İlan Başlığı</h5>
-                  <p class="card-text"><small class="text-body-secondary">İlanı Görüntüle</small></p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3">
-          <div class="card mb-3 ">
-            <div class="row g-0 col h-rea">
-              <div class="col-3">
-                <img src="../../assets/img/home.jpg" class="img h-rea rounded-start">
-              </div>
-              <div class="col">
-                <div class="card-body">
-                  <h5 class="card-title">İlan Başlığı</h5>
-                  <p class="card-text"><small class="text-body-secondary">İlanı Görüntüle</small></p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3">
-          <div class="card mb-3 ">
-            <div class="row g-0 col h-rea">
-              <div class="col-3">
-                <img src="../../assets/img/home.jpg" class="img h-rea rounded-start">
-              </div>
-              <div class="col">
-                <div class="card-body">
-                  <h5 class="card-title">İlan Başlığı</h5>
-                  <p class="card-text"><small class="text-body-secondary">İlanı Görüntüle</small></p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3">
-          <div class="card mb-3 ">
-            <div class="row g-0 col h-rea">
-              <div class="col-3">
-                <img src="../../assets/img/home.jpg" class="img h-rea rounded-start">
-              </div>
-              <div class="col">
-                <div class="card-body">
-                  <h5 class="card-title">İlan Başlığı</h5>
+                  <h5 class="card-title">{{listing.title}}</h5>
                   <p class="card-text"><small class="text-body-secondary">İlanı Görüntüle</small></p>
                 </div>
               </div>

@@ -19,4 +19,19 @@ getUserById(userId:number):Observable<SingleResponseModel<User>>{
   return this.httpClient.get<SingleResponseModel<User>>(this.apiUrl+"getuserdetailsbyid?userId="+userId)
 }
 
+
+getUserCount():Observable<SingleResponseModel<number>>{
+  return this.httpClient.get<SingleResponseModel<number>>(this.apiUrl+"getusercount");
+}
+getActiveUserCount():Observable<SingleResponseModel<number>>{
+  return this.httpClient.get<SingleResponseModel<number>>(this.apiUrl+"getactiveusercount");
+}
+getPassiveUserCount():Observable<SingleResponseModel<number>>{
+  return this.httpClient.get<SingleResponseModel<number>>(this.apiUrl+"getpassiveusercount");
+}
+
+getLatestUsers(pageSize:number):Observable<ListResponseModel<User>>{
+  return this.httpClient.get<ListResponseModel<User>>(this.apiUrl+"getlatestusers?pageSize="+pageSize);
+}
+
 }

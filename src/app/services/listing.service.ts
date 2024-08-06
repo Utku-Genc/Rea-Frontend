@@ -7,6 +7,7 @@ import { Listing } from '../models/listing';
 import { ListingFilter } from '../models/listingFilter';
 import { SortingObject } from '../models/sortingObject';
 import { ListingRequestModel } from '../models/listingRequestModel';
+import { SingleResponseModel } from '../models/singleReponseModel';
 
 @Injectable({
   providedIn: 'root'
@@ -49,6 +50,16 @@ export class ListingService {
     return this.httpClient.post<ListResponseModel<Listing>>(
       this.apiUrl+"getpaginatedlistings",reguestModel
     );
+  }
+
+  getListingCount():Observable<SingleResponseModel<number>>{
+    return this.httpClient.get<SingleResponseModel<number>>(this.apiUrl+"getlistingcount");
+  }
+  getActiveListingCount():Observable<SingleResponseModel<number>>{
+    return this.httpClient.get<SingleResponseModel<number>>(this.apiUrl+"getactivelistingcount");
+  }
+  getPassiveListingCount():Observable<SingleResponseModel<number>>{
+    return this.httpClient.get<SingleResponseModel<number>>(this.apiUrl+"getpassivelistingcount");
   }
   
 }
