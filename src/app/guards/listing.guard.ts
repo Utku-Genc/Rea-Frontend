@@ -23,7 +23,6 @@ export class ListingGuard implements CanActivate {
 
     // Adminse her türlü erişime izin ver
     if (this.authService.isAdmin()) {
-      this.toastrService.info("Şuanda pasif bir ilanı görüntülüyorsunuz. Kullanıcılar bu ilanı göremez","Pasif İlan")
       return true;
     } else {
 

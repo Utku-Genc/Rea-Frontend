@@ -22,7 +22,6 @@ export class ProfileGuard implements CanActivate {
 
     // Adminse her türlü erişime izin ver
     if (this.authService.isAdmin()) {
-      this.toastrService.info("Şuanda pasif bir profili görüntülüyorsunuz. Kullanıcılar bu profili göremez","Pasif Profil")
       return true;
     } else {
 
