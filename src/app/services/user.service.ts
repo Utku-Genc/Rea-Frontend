@@ -34,4 +34,8 @@ getLatestUsers(pageSize:number):Observable<ListResponseModel<User>>{
   return this.httpClient.get<ListResponseModel<User>>(this.apiUrl+"getlatestusers?pageSize="+pageSize);
 }
 
+getUserStatus(userId:number):Observable<SingleResponseModel<boolean>>{
+  return this.httpClient.get<SingleResponseModel<boolean>>(this.apiUrl+"getuserstatus?userId="+userId);
+}
+
 }
