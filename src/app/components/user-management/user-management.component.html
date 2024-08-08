@@ -1,0 +1,89 @@
+<div class="sidebar">
+    <h2>Yönetim</h2>
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link" href="#">Üyeleri Yönet</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">İlanları Yönet</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#">Şikayetleri Yönet</a>
+        </li>
+    </ul>
+</div>
+
+
+
+<div class="content">
+
+    <nav class="navbar bg-rea">
+        <div class="container-fluid">
+            <h1 class="navbar-brand text-white">Üye Yönetim Ekranı</h1>
+            <div class="d-flex me-2">
+                <button routerLink="/profile/ilanlarim" type="button" class="btn btn-warning me-2">Profilim</button>
+                <button (click)="logout()" type="button" class="btn btn-danger">Çıkış</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <nav class="navbar">
+            <div class="container-fluid">
+                <h1 class="navbar-brand text-white"></h1>
+                <div class="d-flex me-2">
+                    <button routerLink="/profile/ilanlarim" type="button" class="btn btn-warning me-2">Profilim</button>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Arama" aria-label="Arama">
+                        <button class="btn btn-outline-success" type="submit"> <i
+                                class="fa-solid fa-magnifying-glass fs-lg"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </nav>
+
+        <div class="d-flex col row">
+
+            <div class="col">
+                <div class="card mb-3 ">
+                    <div class="row g-0 col h-rea">
+                        <div class="col-1">
+                            <img src="../../../assets/img/10.png" class="img h-rea rounded-start ">
+                        </div>
+                        <div class="col">
+                            <div class="card-body">
+                                <h5 class="card-title">User Name</h5>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card-body">
+                                <h5 class="card-title">User Mail</h5>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card-body">
+                                <h5 class="card-title">Rol-1, Rol-2, Rol-3</h5>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card-body">
+                                <h5 class="card-title">07/08/2024</h5>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="card-body">
+                                <button type="button" class="btn btn-danger">Engeli Kaldır</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>

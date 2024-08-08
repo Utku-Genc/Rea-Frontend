@@ -34,7 +34,7 @@ export class AdminDashboardComponent implements OnInit {
     this.getActiveUserCount();
     this.getPassiveUserCount();
 
-    let pageSize = 4
+    let pageSize = 8
     this.getLatestListings(pageSize);
     this.getLatestUsers(pageSize);
   }
