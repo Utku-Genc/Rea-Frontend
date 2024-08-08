@@ -25,9 +25,10 @@ export class ProfileComponent implements OnInit {
   selectedImage: File | undefined;
   deleteToListingId!: number;
 
-  isUsersProfile = this.router.url.startsWith("/profile/ilanlarim");
+ 
   userId:number | undefined
-
+  
+  isUsersProfile = this.router.url.startsWith("/profile/ilanlarim");
   constructor(
     private listingService: ListingService,
     private userService: UserService,

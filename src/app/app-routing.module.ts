@@ -15,13 +15,12 @@ import { ListingEditingComponent } from './components/listing-editing/listing-ed
 import { ListingOwnerGuard } from './guards/listing-owner.guard';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { AdminGuard } from './guards/admin.guard';
-import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
-<<<<<<< HEAD
 import { UserManagementComponent } from './components/user-management/user-management.component';
-=======
 import { ProfileGuard } from './guards/profile.guard';
 import { ListingGuard } from './guards/listing.guard';
->>>>>>> master
+import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
+
+
 
 
 
