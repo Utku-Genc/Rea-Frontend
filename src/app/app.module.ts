@@ -29,7 +29,8 @@ import{ToastrModule} from "ngx-toastr";
 import{BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ListingEditingComponent } from './components/listing-editing/listing-editing.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
-import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component'
+import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
+import { UserManagementComponent } from './components/user-management/user-management.component'
 
 
 
@@ -52,6 +53,7 @@ import { UnauthorizedComponent } from './components/unauthorized/unauthorized.co
     ListingEditingComponent,
     AdminDashboardComponent,
     UnauthorizedComponent,
+    UserManagementComponent,
   ],
   imports: [
     BrowserModule,
