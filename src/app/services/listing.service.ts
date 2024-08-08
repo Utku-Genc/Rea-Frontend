@@ -61,5 +61,10 @@ export class ListingService {
   getPassiveListingCount():Observable<SingleResponseModel<number>>{
     return this.httpClient.get<SingleResponseModel<number>>(this.apiUrl+"getpassivelistingcount");
   }
+
+  getListingStatus(listingId:number):Observable<SingleResponseModel<boolean>>{
+    return this.httpClient.get<SingleResponseModel<boolean>>(this.apiUrl+"getlistingstatus?listingId="+listingId);
+  }
+  
   
 }

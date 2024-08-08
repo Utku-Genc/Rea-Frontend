@@ -16,7 +16,12 @@ import { ListingOwnerGuard } from './guards/listing-owner.guard';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { AdminGuard } from './guards/admin.guard';
 import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
+<<<<<<< HEAD
 import { UserManagementComponent } from './components/user-management/user-management.component';
+=======
+import { ProfileGuard } from './guards/profile.guard';
+import { ListingGuard } from './guards/listing.guard';
+>>>>>>> master
 
 
 
@@ -24,7 +29,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/homepage', pathMatch: 'full' },
   { path: 'homepage', component: HomepageComponent },
 
-  { path: ':listingName/detail/:id', component: DetailComponent },
+  { path: ':listingName/detail/:id', component: DetailComponent, canActivate:[ListingGuard] },
 
   { path: 'listing', component: IlanComponent },
   { path: 'listing', redirectTo: '/listing/page/1', pathMatch: 'full' },
@@ -40,7 +45,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
 
-  { path: 'profile/:id', component: ProfileComponent },
+  { path: 'profile/:id', component: ProfileComponent, canActivate:[ProfileGuard] },
   { path:'profile/ilanlarim', component:ProfileComponent, canActivate:[LoginGuard]},
   
   { path:'listing/add', component:ListingAddComponent, canActivate:[LoginGuard]},
