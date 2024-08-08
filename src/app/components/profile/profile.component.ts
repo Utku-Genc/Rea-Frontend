@@ -45,7 +45,23 @@ export class ProfileComponent implements OnInit {
       this.currentPage = params['page'] || 1;
     });
 
+    const userId = this.route.snapshot.paramMap.get('id')
+    if(userId){
+      this.getUserStatus(userId)
+    }
+
   }
+
+  getUserStatus(userId:string){
+    this.userService.getUserStatus(parseInt(userId)).subscribe(
+      response=>{
+        if(!response.data){
+          this.toastrService.info("Şuanda pasif bir profili görüntülüyorsunuz. Kullanıcılar bu profili göremez","Pasif Profil")
+        }
+      }
+    )
+  }
+
   updateProfileView() {
     this.isUsersProfile = this.router.url.startsWith("/profile/ilanlarim");
     if (this.isUsersProfile) {

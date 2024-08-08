@@ -23,22 +23,7 @@ export class ListingGuard implements CanActivate {
 
     // Adminse her türlü erişime izin ver
     if (this.authService.isAdmin()) {
-      if (!listingId) {
-        this.router.navigate(['']);
-        return false;
-      }
-      return this.listingService.getListingStatus(parseInt(listingId)).pipe(
-        map((response: SingleResponseModel<boolean>) => {
-          if (response.data) {
-            return true; // İlan aktifse erişime izin ver
-          } else {
-            this.toastrService.info("Şuanda pasif bir ilanı görüntülüyorsunuz. Kullanıcılar bu ilanı göremez","Pasif İlan")
       return true;
-            return false;
-          }
-        }),)
-
-      
     } else {
 
       if (!listingId) {

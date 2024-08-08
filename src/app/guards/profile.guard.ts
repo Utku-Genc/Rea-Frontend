@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ProfileGuard implements CanActivate {
 
-  constructor(private authService: AuthService, private userService: UserService, private router: Router, private toastrService: ToastrService) { }
+  constructor(private authService: AuthService, private userService: UserService, private router: Router,private toastrService:ToastrService) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -22,20 +22,7 @@ export class ProfileGuard implements CanActivate {
 
     // Adminse her türlü erişime izin ver
     if (this.authService.isAdmin()) {
-      if (!userId) {
-        this.router.navigate(['']);
-        return false;
-      }
-      return this.userService.getUserStatus(parseInt(userId)).pipe(
-        map((response: SingleResponseModel<boolean>) => {
-          if (response.data) {
-            return true; // Kullanıcı aktifse erişime izin ver
-          } else {
-            this.toastrService.info("Şuanda pasif bir profili görüntülüyorsunuz. Kullanıcılar bu profili göremez", "Pasif Profil")
-            return true;
-          }
-        }),)
-
+      return true;
     } else {
 
       if (!userId) {
@@ -49,7 +36,7 @@ export class ProfileGuard implements CanActivate {
             return true; // Kullanıcı aktifse erişime izin ver
           } else {
             this.router.navigate(['']); // Kullanıcı aktif değilse ana sayfaya yönlendir
-            this.toastrService.error("Görüntülemeye çalıştığınız profil kapatılmış ya da yasaklanmış olabilir.Bu profili görüntülemek için yetkiniz yok", "Pasif Profil")
+            this.toastrService.error("Görüntülemeye çalıştığınız profil kapatılmış ya da yasaklanmış olabilir.Bu profili görüntülemek için yetkiniz yok","Pasif Profil")
             return false;
           }
         }),

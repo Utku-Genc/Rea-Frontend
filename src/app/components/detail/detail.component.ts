@@ -10,6 +10,8 @@ import { HouseListingService } from '../../services/house-listing.service';
 import { ListResponseModel } from '../../models/listResponseModel';
 import { ListingImageService } from '../../services/listing-image.service';
 import { startWith } from 'rxjs';
+import { ListingService } from '../../services/listing.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'detail',
@@ -29,15 +31,18 @@ export class DetailComponent implements OnInit {
   landDetail!: LandDetail;
 
   constructor(
+    private listingService:ListingService,
     private route: ActivatedRoute,
     private userImageService: UserImageService,
     private landListingService: LandListingService,
     private houseListingService: HouseListingService,
     private listingImageService: ListingImageService,
+    private toastrService:ToastrService
   ) { } 
   ngOnInit() {
     const listingId = this.route.snapshot.paramMap.get('id'); // URL'den listingId'yi al
     if (listingId != null) {
+      this.getListingStatus(listingId);
       console.log(listingId)
       if (listingId.startsWith("1")) {
         this.getHouseDetail(listingId); // Parametre olarak listingId'yi geçir
@@ -47,6 +52,7 @@ export class DetailComponent implements OnInit {
     }
     this.getImage(listingId);
     this.showImages();
+
   }
 
   getImage(listingId: string | null) {
@@ -55,6 +61,15 @@ export class DetailComponent implements OnInit {
       this.imageListing = response;
       console.log(response);
     })
+  }
+  getListingStatus(listingId:string){
+    this.listingService.getListingStatus(parseInt(listingId)).subscribe(
+      response=>{
+        if(response.data == false){
+          this.toastrService.info("Şuanda pasif bir ilanı görüntülüyorsunuz. Kullanıcılar bu ilanı göremez","Pasif İlan")
+        }
+      }
+    )
   }
   getHouseDetail(listingId: string) {
     this.houseListingService.getHouseDetail(listingId)
