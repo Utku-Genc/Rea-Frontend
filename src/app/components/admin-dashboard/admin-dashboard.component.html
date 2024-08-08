@@ -2,10 +2,10 @@
   <h2>Yönetim</h2>
   <ul class="nav flex-column">
     <li class="nav-item">
-      <a class="nav-link" href="#">İlanları Yönet</a>
+      <a class="nav-link" href="#">Üyeleri Yönet</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">Üyeleri Yönet</a>
+      <a class="nav-link" href="#">İlanları Yönet</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#">Şikayetleri Yönet</a>
@@ -37,7 +37,7 @@
             <div class="card-header">Toplam Üye Sayısı</div>
             <div class="card-body d-flex col">
               <h5 class="card-title col-9">{{this.userCount}}</h5>
-              <button type="button" class="btn btn-outline-light col">Görüntüle</button>
+              <button routerLink="/dashboard/user-management" type="button" class="btn btn-outline-light col">Görüntüle</button>
             </div>
           </div>
         </div>
@@ -71,7 +71,7 @@
               </div>
               <div class="col">
                 <div class="card-body">
-                  <h5 class="card-title">{{user.firstName+" "+user.lastName}}</h5>
+                  <h5 class="card-title">{{user.firstName+" "+user.lastName | summary:20}}</h5>
                   <p class="card-text"><small class="text-body-secondary">Profili Görüntüle</small></p>
                 </div>
               </div>
@@ -126,7 +126,7 @@
               </div>
               <div class="col">
                 <div class="card-body">
-                  <h5 class="card-title">{{listing.title}}</h5>
+                  <h5 class="card-title">{{listing.title | summary:20}}</h5>
                   <p class="card-text"><small class="text-body-secondary">İlanı Görüntüle</small></p>
                 </div>
               </div>
