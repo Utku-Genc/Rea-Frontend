@@ -4,6 +4,10 @@ import { Observable } from 'rxjs/internal/Observable';
 import { ListResponseModel } from '../models/listResponseModel';
 import { User } from '../models/user';
 import { SingleResponseModel } from '../models/singleReponseModel';
+import { UserFilter } from '../models/userFilter';
+import { UserRequestModel } from '../models/userRequestModel';
+import { SortingObject } from '../models/sortingObject';
+import { UserFull } from '../models/userFull';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +40,25 @@ getLatestUsers(pageSize:number):Observable<ListResponseModel<User>>{
 
 getUserStatus(userId:number):Observable<SingleResponseModel<boolean>>{
   return this.httpClient.get<SingleResponseModel<boolean>>(this.apiUrl+"getuserstatus?userId="+userId);
+}
+
+getPaginatedUsers(filter: UserFilter | null, sorting: SortingObject |null, pageNumber: number, pageSize: number): Observable<ListResponseModel<UserFull>> {
+  let reguestModel: UserRequestModel = {
+    pageNumber: pageNumber,
+    pageSize: pageSize,
+    filter: null,
+    sorting: null
+  };
+  if(filter){
+    reguestModel.filter = filter
+  }
+  if(sorting){
+    reguestModel.sorting = sorting
+  }
+  console.log(reguestModel);
+  return this.httpClient.post<ListResponseModel<UserFull>>(
+    this.apiUrl+"getpaginatedusers",reguestModel
+  );
 }
 
 }

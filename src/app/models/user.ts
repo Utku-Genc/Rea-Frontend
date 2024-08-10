@@ -6,3 +6,4 @@ export interface User {
     registerDate:Date
     imagePath:string
 }
+
