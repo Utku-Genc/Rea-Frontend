@@ -43,7 +43,7 @@
             </div>
         </nav>
 
-        <div class="d-flex col row" routerLink="/profile/{{ user.userId }}"  *ngFor="let user of users">
+        <div class="d-flex col row" routerLink="/profile/{{ user.id }}"  *ngFor="let user of users">
 
             <div class="col" >
                 <div class="card mb-3 ">
@@ -63,12 +63,12 @@
                         </div>
                         <div class="col">
                             <div class="card-body mt-2">
-                                <h5 class="card-title">{{user.userId}}</h5>
+                                <h5 class="card-title">{{user.id}}</h5>
                             </div>
                         </div>
                         <div class="col">
                             <div class="card-body mt-2">
-                                <h5 class="card-title">{{user.maxRegisterDate| date:'dd/MM/YYYY'}}</h5>
+                                <h5 class="card-title">{{user.registerDate| date:'dd/MM/YYYY'}}</h5>
                             </div>
                         </div>
 

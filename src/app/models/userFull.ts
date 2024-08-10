@@ -1,11 +1,12 @@
+import { operationClaims } from "./operationClaims";
+
 export interface UserFull {
-    searchText: string;      
+    id: number;    
     firstName: string;
     lastName: string;
     email: string;
-    userId: number;
+    imagePath: string;
     status : boolean;
-    roleIds: number[];
-    minRegisterDate: number; 
-    maxRegisterDate: number;
+    operationClaims: operationClaims[];
+    registerDate:Date;
 }
