@@ -58,6 +58,8 @@
 .h-rea {
     object-fit: cover;
     width: 100%;
+    min-height: 100px;
+    max-height: 100px;
     height: 100%;
 }
 

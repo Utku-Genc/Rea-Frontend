@@ -58,9 +58,10 @@
 .h-rea {
     object-fit: cover;
     width: 100%;
+    min-height: 75px;
+    max-height: 75px;
     height: 100%;
 }
-
 .div-rea{
     border-radius: 20px;
     width: 100%;
@@ -76,4 +77,16 @@
 }
 .rea-margin{
     margin-top: 30px;
+}
+.set-page{
+    background-color: rgb(43, 48, 53);
+    color: rgb(255, 188, 0); 
+    border: none;
+    width: 47px;
+    margin-top: auto;
+    text-align: center;
+}
+
+#pageNum::-webkit-inner-spin-button, #pageNum::-webkit-outer-spin-button{
+    display: none;
 }

@@ -43,39 +43,40 @@
             </div>
         </nav>
 
-        <div class="d-flex col row">
+        <div class="d-flex col row" routerLink="/profile/{{ user.id }}"  *ngFor="let user of latestUsers">
 
-            <div class="col">
+            <div class="col" >
                 <div class="card mb-3 ">
                     <div class="row g-0 col h-rea">
-                        <div class="col-1">
-                            <img src="../../../assets/img/10.png" class="img h-rea rounded-start ">
+                        <div class="col-1" style="width: 75px;">
+                            <img [src]="getUserImagePath(user)" class="img h-rea rounded-start ">
                         </div>
                         <div class="col">
-                            <div class="card-body">
-                                <h5 class="card-title">User Name</h5>
+                            <div class="card-body mt-2">
+                                <h5 class="card-title">{{user.firstName}} {{user.lastName}}</h5>
                             </div>
                         </div>
                         <div class="col">
-                            <div class="card-body">
-                                <h5 class="card-title">User Mail</h5>
+                            <div class="card-body mt-2">
+                                <h5 class="card-title">{{user.email}}</h5>
                             </div>
                         </div>
                         <div class="col">
-                            <div class="card-body">
-                                <h5 class="card-title">Rol-1, Rol-2, Rol-3</h5>
+                            <div class="card-body mt-2">
+                                <h5 class="card-title">{{user.id}}</h5>
                             </div>
                         </div>
                         <div class="col">
-                            <div class="card-body">
-                                <h5 class="card-title">07/08/2024</h5>
+                            <div class="card-body mt-2">
+                                <h5 class="card-title">{{user.registerDate | date:'dd/MM/YYYY'}}</h5>
                             </div>
                         </div>
 
                         <div class="col">
                             <div class="card-body">
-                                <button type="button" class="btn btn-danger">Engeli Kaldır</button>
-
+                                <div class="d-grid gap-2 mt-1 mx-auto">
+                                    <button class="btn btn-danger" type="button"></button>
+                                  </div>
                             </div>
                         </div>
                     </div>
@@ -85,5 +86,18 @@
         </div>
     </div>
 
+    <div class="pagination justify-content-center ">
+        <button class="btn page-btn ms-1" (click)="previousPage()">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <form class="ms-1" (ngSubmit)="setPageNumber(currentPage)"><input type="number" class="form-control set-page"
+                id="pageNum" name="pageNum" [(ngModel)]="currentPage">
+        </form>
+    
+    
+        <button class="btn page-btn ms-1" (click)="nextPage()">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+    </div>
 
 </div>
