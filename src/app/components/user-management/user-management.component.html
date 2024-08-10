@@ -43,13 +43,13 @@
             </div>
         </nav>
 
-        <div class="d-flex col row" routerLink="/profile/{{ user.id }}"  *ngFor="let user of latestUsers">
+        <div class="d-flex col row" routerLink="/profile/{{ user.userId }}"  *ngFor="let user of users">
 
             <div class="col" >
                 <div class="card mb-3 ">
                     <div class="row g-0 col h-rea">
                         <div class="col-1" style="width: 75px;">
-                            <img [src]="getUserImagePath(user)" class="img h-rea rounded-start ">
+                    <!-- <img [src]="getUserImagePath(user.)" class="img h-rea rounded-start ">  --> 
                         </div>
                         <div class="col">
                             <div class="card-body mt-2">
@@ -63,12 +63,12 @@
                         </div>
                         <div class="col">
                             <div class="card-body mt-2">
-                                <h5 class="card-title">{{user.id}}</h5>
+                                <h5 class="card-title">{{user.userId}}</h5>
                             </div>
                         </div>
                         <div class="col">
                             <div class="card-body mt-2">
-                                <h5 class="card-title">{{user.registerDate | date:'dd/MM/YYYY'}}</h5>
+                                <h5 class="card-title">{{user.maxRegisterDate| date:'dd/MM/YYYY'}}</h5>
                             </div>
                         </div>
 

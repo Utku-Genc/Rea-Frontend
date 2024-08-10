@@ -30,9 +30,11 @@ export class ListingService {
   getByToken(){
     return this.httpClient.get<ListResponseModel<Listing>>(this.apiUrl+"getbytoken");
   }
+  
   deleteListing(listingId:number):Observable<ResponseModel>{
     return this.httpClient.post<ResponseModel>(this.apiUrl+"deletebyid?listingId="+listingId,{})
   }
+
   getPaginatedListings(filter: ListingFilter | null, sorting: SortingObject |null, pageNumber: number, pageSize: number): Observable<ListResponseModel<Listing>> {
     let reguestModel: ListingRequestModel = {
       pageNumber: pageNumber,

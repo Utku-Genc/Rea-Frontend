@@ -49,7 +49,8 @@ export class IlanComponent implements OnInit {
   selectedSorting: string = "date-1";
 
 
-  constructor(private listingService: ListingService,
+  constructor(
+    private listingService: ListingService,
     private cityService: CityService,
     private districService: DistrictService,
     private route: ActivatedRoute,
