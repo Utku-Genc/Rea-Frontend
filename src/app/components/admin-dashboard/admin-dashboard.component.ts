@@ -39,8 +39,11 @@ export class AdminDashboardComponent implements OnInit {
     this.getLatestUsers(pageSize);
   }
   
-  constructor(private listingService:ListingService,private userService:UserService,private listingImageService:ListingImageService,private authService:AuthService
-    ,private userImageService:UserImageService
+  constructor(private listingService:ListingService,
+    private userService:UserService,
+    private listingImageService:ListingImageService,
+    private authService:AuthService,
+    private userImageService:UserImageService
   ){
 
   }
