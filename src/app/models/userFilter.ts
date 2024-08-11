@@ -6,6 +6,6 @@ export class UserFilter {
       userId: number | null = null;
       status !: boolean;
       roleIds!: number[];
-      minRegisterDate!: number; 
-      maxRegisterDate!: number;
+      minRegisterDate!: Date | null; 
+      maxRegisterDate!: Date | null;
 }
