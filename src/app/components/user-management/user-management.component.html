@@ -50,14 +50,15 @@
             <div class="form-group">
                 <label for="status">Durum</label>
                 <select id="status" class="form-control" [(ngModel)]="filterObject.status" name="status">
-                    <option [ngValue]="true">Aktif</option>
-                    <option [ngValue]="false">İnaktif</option>
+                    <option [ngValue]="null">Bütün Kullanıcılar</option>
+                    <option [ngValue]="true">Aktif Kullanıcılar</option>
+                    <option [ngValue]="false">İnaktif Kullanıcılar</option>
                 </select>
             </div>
 
 
             <div class="form-group">
-                <label for="roleIds">Rol ID</label>
+                <label for="roleIds">Roller</label>
                 <select id="roleIds" class="form-control" [(ngModel)]="filterObject.roleIds" name="roleIds" multiple>
                     <option *ngFor="let role of roles" [value]="role.id">{{role.name.charAt(0).toUpperCase() +
                         role.name.slice(1).toLowerCase()}}</option>
@@ -95,8 +96,9 @@
         <div class="container-fluid">
             <h1 class="navbar-brand text-white">Üye Yönetim Ekranı</h1>
             <div>
-                <h1 *ngIf="filterObject.status==true" class="navbar-brand text-white">Aktif Üyeler</h1>
-                <h1 *ngIf="filterObject.status==false" class="navbar-brand text-white">Pasif Üyeler</h1>
+                <h1 *ngIf="filterObject.status==null" class="navbar-brand text-white">Tüm Üyeler ({{userCount}} Adet)</h1>
+                <h1 *ngIf="filterObject.status==true" class="navbar-brand text-white">Aktif Üyeler ({{activeUserCount}} Adet)</h1>
+                <h1 *ngIf="filterObject.status==false" class="navbar-brand text-white">Pasif Üyeler ({{passiveUserCount}} Adet)</h1>
             </div>
             <div class="d-flex me-2">
                 <button routerLink="/profile/ilanlarim" type="button" class="btn btn-warning me-2">Profilim</button>
@@ -141,8 +143,8 @@
 
         <div class="d-flex col row" *ngFor="let user of users">
 
-            <div class="col">
-                <div class="card mb-3 ">
+            <div class="col" >  
+                <div class="card mb-3" [ngStyle]="{'background-color':user.status === false ? '#f8d7da' : userHasAdminRole(user) ? '#D2F4EA' : 'white'}" >
                     <div class="row g-0 col h-rea">
                         <div class="col-1 d-flex justify-content-center align-items-center" style="width: 75px;"
                             routerLink="/profile/{{ user.id }}">
@@ -186,7 +188,7 @@
                         <div class="col" *ngIf="user.status==true">
                             <div class="card-body">
                               <div class="d-grid gap-2 mt-1 mx-auto">
-                                <button class="btn btn-danger" type="button" (click)="setInactiveToUserId(user.id)"
+                                <button class="btn btn-danger" type="button" style="width: 270px;" (click)="setInactiveToUserId(user.id)"
                                   data-bs-toggle="modal" data-bs-target="#blockUserModal">Kullanıcıyı Engelle</button>
                               </div>
                             </div>
@@ -195,7 +197,7 @@
                           <div class="col" *ngIf="user.status==false">
                             <div class="card-body">
                               <div class="d-grid gap-2 mt-1 mx-auto">
-                                <button class="btn btn-info" type="button" (click)="setActiveToUserId(user.id)"
+                                <button class="btn btn-success" type="button" style="width: 270px;" (click)="setActiveToUserId(user.id)"
                                   data-bs-toggle="modal" data-bs-target="#unblockUserModal">Engeli Kaldır</button>
                               </div>
                             </div>

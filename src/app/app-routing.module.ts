@@ -53,8 +53,11 @@ const routes: Routes = [
   { path:"dashboard", component:AdminDashboardComponent, canActivate:[AdminGuard]},
   { path: "unauthorized", component:UnauthorizedComponent },
 
-  { path: "dashboard/user-management", component:UserManagementComponent},
-  { path: "dashboard/user-management/page/:pageId", component:UserManagementComponent}
+  { path: "dashboard/user-management", component:UserManagementComponent, canActivate:[AdminGuard]},
+  { path: "dashboard/user-management/page/:pageId", component:UserManagementComponent, canActivate:[AdminGuard]},
+  { path: "dashboard/user-management/status/:filterStatus/page/:pageId", component:UserManagementComponent, canActivate:[AdminGuard]}
+
+
 
 
 
