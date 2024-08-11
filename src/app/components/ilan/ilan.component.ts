@@ -257,6 +257,14 @@ export class IlanComponent implements OnInit {
   }
 
   setPageNumber(pageNumber: number) {
+
+    if (this.filterObject.searchText !== null && this.router.url.startsWith("/listing/searchText/") && this.listings.length < 12) {
+      const searchText = this.filterObject.searchText;
+      this.currentPage = pageNumber;
+      this.router.navigateByUrl(`/listing/searchText/${searchText}/page/${this.currentPage}`); // Sadece link kısmını güncelle
+      this.getListingByPage(this.currentPage, this.listingsPerPage)
+      return
+    }
     this.currentPage = pageNumber;
     this.router.navigateByUrl(`/listing/page/${this.currentPage}`);
     this.getListingByPage(this.currentPage, this.listingsPerPage);

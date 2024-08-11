@@ -46,7 +46,7 @@
             <div class="card-header">Aktif Üye Sayısı</div>
             <div class="card-body d-flex col">
               <h5 class="card-title col-9">{{this.activeUserCount}}</h5>
-              <button type="button" class="btn btn-outline-light col">Görüntüle</button>
+              <button routerLink="/dashboard/user-management/status/active/page/1" type="button" class="btn btn-outline-light col" >Görüntüle</button>
             </div>
           </div>
         </div>
@@ -55,7 +55,7 @@
             <div class="card-header">Deaktif Üye Sayısı</div>
             <div class="card-body d-flex col">
               <h5 class="card-title col-9">{{this.passiveUserCount}}</h5>
-              <button type="button" class="btn btn-outline-light col">Görüntüle</button>
+              <button routerLink="/dashboard/user-management/status/inactive/page/1" type="button" class="btn btn-outline-light col">Görüntüle</button>
             </div>
           </div>
         </div>

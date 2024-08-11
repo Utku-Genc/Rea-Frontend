@@ -23,8 +23,17 @@ export class UserManagementComponent implements OnInit {
   currentPage = 1;
   usersPerPage = 10;
   selectedSorting: string = "id-0";
+
   activeToUserId!: number;
-  inactiveToUserId!:number;
+  inactiveToUserId!: number;
+
+  userCount!: number;
+  activeUserCount!: number;
+  passiveUserCount!: number;
+
+  userPage!: number;
+  activeUserPage!: number;
+  passiveUserPage!: number;
 
   filterObject: UserFilter = {
     searchText: null,
@@ -32,12 +41,12 @@ export class UserManagementComponent implements OnInit {
     lastName: null,
     email: null,
     userId: null,
-    status:  true,
+    status: null,
     roleIds: [],
     minRegisterDate: null,
     maxRegisterDate: null,
   }
-  
+
 
 
 
@@ -61,24 +70,32 @@ export class UserManagementComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.filterObject)
     this.getOperationClaims();
+    this.getUserCount();
+    this.getActiveUserCount();
+    this.getPassiveUserCount();
+
+
+
     this.getUserByPage(this.currentPage, this.usersPerPage)
     let id = this.route.snapshot.paramMap.get('pageId');
     if (id) {
       this.currentPage = parseInt(id, 10);
       this.getUserByPage(this.currentPage, this.usersPerPage);
-      const searchText = this.route.snapshot.paramMap.get('searchText');
-      console.log("cons" + searchText)
-      if (searchText !== null) {
-        this.filterObject.searchText = searchText;
-        console.log("2")
+      const filterStatus = this.route.snapshot.paramMap.get('filterStatus');
+      console.log("cons" + filterStatus)
+      if (filterStatus !== null) {
+        // 'true' ya da 'false' değerlerini boolean'a dönüştürün.
+        this.filterObject.status = filterStatus === 'active' ? true : filterStatus === 'inactive' ? false : null;
+        this.onSubmit();
+
+        console.log("Filtreli kullanıcı getirme");
       } else {
         this.getUserByPage(this.currentPage, this.usersPerPage);
-        console.log("3")
-
+        console.log("Filtresiz kullanıcı getirme");
       }
-
       return;
     }
+
 
   }
 
@@ -110,7 +127,7 @@ export class UserManagementComponent implements OnInit {
 
     })
   }
-  getOperationClaims(){
+  getOperationClaims() {
     this.operationClaimsService.getAll().subscribe(response => {
       this.roles = response.data;
       console.log(this.roles)
@@ -130,12 +147,21 @@ export class UserManagementComponent implements OnInit {
 
 
   onSubmit() {
+
+    if (this.filterObject.status !== null && this.router.url.startsWith("/dashboard/user-management/status/")) {
+      const filterStatus = this.filterObject.status;
+      this.router.navigateByUrl(`/dashboard/user-management/status/${filterStatus}/page/.`);
+      this.currentPage = 1
+      this.router.navigateByUrl(`/dashboard/user-management/status/${filterStatus}/page/${this.currentPage}`); // Sadece link kısmını güncelle
+      this.getUserByPage(this.currentPage, this.usersPerPage)
+      return
+    }
     console.log(this.filterObject)
     this.router.navigateByUrl(`/dashboard/user-management/page/1`);
     this.currentPage = 1
 
     this.getUserByPage(this.currentPage, this.usersPerPage)
-    
+
   }
 
 
@@ -148,13 +174,13 @@ export class UserManagementComponent implements OnInit {
       sortDirection: SortDirection.Descending
     }
     this.selectedSorting = "date-1";
-    this.filterObject= {
+    this.filterObject = {
       searchText: null,
       firstName: null,
       lastName: null,
       email: null,
       userId: null,
-      status:  true,
+      status: null,
       roleIds: [],
       minRegisterDate: null,
       maxRegisterDate: null,
@@ -162,10 +188,13 @@ export class UserManagementComponent implements OnInit {
     this.getUserByPage(this.currentPage, this.usersPerPage)
   }
 
+  userHasAdminRole(user: any): boolean {
+    return user.operationClaims.some((claim: { name: string; }) => claim.name.toLowerCase() === 'admin');
+  }
 
   setActiveToUserId(userId: number) {
     this.activeToUserId = userId;
-    console.log("ActiveToUser"+this.setActiveToUserId)
+    console.log("ActiveToUser" + this.setActiveToUserId)
   }
 
   activeUser() {
@@ -178,7 +207,7 @@ export class UserManagementComponent implements OnInit {
 
   setInactiveToUserId(userId: number) {
     this.activeToUserId = userId;
-    console.log("InactiveToUser"+this.setInactiveToUserId)
+    console.log("InactiveToUser" + this.setInactiveToUserId)
   }
 
   inactiveUser() {
@@ -188,44 +217,158 @@ export class UserManagementComponent implements OnInit {
 
     });
   }
-  previousPage() {
-    if (this.currentPage == 1) {
-      this.toastrService.info("Zaten ilk sayfadasınız.", "Bilgilendirme")
-      return
-    } else {
-      this.currentPage = this.currentPage - 1
-      this.getUserByPage(this.currentPage,this.usersPerPage);
-      this.router.navigateByUrl(`/dashboard/user-management/page/${this.currentPage}`); // Sadece link kısmını güncelle
-    }
+
+
+  getUserCount() {
+    this.userService.getUserCount().subscribe(
+      response => {
+        this.userCount = response.data;
+        // userCount alındıktan sonra userPage hesapla
+        this.userPage = Math.ceil(this.userCount / this.usersPerPage);
+        console.log("Toplam Üye Sayfa Sayısı: "+this.userPage);
+      },
+      error => {
+        // Hata durumunda uygun bir işlem yapabilirsiniz
+        console.error('Error fetching user count:', error);
+      }
+    );
   }
 
 
-  nextPage() {
-    if (this.users.length < this.usersPerPage) {
-      this.toastrService.info("Son sayfaya ulaştınız.", "Bilgilendirme");
-      return
-    } else {
-      this.currentPage = this.currentPage + 1;
-      this.getUserByPage(this.currentPage,this.usersPerPage);
 
-      this.router.navigateByUrl(`/dashboard/user-management/page/${this.currentPage}`); // Sadece link kısmını güncelle
+  getActiveUserCount() {
+    this.userService.getActiveUserCount().subscribe(
+      response => {
+        this.activeUserCount = response.data;
+        // userCount alındıktan sonra userPage hesapla
+        this.activeUserPage = Math.ceil(this.activeUserCount / this.usersPerPage);
+        console.log("Aktif Üye Sayfa Sayısı: "+this.activeUserPage);
+      },
+      error => {
+        // Hata durumunda uygun bir işlem yapabilirsiniz
+        console.error('Error fetching user count:', error);
+      }
+    );
 
+  }
+getPassiveUserCount(){
+  this.userService.getPassiveUserCount().subscribe(
+    response => {
+      this.passiveUserCount = response.data;
+      // userCount alındıktan sonra userPage hesapla
+      this.passiveUserPage = Math.ceil(this.passiveUserCount / this.usersPerPage);
+      console.log("İnaktif Üye Sayfa Sayısı: "+this.passiveUserPage);
+    },
+    error => {
+      // Hata durumunda uygun bir işlem yapabilirsiniz
+      console.error('Error fetching user count:', error);
     }
+  );
+
+}
+
+
+previousPage() {
+  if (this.filterObject.status !== null && this.router.url.startsWith("/dashboard/user-management/status/") && this.currentPage == 1) {
+    this.toastrService.info("Zaten ilk sayfadasınız.", "Bilgilendirme")
+    const filterStatus = this.filterObject.status;
+    this.router.navigateByUrl(`/dashboard/user-management/status/${filterStatus}/page/${this.currentPage}`); // Sadece link kısmını güncelle
+    this.getUserByPage(this.currentPage, this.usersPerPage)
+    return
+  }
+  else if (this.filterObject.status !== null && this.router.url.startsWith("/dashboard/user-management/status/") && this.currentPage != 1) {
+    const filterStatus = this.filterObject.status;
+    this.currentPage = this.currentPage - 1;
+    this.getUserByPage(this.currentPage, this.usersPerPage)
+    this.router.navigateByUrl(`/dashboard/user-management/status/${filterStatus}/page/${this.currentPage}`);
+  }
+  else if (this.currentPage == 1) {
+    this.toastrService.info("Zaten ilk sayfadasınız.", "Bilgilendirme")
+    return
+  } else {
+    this.currentPage = this.currentPage - 1
+    this.getUserByPage(this.currentPage, this.usersPerPage);
+    this.router.navigateByUrl(`/dashboard/user-management/page/${this.currentPage}`); // Sadece link kısmını güncelle
+  }
+}
+
+
+nextPage() {
+  // Max sayfa sayısını duruma göre belirle
+  let maxPage = this.getMaxPageBasedOnStatus();
+
+  if (this.currentPage >= maxPage) {
+    this.toastrService.info("Son sayfaya ulaştınız.", "Bilgilendirme");
+    return;
   }
 
-  setPageNumber(pageNumber: number) {
-    this.currentPage = pageNumber;
+  this.currentPage = this.currentPage + 1;
+
+  // Status değeri ve URL yapısına göre yönlendirme
+  if (this.filterObject.status !== null && this.router.url.startsWith("/dashboard/user-management/status/")) {
+    const filterStatus = this.filterObject.status;
+    this.router.navigateByUrl(`/dashboard/user-management/status/${filterStatus}/page/${this.currentPage}`);
+  } else {
     this.router.navigateByUrl(`/dashboard/user-management/page/${this.currentPage}`);
+  }
 
-    this.getUserByPage(this.currentPage,this.usersPerPage);
+  this.getUserByPage(this.currentPage, this.usersPerPage);
+}
+
+// Max sayfa sayısını duruma göre hesapla
+getMaxPageBasedOnStatus(): number {
+  if (this.filterObject.status === true) {
+    return this.activeUserPage;
+  } else if (this.filterObject.status === false) {
+    return this.passiveUserPage;
+  } else {
+    return this.userPage;
   }
-  onPageChange(newPage: number) {
-    this.currentPage = newPage;
-    console.log(this.currentPage)
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: { page: this.currentPage },
-      queryParamsHandling: 'merge'
-    });
+}
+
+// Sayfa sayısı hesaplamaları
+calculatePageCounts() {
+  this.userPage = Math.ceil(this.userCount / this.usersPerPage);
+  this.activeUserPage = Math.ceil(this.activeUserCount / this.usersPerPage);
+  this.passiveUserPage = Math.ceil(this.passiveUserCount / this.usersPerPage);
+  console.log('UserPage:', this.userPage);
+  console.log('ActiveUserPage:', this.activeUserPage);
+  console.log('PassiveUserPage:', this.passiveUserPage);
+}
+
+
+setPageNumber(pageNumber: number) {
+  // Max sayfa sayısını duruma göre belirle
+  let maxPage = this.getMaxPageBasedOnStatus();
+
+  // Girilen sayıyı max sayıya eşitle
+  if (pageNumber > maxPage) {
+    pageNumber = maxPage;
+
+    this.toastrService.warning("Gitmek istediğiniz sayfa yok. Son sayfaya yönlendirildiniz.", "Dikkat");
+
   }
+
+  this.currentPage = pageNumber;
+
+  if (this.filterObject.status !== null && this.router.url.startsWith("/dashboard/user-management/status/")) {
+    const filterStatus = this.filterObject.status;
+    this.router.navigateByUrl(`/dashboard/user-management/status/${filterStatus}/page/${this.currentPage}`);
+  } else {
+    this.router.navigateByUrl(`/dashboard/user-management/page/${this.currentPage}`);
+  }
+
+  this.getUserByPage(this.currentPage, this.usersPerPage);
+}
+
+
+onPageChange(newPage: number) {
+  this.currentPage = newPage;
+  console.log(this.currentPage)
+  this.router.navigate([], {
+    relativeTo: this.route,
+    queryParams: { page: this.currentPage },
+    queryParamsHandling: 'merge'
+  });
+}
 }
