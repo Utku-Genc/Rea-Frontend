@@ -43,21 +43,21 @@ getUserStatus(userId:number):Observable<SingleResponseModel<boolean>>{
 }
 
 getPaginatedUsers(filter: UserFilter | null, sorting: SortingObject |null, pageNumber: number, pageSize: number): Observable<ListResponseModel<UserFull>> {
-  let reguestModel: UserRequestModel = {
+  let requestModel: UserRequestModel = {
     pageNumber: pageNumber,
     pageSize: pageSize,
     filter: null,
     sorting: null
   };
   if(filter){
-    reguestModel.filter = filter
+    requestModel.filter = filter
   }
   if(sorting){
-    reguestModel.sorting = sorting
+    requestModel.sorting = sorting
   }
-  console.log(reguestModel);
+  console.log(requestModel);
   return this.httpClient.post<ListResponseModel<UserFull>>(
-    this.apiUrl+"getpaginatedusers",reguestModel
+    this.apiUrl+"getpaginatedusers",requestModel
   );
 }
 

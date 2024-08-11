@@ -29,8 +29,8 @@ export class UserManagementComponent implements OnInit {
     userId: null,
     status: true,
     roleIds: [],
-    minRegisterDate: 1,
-    maxRegisterDate: 99999999999999,
+    minRegisterDate: null,
+    maxRegisterDate: null,
   }
 
   sorting: SortingObject = {
