@@ -2,7 +2,7 @@
     <h2>Yönetim</h2>
     <ul class="nav flex-column">
         <li class="nav-item">
-            <a class="nav-link" href="#">Üyeleri Yönet</a>
+            <a class="nav-link" routerLink="/dashboard/user-management/page/1">Üyeleri Yönet</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">İlanları Yönet</a>
@@ -11,6 +11,80 @@
             <a class="nav-link" href="#">Şikayetleri Yönet</a>
         </li>
     </ul>
+
+    <h2 class="mt-2">Filtre</h2>
+    <div class="text-white col-10 ms-3">
+
+
+        <form (ngSubmit)="onSubmit()" (reset)="reset()">
+
+
+            <div class="form-group">
+                <label for="searchText">Arama</label>
+                <input type="text" id="searchText" class="form-control" [(ngModel)]="filterObject.searchText"
+                    name="searchText">
+            </div>
+
+            <div class="form-group">
+                <label for="firstName">İsim</label>
+                <input type="text" id="firstName" class="form-control" [(ngModel)]="filterObject.firstName"
+                    name="firstName">
+            </div>
+
+            <div class="form-group">
+                <label for="lastName">Soyisim</label>
+                <input type="text" id="lastName" class="form-control" [(ngModel)]="filterObject.lastName"
+                    name="lastName">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" class="form-control" [(ngModel)]="filterObject.email" name="email">
+            </div>
+
+            <div class="form-group">
+                <label for="userId">User ID</label>
+                <input type="text" id="userId" class="form-control" [(ngModel)]="filterObject.userId" name="userId">
+            </div>
+
+            <div class="form-group">
+                <label for="status">Durum</label>
+                <select id="status" class="form-control" [(ngModel)]="filterObject.status" name="status">
+                    <option [ngValue]="true">Aktif</option>
+                    <option [ngValue]="false">İnaktif</option>
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="roleIds">Rol ID</label>
+                <select id="roleIds" class="form-control" [(ngModel)]="filterObject.roleIds" name="roleIds" multiple>
+                    <option *ngFor="let role of roles" [value]="role.id">{{role.name.charAt(0).toUpperCase() +
+                        role.name.slice(1).toLowerCase()}}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="minRegisterDate">Min Kayıt Tarihi</label>
+                <input type="date" id="minRegisterDate" class="form-control" [(ngModel)]="filterObject.minRegisterDate"
+                    name="minRegisterDate">
+            </div>
+
+            <div class="form-group">
+                <label for="maxRegisterDate">Max Kayıt Tarihi</label>
+                <input type="date" id="maxRegisterDate" class="form-control" [(ngModel)]="filterObject.maxRegisterDate"
+                    name="maxRegisterDate">
+            </div>
+            <div class="d-grid gap-2 mt-1 mx-auto">
+                <button type="submit" class="btn btn-warning">Filtrele</button>
+            </div>
+            <div class="d-grid gap-2 mt-1 mx-auto">
+                <button type="reset" class="btn btn-danger">Sıfırla</button>
+            </div>
+        </form>
+
+    </div>
+
 </div>
 
 
@@ -20,6 +94,10 @@
     <nav class="navbar bg-rea">
         <div class="container-fluid">
             <h1 class="navbar-brand text-white">Üye Yönetim Ekranı</h1>
+            <div>
+                <h1 *ngIf="filterObject.status==true" class="navbar-brand text-white">Aktif Üyeler</h1>
+                <h1 *ngIf="filterObject.status==false" class="navbar-brand text-white">Pasif Üyeler</h1>
+            </div>
             <div class="d-flex me-2">
                 <button routerLink="/profile/ilanlarim" type="button" class="btn btn-warning me-2">Profilim</button>
                 <button (click)="logout()" type="button" class="btn btn-danger">Çıkış</button>
@@ -32,24 +110,52 @@
             <div class="container-fluid">
                 <h1 class="navbar-brand text-white"></h1>
                 <div class="d-flex me-2">
-                    <button routerLink="/profile/ilanlarim" type="button" class="btn btn-warning me-2">Profilim</button>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Arama" aria-label="Arama">
+                    <h6 class="mt-2 me-2">Sıralama</h6>
+                    <div class="row">
+                        <div class="col">
+                            <select class="form-select" [(ngModel)]="selectedSorting" (change)="setSorting()">,
+                                <option value="id-0">ID Artan</option>
+                                <option value="id-1">ID Azalan </option>
+                                <option value="registerDate-0">Eskiden Yeniye</option>
+                                <option value="registerDate-1">Yeniden Eskiye</option>
+                                <option value="firstname-0">Alfabetik (A'dan Z'ye)</option>
+                                <option value="firstname-1">Alfabetik (Z'den A'ya)</option>
+                                <option value="email-0">Mail (A'dan Z'ye)</option>
+                                <option value="email-1">Mail (Z'den A'ya)</option>
+
+
+
+                            </select>
+                        </div>
+                    </div>
+                    <!--<form class="d-flex" role="search" (ngSubmit)="onSubmit()">
+                        <input class="form-control me-2" type="search" placeholder="Arama" aria-label="Arama"  [(ngModel)]="filterObject.searchText">
                         <button class="btn btn-outline-success" type="submit"> <i
                                 class="fa-solid fa-magnifying-glass fs-lg"></i>
                         </button>
                     </form>
+                -->
                 </div>
             </div>
         </nav>
 
-        <div class="d-flex col row" routerLink="/profile/{{ user.id }}"  *ngFor="let user of users">
+        <div class="d-flex col row" *ngFor="let user of users">
 
-            <div class="col" >
+            <div class="col">
                 <div class="card mb-3 ">
                     <div class="row g-0 col h-rea">
+                        <div class="col-1 d-flex justify-content-center align-items-center" style="width: 75px;"
+                            routerLink="/profile/{{ user.id }}">
+                            <h4><i class="fa-solid fa-eye"></i></h4>
+                        </div>
                         <div class="col-1" style="width: 75px;">
-                    <!-- <img [src]="getUserImagePath(user.)" class="img h-rea rounded-start ">  --> 
+                            <img [src]="getUserImagePath(user)" class="img h-rea rounded-start ">
+                        </div>
+
+                        <div class="col-1 d-flex justify-content-center align-items-center  " style="width: 100px;">
+                            <div class="card-body ">
+                                <h5 class="card-title">{{user.id}}</h5>
+                            </div>
                         </div>
                         <div class="col">
                             <div class="card-body mt-2">
@@ -63,22 +169,38 @@
                         </div>
                         <div class="col">
                             <div class="card-body mt-2">
-                                <h5 class="card-title">{{user.id}}</h5>
+                                <h5 class="card-title">
+                                    <span *ngFor="let claim of user.operationClaims; let i = index">
+                                        {{claim.name.charAt(0).toUpperCase() + claim.name.slice(1).toLowerCase()}}{{i <
+                                            user.operationClaims.length - 1 ? ', ' : '' }} </span>
+                                </h5>
                             </div>
                         </div>
+
                         <div class="col">
                             <div class="card-body mt-2">
                                 <h5 class="card-title">{{user.registerDate| date:'dd/MM/YYYY'}}</h5>
                             </div>
                         </div>
 
-                        <div class="col">
+                        <div class="col" *ngIf="user.status==true">
                             <div class="card-body">
-                                <div class="d-grid gap-2 mt-1 mx-auto">
-                                    <button class="btn btn-danger" type="button"></button>
-                                  </div>
+                              <div class="d-grid gap-2 mt-1 mx-auto">
+                                <button class="btn btn-danger" type="button" (click)="setInactiveToUserId(user.id)"
+                                  data-bs-toggle="modal" data-bs-target="#blockUserModal">Kullanıcıyı Engelle</button>
+                              </div>
                             </div>
-                        </div>
+                          </div>
+                          
+                          <div class="col" *ngIf="user.status==false">
+                            <div class="card-body">
+                              <div class="d-grid gap-2 mt-1 mx-auto">
+                                <button class="btn btn-info" type="button" (click)="setActiveToUserId(user.id)"
+                                  data-bs-toggle="modal" data-bs-target="#unblockUserModal">Engeli Kaldır</button>
+                              </div>
+                            </div>
+                          </div>
+                          
                     </div>
                 </div>
             </div>
@@ -93,11 +215,53 @@
         <form class="ms-1" (ngSubmit)="setPageNumber(currentPage)"><input type="number" class="form-control set-page"
                 id="pageNum" name="pageNum" [(ngModel)]="currentPage">
         </form>
-    
-    
+
+
         <button class="btn page-btn ms-1" (click)="nextPage()">
             <i class="fa-solid fa-chevron-right"></i>
         </button>
     </div>
+
+
+   <!-- Kullanıcıyı Engelle Modal -->
+<div class="modal fade" id="blockUserModal" tabindex="-1" aria-labelledby="blockUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="blockUserModalLabel">Kullanıcıyı Engelle</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          {{activeToUserId}} id'li kullanıcının engellenecektir. Onaylıyor musunuz?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
+          <button type="button" class="btn btn-danger" (click)="inactiveUser()">Onayla</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+<!-- Engeli Kaldır Modal -->
+<div class="modal fade" id="unblockUserModal" tabindex="-1" aria-labelledby="unblockUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="unblockUserModalLabel">Engeli Kaldır</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          {{activeToUserId}} id'li kullanıcının engeli kaldırılacaktır. Onaylıyor musunuz?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
+          <button type="button" class="btn btn-info" (click)="activeUser()">Onayla</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
 
 </div>
