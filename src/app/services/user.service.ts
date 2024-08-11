@@ -13,52 +13,59 @@ import { UserFull } from '../models/userFull';
   providedIn: 'root'
 })
 export class UserService {
- apiUrl ="https://localhost:44318/api/User/"
+  apiUrl = "https://localhost:44318/api/User/"
   constructor(private httpClient: HttpClient) { }
-getUserByToken(): Observable<SingleResponseModel<User>>{
-  return this.httpClient.get<SingleResponseModel<User>>(this.apiUrl+"getuserdetailsbytoken");
+  getUserByToken(): Observable<SingleResponseModel<User>> {
+    return this.httpClient.get<SingleResponseModel<User>>(this.apiUrl + "getuserdetailsbytoken");
 
-}
-getUserById(userId:number):Observable<SingleResponseModel<User>>{
-  return this.httpClient.get<SingleResponseModel<User>>(this.apiUrl+"getuserdetailsbyid?userId="+userId)
-}
-
-
-getUserCount():Observable<SingleResponseModel<number>>{
-  return this.httpClient.get<SingleResponseModel<number>>(this.apiUrl+"getusercount");
-}
-getActiveUserCount():Observable<SingleResponseModel<number>>{
-  return this.httpClient.get<SingleResponseModel<number>>(this.apiUrl+"getactiveusercount");
-}
-getPassiveUserCount():Observable<SingleResponseModel<number>>{
-  return this.httpClient.get<SingleResponseModel<number>>(this.apiUrl+"getpassiveusercount");
-}
-
-getLatestUsers(pageSize:number):Observable<ListResponseModel<User>>{
-  return this.httpClient.get<ListResponseModel<User>>(this.apiUrl+"getlatestusers?pageSize="+pageSize);
-}
-
-getUserStatus(userId:number):Observable<SingleResponseModel<boolean>>{
-  return this.httpClient.get<SingleResponseModel<boolean>>(this.apiUrl+"getuserstatus?userId="+userId);
-}
-
-getPaginatedUsers(filter: UserFilter | null, sorting: SortingObject |null, pageNumber: number, pageSize: number): Observable<ListResponseModel<UserFull>> {
-  let requestModel: UserRequestModel = {
-    pageNumber: pageNumber,
-    pageSize: pageSize,
-    filter: null,
-    sorting: null
-  };
-  if(filter){
-    requestModel.filter = filter
   }
-  if(sorting){
-    requestModel.sorting = sorting
+  getUserById(userId: number): Observable<SingleResponseModel<User>> {
+    return this.httpClient.get<SingleResponseModel<User>>(this.apiUrl + "getuserdetailsbyid?userId=" + userId)
   }
-  console.log(requestModel);
-  return this.httpClient.post<ListResponseModel<UserFull>>(
-    this.apiUrl+"getpaginatedusers",requestModel
-  );
-}
 
+
+  getUserCount(): Observable<SingleResponseModel<number>> {
+    return this.httpClient.get<SingleResponseModel<number>>(this.apiUrl + "getusercount");
+  }
+  getActiveUserCount(): Observable<SingleResponseModel<number>> {
+    return this.httpClient.get<SingleResponseModel<number>>(this.apiUrl + "getactiveusercount");
+  }
+  getPassiveUserCount(): Observable<SingleResponseModel<number>> {
+    return this.httpClient.get<SingleResponseModel<number>>(this.apiUrl + "getpassiveusercount");
+  }
+
+  getLatestUsers(pageSize: number): Observable<ListResponseModel<User>> {
+    return this.httpClient.get<ListResponseModel<User>>(this.apiUrl + "getlatestusers?pageSize=" + pageSize);
+  }
+
+  getUserStatus(userId: number): Observable<SingleResponseModel<boolean>> {
+    return this.httpClient.get<SingleResponseModel<boolean>>(this.apiUrl + "getuserstatus?userId=" + userId);
+  }
+
+  getPaginatedUsers(filter: UserFilter | null, sorting: SortingObject | null, pageNumber: number, pageSize: number): Observable<ListResponseModel<UserFull>> {
+    let requestModel: UserRequestModel = {
+      pageNumber: pageNumber,
+      pageSize: pageSize,
+      filter: null,
+      sorting: null
+    };
+    if (filter) {
+      requestModel.filter = filter
+    }
+    if (sorting) {
+      requestModel.sorting = sorting
+    }
+    console.log(requestModel);
+    return this.httpClient.post<ListResponseModel<UserFull>>(
+      this.apiUrl + "getpaginatedusers", requestModel
+    );
+  }
+
+  setUserActive(userId: number): Observable<void> {
+    return this.httpClient.post<void>(this.apiUrl + "setuseractive?userId=" + userId, null)
+  }
+
+  setUserInactive(userId: number): Observable<void> {
+    return this.httpClient.post<void>(this.apiUrl + "setuserinactive?userId=" + userId, null)
+  }
 }

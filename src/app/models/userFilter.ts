@@ -8,4 +8,5 @@ export class UserFilter {
       roleIds!: number[];
       minRegisterDate!: Date | null; 
       maxRegisterDate!: Date | null;
-}
+};
+
