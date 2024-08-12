@@ -2,6 +2,9 @@
     <h2>Yönetim</h2>
     <ul class="nav flex-column">
         <li class="nav-item">
+            <a class="nav-link" routerLink="/dashboard">Dashboard</a>
+          </li>
+        <li class="nav-item">
             <a class="nav-link" routerLink="/dashboard/user-management/page/1">Üyeleri Yönet</a>
         </li>
         <li class="nav-item">
@@ -67,15 +70,16 @@
 
             <div class="form-group">
                 <label for="minRegisterDate">Min Kayıt Tarihi</label>
-                <input type="date" id="minRegisterDate" class="form-control" [(ngModel)]="filterObject.minRegisterDate"
-                    name="minRegisterDate">
+                <input type="datetime-local" id="minRegisterDate" class="form-control" 
+                       [(ngModel)]="filterObject.minRegisterDate" name="minRegisterDate">
             </div>
-
+            
             <div class="form-group">
                 <label for="maxRegisterDate">Max Kayıt Tarihi</label>
-                <input type="date" id="maxRegisterDate" class="form-control" [(ngModel)]="filterObject.maxRegisterDate"
-                    name="maxRegisterDate">
+                <input type="datetime-local" id="maxRegisterDate" class="form-control" 
+                       [(ngModel)]="filterObject.maxRegisterDate" name="maxRegisterDate">
             </div>
+            
             <div class="d-grid gap-2 mt-1 mx-auto">
                 <button type="submit" class="btn btn-warning">Filtrele</button>
             </div>
@@ -234,7 +238,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          {{activeToUserId}} id'li kullanıcının engellenecektir. Onaylıyor musunuz?
+          {{activeToUserId}} id'li kullanıcı engellenecektir. Onaylıyor musunuz?
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>

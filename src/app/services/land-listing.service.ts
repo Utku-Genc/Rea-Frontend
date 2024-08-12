@@ -55,4 +55,11 @@ export class LandListingService {
       this.apiUrl+"getpaginatedlistings",reguestModel
     );
   }
+
+  getActiveLandListingCount():Observable<SingleResponseModel<number>>{
+    return this.httpClient.get<SingleResponseModel<number>>(this.apiUrl+"getactivelandlistingcount");
+  }
+  getPassiveLandListingCount():Observable<SingleResponseModel<number>>{
+    return this.httpClient.get<SingleResponseModel<number>>(this.apiUrl+"getpassivelandlistingcount");
+  }
 }
