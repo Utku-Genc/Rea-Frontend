@@ -76,7 +76,6 @@ export class UserManagementComponent implements OnInit {
 
 
 
-    this.getUserByPage(this.currentPage, this.usersPerPage)
     let id = this.route.snapshot.paramMap.get('pageId');
     if (id) {
       this.currentPage = parseInt(id, 10);
@@ -94,6 +93,9 @@ export class UserManagementComponent implements OnInit {
         console.log("Filtresiz kullanıcı getirme");
       }
       return;
+    }
+    else{
+      this.getUserByPage(this.currentPage, this.usersPerPage)
     }
 
 
