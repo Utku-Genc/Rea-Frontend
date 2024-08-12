@@ -61,4 +61,12 @@ export class HouseListingService {
       this.apiUrl+"getpaginatedlistings",reguestModel
     );
   }
+
+
+  getActiveHouseListingCount():Observable<SingleResponseModel<number>>{
+    return this.httpClient.get<SingleResponseModel<number>>(this.apiUrl+"getactivehouselistingcount");
+  }
+  getPassiveHouseListingCount():Observable<SingleResponseModel<number>>{
+    return this.httpClient.get<SingleResponseModel<number>>(this.apiUrl+"getpassivehouselistingcount");
+  }
 }

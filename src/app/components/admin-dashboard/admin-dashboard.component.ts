@@ -7,6 +7,8 @@ import { ListingImageService } from '../../services/listing-image.service';
 import { AuthService } from '../../services/auth.service';
 import { UserImageService } from '../../services/user-image.service';
 import { catchError, map, Observable, of } from 'rxjs';
+import { HouseListingService } from '../../services/house-listing.service';
+import { LandListingService } from '../../services/land-listing.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -19,6 +21,14 @@ export class AdminDashboardComponent implements OnInit {
   activeListingCount!:number;
   passiveListingCount!:number;
 
+  houseListingCount!:number;
+  activeHouseListingCount!:number;
+  passiveHouseListingCount!:number;
+
+  landListingCount!:number;
+  activeLandListingCount!:number;
+  passiveLandListingCount!:number;
+  
   userCount!:number;
   activeUserCount!:number;
   passiveUserCount!:number;
@@ -33,6 +43,10 @@ export class AdminDashboardComponent implements OnInit {
     this.getUserCount();
     this.getActiveUserCount();
     this.getPassiveUserCount();
+    this.getActiveHouseListingCount();
+    this.getPassiveHouseListingCount();
+    this.getActiveLandListingCount();
+    this.getPassiveLandListingCount();
 
     let pageSize = 8
     this.getLatestListings(pageSize);
@@ -43,7 +57,10 @@ export class AdminDashboardComponent implements OnInit {
     private userService:UserService,
     private listingImageService:ListingImageService,
     private authService:AuthService,
-    private userImageService:UserImageService
+    private userImageService:UserImageService,
+    private houseListingService: HouseListingService,
+    private landListingService: LandListingService,
+
   ){
 
   }
@@ -69,6 +86,31 @@ export class AdminDashboardComponent implements OnInit {
     this.listingService.getPassiveListingCount().subscribe(
       response=>
         this.passiveListingCount = response.data
+    )
+  }
+  getActiveHouseListingCount(){
+    this.houseListingService.getActiveHouseListingCount().subscribe(
+      response=>
+        this.activeHouseListingCount = response.data
+    )
+  }
+  getPassiveHouseListingCount(){
+    this.houseListingService.getPassiveHouseListingCount().subscribe(
+      response=>
+        this.passiveHouseListingCount = response.data
+    )
+  }
+
+  getActiveLandListingCount(){
+    this.landListingService.getActiveLandListingCount().subscribe(
+      response=>
+        this.activeLandListingCount = response.data
+    )
+  }
+  getPassiveLandListingCount(){
+    this.landListingService.getPassiveLandListingCount().subscribe(
+      response=>
+        this.passiveLandListingCount = response.data
     )
   }
 
