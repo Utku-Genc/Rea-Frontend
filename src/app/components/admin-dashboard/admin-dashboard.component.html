@@ -1,19 +1,19 @@
 <div class="sidebar">
-  <h2>Yönetim</h2>
+  <h3>Yönetim</h3>
   <ul class="nav flex-column">
     <li class="nav-item">
-      <a class="nav-link" routerLink="/dashboard">Dashboard</a>
+        <a class="nav-link" routerLink="/dashboard"><i class="fa-solid fa-table-columns"></i> Dashboard</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="/dashboard/user-management/page/1">Üyeleri Yönet</a>
+        <a class="nav-link" routerLink="/dashboard/user-management/page/1"><i class="fa-solid fa-users"></i> Üyeleri Yönet</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">İlanları Yönet</a>
+        <a class="nav-link" href="#"><i class="fa-solid fa-mountain-city"></i> İlanları Yönet</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">Şikayetleri Yönet</a>
+        <a class="nav-link" href="#"><i class="fas fa-exclamation-triangle"></i> Şikayetleri Yönet</a>
     </li>
-  </ul>
+</ul>
 </div>
 
 <div class="content">
@@ -21,7 +21,7 @@
 
   <nav class="navbar bg-rea">
     <div class="container-fluid">
-      <h1 class="navbar-brand text-white">Yönetici Bilgi Ekranı</h1>
+      <h1 class="navbar-brand text-white"><i class="fas fa-user-shield"></i> Yönetici Bilgi Ekranı</h1>
       <div class="d-flex me-2">
         <button routerLink="/profile/ilanlarim" type="button" class="btn btn-warning me-2">Profilim</button>
         <button (click)="logout()" type="button" class="btn btn-danger">Çıkış</button>
@@ -33,7 +33,7 @@
   <div class="container-fluid">
     <div>
       <div>
-      <h1>Üye Yönetimi</h1>
+      <h2><i class="fa-solid fa-users"></i>Üye Yönetimi</h2>
       <div class="d-flex col row">
         <div class="col-md-4">
           <div class="card text-white bg-rea mb-3">
@@ -88,7 +88,7 @@
     <hr class="hr-rea">
 
     <div>
-      <h1>İlan Yönetimi</h1>
+      <h2><i class="fa-solid fa-mountain-city"></i> İlan Yönetimi</h2>
       <div class="d-flex col row">
         <div class="col-md-4">
           <div class="card text-white bg-rea mb-3">
@@ -205,7 +205,7 @@
 <hr class="hr-rea">
 
     <div>
-      <h1>Şikayet Yönetimi</h1>
+      <h2><i class="fas fa-exclamation-triangle"></i> Şikayet Yönetimi</h2>
       <div class="d-flex col row">
         <div class="col-md-4">
           <div class="card text-white bg-rea mb-3">

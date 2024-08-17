@@ -2,7 +2,7 @@
 
 
 .sidebar {
-    width: 250px;
+    width: 200px;
     position: fixed;
     top: 50px;
     left: 0;
@@ -11,12 +11,15 @@
     padding-top: 20px;
 }
 
-.sidebar h2 {
+.sidebar h3 {
     color: rgb(255, 188, 0);
     text-align: center;
-    margin-bottom: 20px;
 }
 
+.sidebar h4 {
+    color: rgb(255, 188, 0);
+    text-align: center;
+}
 .sidebar .nav {
     display: block;
     width: 100%;
@@ -41,12 +44,12 @@
 }
 
 .content {
-    margin-left: 250px;
+    margin-left: 200px;
     padding: 20px;
 }
 
 .navbar {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     border-radius: 10px;
 
 }
@@ -86,6 +89,7 @@
     margin-top: auto;
     text-align: center;
 }
+
 
 #pageNum::-webkit-inner-spin-button, #pageNum::-webkit-outer-spin-button{
     display: none;

@@ -2,7 +2,7 @@
 
 
 .sidebar {
-    width: 250px;
+    width: 200px;
     position: fixed;
     top: 50px;
     left: 0;
@@ -11,10 +11,9 @@
     padding-top: 20px;
 }
 
-.sidebar h2 {
+.sidebar h3 {
     color: rgb(255, 188, 0);
     text-align: center;
-    margin-bottom: 20px;
 }
 
 .sidebar .nav {
@@ -41,7 +40,7 @@
 }
 
 .content {
-    margin-left: 250px;
+    margin-left: 200px;
     padding: 20px;
 }
 
