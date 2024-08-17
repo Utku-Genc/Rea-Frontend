@@ -68,4 +68,6 @@ export class UserService {
   setUserInactive(userId: number): Observable<void> {
     return this.httpClient.post<void>(this.apiUrl + "setuserinactive?userId=" + userId, null)
   }
+
+
 }

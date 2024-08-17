@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 
 
 import { AppComponent } from './app.component';
@@ -63,6 +65,7 @@ import { UserManagementComponent } from './components/user-management/user-manag
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
+    DragDropModule,
     ToastrModule.forRoot({
       positionClass:"toast-bottom-right",
       timeOut:5000

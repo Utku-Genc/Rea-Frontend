@@ -3,7 +3,7 @@
     <ul class="nav flex-column">
         <li class="nav-item">
             <a class="nav-link" routerLink="/dashboard">Dashboard</a>
-          </li>
+        </li>
         <li class="nav-item">
             <a class="nav-link" routerLink="/dashboard/user-management/page/1">Üyeleri Yönet</a>
         </li>
@@ -70,16 +70,16 @@
 
             <div class="form-group">
                 <label for="minRegisterDate">Min Kayıt Tarihi</label>
-                <input type="datetime-local" id="minRegisterDate" class="form-control" 
-                       [(ngModel)]="filterObject.minRegisterDate" name="minRegisterDate">
+                <input type="datetime-local" id="minRegisterDate" class="form-control"
+                    [(ngModel)]="filterObject.minRegisterDate" name="minRegisterDate">
             </div>
-            
+
             <div class="form-group">
                 <label for="maxRegisterDate">Max Kayıt Tarihi</label>
-                <input type="datetime-local" id="maxRegisterDate" class="form-control" 
-                       [(ngModel)]="filterObject.maxRegisterDate" name="maxRegisterDate">
+                <input type="datetime-local" id="maxRegisterDate" class="form-control"
+                    [(ngModel)]="filterObject.maxRegisterDate" name="maxRegisterDate">
             </div>
-            
+
             <div class="d-grid gap-2 mt-1 mx-auto">
                 <button type="submit" class="btn btn-warning">Filtrele</button>
             </div>
@@ -100,9 +100,12 @@
         <div class="container-fluid">
             <h1 class="navbar-brand text-white">Üye Yönetim Ekranı</h1>
             <div>
-                <h1 *ngIf="filterObject.status==null" class="navbar-brand text-white">Tüm Üyeler ({{userCount}} Adet)</h1>
-                <h1 *ngIf="filterObject.status==true" class="navbar-brand text-white">Aktif Üyeler ({{activeUserCount}} Adet)</h1>
-                <h1 *ngIf="filterObject.status==false" class="navbar-brand text-white">Pasif Üyeler ({{passiveUserCount}} Adet)</h1>
+                <h1 *ngIf="filterObject.status==null" class="navbar-brand text-white">Tüm Üyeler ({{userCount}} Adet)
+                </h1>
+                <h1 *ngIf="filterObject.status==true" class="navbar-brand text-white">Aktif Üyeler ({{activeUserCount}}
+                    Adet)</h1>
+                <h1 *ngIf="filterObject.status==false" class="navbar-brand text-white">Pasif Üyeler
+                    ({{passiveUserCount}} Adet)</h1>
             </div>
             <div class="d-flex me-2">
                 <button routerLink="/profile/ilanlarim" type="button" class="btn btn-warning me-2">Profilim</button>
@@ -147,8 +150,9 @@
 
         <div class="d-flex col row" *ngFor="let user of users">
 
-            <div class="col" >  
-                <div class="card mb-3" [ngStyle]="{'background-color':user.status === false ? '#f8d7da' : userHasAdminRole(user) ? '#D2F4EA' : 'white'}" >
+            <div class="col">
+                <div class="card mb-3"
+                    [ngStyle]="{'background-color':user.status === false ? '#f8d7da' : userHasAdminRole(user) ? '#D2F4EA' : 'white'}">
                     <div class="row g-0 col h-rea">
                         <div class="col-1 d-flex justify-content-center align-items-center" style="width: 75px;"
                             routerLink="/profile/{{ user.id }}">
@@ -163,23 +167,29 @@
                                 <h5 class="card-title">{{user.id}}</h5>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="card-body mt-2">
+                        <div class="col-3">
+                            <div class="card-body ">
                                 <h5 class="card-title">{{user.firstName}} {{user.lastName}}</h5>
+                                <h6 class="card-title">{{user.email}}</h6>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="card-body mt-2">
-                                <h5 class="card-title">{{user.email}}</h5>
-                            </div>
-                        </div>
-                        <div class="col">
+
+                        <div class="col-3">
                             <div class="card-body mt-2">
                                 <h5 class="card-title">
                                     <span *ngFor="let claim of user.operationClaims; let i = index">
                                         {{claim.name.charAt(0).toUpperCase() + claim.name.slice(1).toLowerCase()}}{{i <
                                             user.operationClaims.length - 1 ? ', ' : '' }} </span>
                                 </h5>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="card-body">
+                                <div class=" gap-3 mt-1 ">
+                                    <button class="btn btn-warning" type="button" (click)="setUserRoleId(user.id)"
+                                        data-bs-toggle="modal" data-bs-target="#editUserRoleModal">Rol Ver</button>
+                                </div>
                             </div>
                         </div>
 
@@ -191,22 +201,24 @@
 
                         <div class="col" *ngIf="user.status==true">
                             <div class="card-body">
-                              <div class="d-grid gap-2 mt-1 mx-auto">
-                                <button class="btn btn-danger" type="button" style="width: 270px;" (click)="setInactiveToUserId(user.id)"
-                                  data-bs-toggle="modal" data-bs-target="#blockUserModal">Kullanıcıyı Engelle</button>
-                              </div>
+                                <div class="d-grid gap-2 mt-1 mx-auto">
+                                    <button class="btn btn-danger" type="button" style="width: 270px;"
+                                        (click)="setInactiveToUserId(user.id)" data-bs-toggle="modal"
+                                        data-bs-target="#blockUserModal">Kullanıcıyı Engelle</button>
+                                </div>
                             </div>
-                          </div>
-                          
-                          <div class="col" *ngIf="user.status==false">
+                        </div>
+
+                        <div class="col" *ngIf="user.status==false">
                             <div class="card-body">
-                              <div class="d-grid gap-2 mt-1 mx-auto">
-                                <button class="btn btn-success" type="button" style="width: 270px;" (click)="setActiveToUserId(user.id)"
-                                  data-bs-toggle="modal" data-bs-target="#unblockUserModal">Engeli Kaldır</button>
-                              </div>
+                                <div class="d-grid gap-2 mt-1 mx-auto">
+                                    <button class="btn btn-success" type="button" style="width: 270px;"
+                                        (click)="setActiveToUserId(user.id)" data-bs-toggle="modal"
+                                        data-bs-target="#unblockUserModal">Engeli Kaldır</button>
+                                </div>
                             </div>
-                          </div>
-                          
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -229,45 +241,89 @@
     </div>
 
 
-   <!-- Kullanıcıyı Engelle Modal -->
-<div class="modal fade" id="blockUserModal" tabindex="-1" aria-labelledby="blockUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="blockUserModalLabel">Kullanıcıyı Engelle</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+
+    <!-- Rol Düzenle Modal -->
+    <div class="modal fade" id="editUserRoleModal" tabindex="-1" aria-labelledby="editUserRoleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editUserRoleModalLabel">Rol Düzenle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>{{userRoleId}} ID'li kullanıcının rolleri aşağıda gösterilmektedir. Rolleri düzenleyebilir veya yeni roller ekleyebilirsiniz.</p>
+
+                    <div class="form-group">
+                        <label >Mevcut Roller</label>
+                        <ul class="list-group">
+                            <li class="list-group-item" *ngFor="let role of selectedUserRoles">
+                                {{ role.operationClaimName.charAt(0).toUpperCase() + role.operationClaimName.slice(1).toLowerCase()  }} {{role.id}}
+                                <button class="btn btn-danger btn-sm float-end" (click)="deleteRole(role)">Sil</button>
+                            </li>
+                        </ul>
+                    </div>
+    
+                    <div class="form-group mt-3">
+                        <label>Eklenebilir Roller</label>
+                        <ul class="list-group">
+                            <li class="list-group-item" *ngFor="let role of selectedAvailableRoles">
+                                {{ role.name.charAt(0).toUpperCase() + role.name.slice(1).toLowerCase() }}
+                                <button class="btn btn-success btn-sm float-end" (click)="addRole(role.id)">Ekle</button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="getUserByPage(currentPage, usersPerPage)">Kapat</button>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-          {{activeToUserId}} id'li kullanıcı engellenecektir. Onaylıyor musunuz?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
-          <button type="button" class="btn btn-danger" (click)="inactiveUser()">Onayla</button>
-        </div>
-      </div>
     </div>
-  </div>
+    
+  
   
 
-<!-- Engeli Kaldır Modal -->
-<div class="modal fade" id="unblockUserModal" tabindex="-1" aria-labelledby="unblockUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="unblockUserModalLabel">Engeli Kaldır</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- Kullanıcıyı Engelle Modal -->
+    <div class="modal fade" id="blockUserModal" tabindex="-1" aria-labelledby="blockUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="blockUserModalLabel">Kullanıcıyı Engelle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{activeToUserId}} id'li kullanıcı engellenecektir. Onaylıyor musunuz?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
+                    <button type="button" class="btn btn-danger" (click)="inactiveUser()">Onayla</button>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-          {{activeToUserId}} id'li kullanıcının engeli kaldırılacaktır. Onaylıyor musunuz?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
-          <button type="button" class="btn btn-info" (click)="activeUser()">Onayla</button>
-        </div>
-      </div>
     </div>
-  </div>
-  
+
+
+    <!-- Engeli Kaldır Modal -->
+    <div class="modal fade" id="unblockUserModal" tabindex="-1" aria-labelledby="unblockUserModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="unblockUserModalLabel">Engeli Kaldır</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{activeToUserId}} id'li kullanıcının engeli kaldırılacaktır. Onaylıyor musunuz?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
+                    <button type="button" class="btn btn-info" (click)="activeUser()">Onayla</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
 </div>
