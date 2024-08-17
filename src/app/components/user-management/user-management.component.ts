@@ -9,6 +9,11 @@ import { UserFilter } from '../../models/userFilter';
 import { UserFull } from '../../models/userFull';
 import { operationClaims } from '../../models/operationClaims';
 import { OperationClaimsService } from '../../services/operation-claims.service';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { UserOperationClaimsService } from '../../services/user-operation-claims.service';
+import { UserRoles } from '../../models/userRoles';
+import { AddUserRoleResponse } from '../../models/addUserRole';
+import { DeleteUserRoleResponse } from '../../models/deleteUserRole';
 
 @Component({
   selector: 'app-user-management',
@@ -20,12 +25,17 @@ export class UserManagementComponent implements OnInit {
   users: UserFull[] = [];
   roles: operationClaims[] = []
 
+  userRoles: any[] = [];
+  selectedUserRoles: UserRoles[] = [];
+  selectedAvailableRoles: any[] = [];
+
   currentPage = 1;
   usersPerPage = 10;
   selectedSorting: string = "id-0";
 
   activeToUserId!: number;
   inactiveToUserId!: number;
+  userRoleId!: number;
 
   userCount!: number;
   activeUserCount!: number;
@@ -59,7 +69,7 @@ export class UserManagementComponent implements OnInit {
     private authService: AuthService,
     private userService: UserService,
     private operationClaimsService: OperationClaimsService,
-
+    private userOperationClaimService: UserOperationClaimsService,
     private route: ActivatedRoute,
     private toastrService: ToastrService,
     private router: Router,
@@ -220,6 +230,11 @@ export class UserManagementComponent implements OnInit {
     });
   }
 
+  setUserRoleId(userId: number) {
+    this.userRoleId = userId;
+    console.log("UserRoleId: " + this.userRoleId);
+    this.loadUserRoles();
+  }
 
   getUserCount() {
     this.userService.getUserCount().subscribe(
@@ -293,6 +308,105 @@ previousPage() {
     this.router.navigateByUrl(`/dashboard/user-management/page/${this.currentPage}`); // Sadece link kısmını güncelle
   }
 }
+
+loadUserRoles() {
+  // Bu metod seçilen kullanıcının rollerini yükleyecek
+  this.userOperationClaimService.getByUserId(this.userRoleId).subscribe(response => {
+    this.selectedUserRoles = response.data;
+    console.log(this.selectedUserRoles);
+
+    // Kullanıcının mevcut rollerini aldıktan sonra, selectedAvailableRoles'u filtrele
+    this.filterAvailableRoles();
+
+
+  });
+}
+
+filterAvailableRoles() {
+  // selectedUserRoles içerisindeki operationClaimId'leri çıkaralım
+  const selectedRoleIds = this.selectedUserRoles.map(role => role.operationClaimId);
+
+  // roles dizisinde olmayan id'leri seçelim
+  this.selectedAvailableRoles = this.roles.filter(role => !selectedRoleIds.includes(role.id));
+  
+  console.log(this.selectedAvailableRoles);
+}
+
+
+onRoleDropped(event: CdkDragDrop<any[]>) {
+  if (event.previousContainer === event.container) {
+    moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+  } else {
+    transferArrayItem(
+      event.previousContainer.data,
+      event.container.data,
+      event.previousIndex,
+      event.currentIndex
+    );
+  }
+}
+
+addRole(role: any) {
+
+  console.log("Role objesi:", role);
+  // Rol zaten kullanıcıya atanmış mı kontrol et
+  if (!this.selectedUserRoles.some(r => r.operationClaimId === role)) {
+    const data: AddUserRoleResponse = {
+      userId: this.userRoleId, // Mevcut kullanıcının ID'si
+      operationClaimId: role // Eklenmek istenen rolün ID'si
+    };
+    console.log("Gönderilen veri:", JSON.stringify(data));
+
+    // Rolü kullanıcıya eklemek için servisi çağır
+    this.userOperationClaimService.addUserRole(data).subscribe(response => {
+      // Başarılıysa loadUserRoles ve filterAvailableRoles fonksiyonlarını çalıştır
+      this.loadUserRoles();
+      
+      
+      this.toastrService.success("Rol başarıyla eklendi", "İşlem Başarılı");
+    }, error => {
+      // Hata durumu için bir geri bildirim
+      this.toastrService.error("Rol eklenirken bir hata oluştu", "İşlem Başarısız");
+    });
+  } else {
+    // Eğer rol zaten atanmışsa kullanıcıya bildirim ver
+    this.toastrService.warning("Bu rol zaten kullanıcıya atanmış", "İşlem Başarısız");
+  }
+}
+
+
+deleteRole(role: any) {
+  console.log("Silinecek rol objesi:", role);
+
+  // Silinmek istenen rolün kullanıcıda atanmış olup olmadığını kontrol et
+  const userRole = this.selectedUserRoles.find(r => r.operationClaimId === role.operationClaimId);
+  
+  if (userRole) {
+    const data: DeleteUserRoleResponse = {
+      id: role.id, // Tabloda ki konumun ID'si
+      userId: this.userRoleId, // Mevcut kullanıcının ID'si
+      operationClaimId: role.operationClaimId // Silinmek istenen rolün ID'si
+    };
+    console.log("Gönderilen veri (silme):", JSON.stringify(data));
+
+    // Rolü kullanıcıdan silmek için servisi çağır
+    this.userOperationClaimService.deleteUserRole(data).subscribe(response => {
+      // Başarılıysa loadUserRoles ve filterAvailableRoles fonksiyonlarını çalıştır
+      this.loadUserRoles();
+      
+      
+      this.toastrService.success("Rol başarıyla silindi", "İşlem Başarılı");
+    }, error => {
+      // Hata durumu için bir geri bildirim
+      this.toastrService.error("Rol silinirken bir hata oluştu", "İşlem Başarısız");
+    });
+  } else {
+    // Eğer rol kullanıcıya atanmamışsa kullanıcıya bildirim ver
+    this.toastrService.warning("Bu rol zaten kullanıcıda bulunmuyor", "İşlem Başarısız");
+  }
+}
+
+
 
 
 nextPage() {
