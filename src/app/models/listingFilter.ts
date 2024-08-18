@@ -7,4 +7,5 @@ export class ListingFilter {
     minSquareMeter: number | null = null;
     maxSquareMeter: number | null = null;
     listingTypeId: number | null = null 
+    listingStatus: boolean | null = null
 }

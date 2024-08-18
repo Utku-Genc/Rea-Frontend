@@ -32,7 +32,8 @@ export class IlanComponent implements OnInit {
     maxSquareMeter: null,
     minPrice: null,
     minSquareMeter: null,
-    searchText: null
+    searchText: null,
+    listingStatus:true
   }
 
   sorting: SortingObject = {
@@ -151,7 +152,8 @@ export class IlanComponent implements OnInit {
       maxSquareMeter: null,
       minPrice: null,
       minSquareMeter: null,
-      searchText: null
+      searchText: null,
+      listingStatus: true
     }
     this.getListingByPage(this.currentPage, this.listingsPerPage)
   }
