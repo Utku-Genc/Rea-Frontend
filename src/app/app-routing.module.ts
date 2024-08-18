@@ -19,6 +19,7 @@ import { UserManagementComponent } from './components/user-management/user-manag
 import { ProfileGuard } from './guards/profile.guard';
 import { ListingGuard } from './guards/listing.guard';
 import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
+import { ListingManagementComponent } from './components/listing-management/listing-management.component';
 
 
 
@@ -55,7 +56,11 @@ const routes: Routes = [
 
   { path: "dashboard/user-management", component:UserManagementComponent, canActivate:[AdminGuard]},
   { path: "dashboard/user-management/page/:pageId", component:UserManagementComponent, canActivate:[AdminGuard]},
-  { path: "dashboard/user-management/status/:filterStatus/page/:pageId", component:UserManagementComponent, canActivate:[AdminGuard]}
+  { path: "dashboard/user-management/status/:filterStatus/page/:pageId", component:UserManagementComponent, canActivate:[AdminGuard]},
+
+  { path: "dashboard/listing-management", component:ListingManagementComponent, canActivate:[AdminGuard]},
+  { path: "dashboard/listing-management/page/:pageId", component:ListingManagementComponent, canActivate:[AdminGuard]},
+  { path: "dashboard/listing-management/status/:filterStatus/page/:pageId", component:ListingManagementComponent, canActivate:[AdminGuard]},
 
 
 

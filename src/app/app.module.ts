@@ -32,7 +32,8 @@ import{BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ListingEditingComponent } from './components/listing-editing/listing-editing.component';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
-import { UserManagementComponent } from './components/user-management/user-management.component'
+import { UserManagementComponent } from './components/user-management/user-management.component';
+import { ListingManagementComponent } from './components/listing-management/listing-management.component'
 
 
 
@@ -56,6 +57,7 @@ import { UserManagementComponent } from './components/user-management/user-manag
     AdminDashboardComponent,
     UnauthorizedComponent,
     UserManagementComponent,
+    ListingManagementComponent,
   ],
   imports: [
     BrowserModule,
