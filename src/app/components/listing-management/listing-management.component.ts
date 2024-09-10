@@ -56,12 +56,16 @@ export class ListingManagementComponent {
     minPrice: null,
     minSquareMeter: null,
     searchText: null,
-    listingStatus:null
-  }
+    listingStatus: null,
+    propertyTypeId: null, // Arsa, ev gibi türler için
+    date: null // İlanın eklenme tarihi
+}
+
   sorting: SortingObject = {
     sortBy: "date",
     sortDirection: SortDirection.Descending
   }
+propertyTypes: any;
   constructor(
   private authService: AuthService,
   private route: ActivatedRoute,
@@ -80,6 +84,7 @@ export class ListingManagementComponent {
   }
 
   ngOnInit(): void {
+    this.getCity();
     console.log(this.filterObject);
     this.getListingTypes()
     this.getListingByPage(this.currentPage,this.listingsPerPage)
@@ -165,7 +170,7 @@ export class ListingManagementComponent {
     }
     this.selectedSorting = "date-1";
 
-    this.filterObject= {
+    this.filterObject = {
       cityId: null,
       districtId: null,
       listingTypeId: null,
@@ -174,8 +179,11 @@ export class ListingManagementComponent {
       minPrice: null,
       minSquareMeter: null,
       searchText: null,
-      listingStatus: null
-    }
+      listingStatus: null,
+      propertyTypeId: null, // Arsa, ev gibi türler için
+      date: null // İlanın eklenme tarihi
+  }
+  
 
     this.getListingByPage(this.currentPage, this.listingsPerPage)
   }

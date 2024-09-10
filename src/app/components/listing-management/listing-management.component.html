@@ -144,24 +144,35 @@
     <div class="row g-3 mb-2" *ngFor="let listing of listings">
         <div class="col-12">
             <div class="card h-100"
-                [ngStyle]="{'background-color':listing.listingTypeName ==='kiralık' ? '#f8d7da' : 'white'}">
+                [ngStyle]="{
+                    'background-color': listing.status === false ? 'rgb(248,215,218)' : (listing.listingTypeName === 'kiralık' ? '#f8d7da' : 'white')
+                }">
                 <div class="row g-0 align-items-center">
+                    <div class="col-auto d-flex align-items-center p-3">
+                        <h4>
+                            <i class="fa-solid" [ngClass]="{
+                                'fa-house': listing.propertyTypeName === 'Ev',
+                                'fa-mountain-sun': listing.propertyTypeName === 'Arsa'
+                            }"></i>
+                        </h4>
+                    </div>
+    
                     <!-- Icon -->
                     <div class="col-auto d-flex align-items-center p-3" routerLink="/listings/detail/{{ listing.id }}">
                         <h4><i class="fa-solid fa-eye"></i></h4>
                     </div>
-
+    
                     <!-- Image -->
                     <div class="col-auto d-flex align-items-center p-3">
                         <img [src]="getListingImagePath(listing)" class="img-fluid rounded-start"
                             style="max-width: 75px; min-width: 75px; width: 75px;">
                     </div>
-
+    
                     <!-- ID -->
                     <div class="col-auto d-flex align-items-center p-3">
                         <h5 style="min-width: 50px;" class="card-title m-0">{{listing.id}}</h5>
                     </div>
-
+    
                     <!-- Listing Info -->
                     <div class="col d-flex align-items-center">
                         <div class="card-body p-3">
@@ -171,44 +182,43 @@
                             <h6 class="card-title"><i class="fa-solid fa-comment"></i> {{listing.description.charAt(0).toUpperCase() + listing.description.slice(1).toLowerCase() | summary:30}}</h6>
                         </div>
                     </div>
-
+    
                     <!-- Operation Claims -->
                     <div class="col d-flex align-items-center">
                         <div class="card-body p-3">
                             <h5 class="card-title m-0">{{listing.price | priceFormat: 'TRY'}}</h5>
                             <h6 class="card-title"> {{listing.squareMeter}}m²</h6>
-
                         </div>
                     </div>
+    
                     <div class="col d-flex align-items-center">
                         <div class="card-body p-3">
                             <h5 class="card-title m-0">{{listing.listingTypeName}}</h5>
                             <h6 class="card-title"> Arsa, Ev</h6>
-
                         </div>
                     </div>
-
+    
                     <div class="col d-flex align-items-center">
                         <div class="card-body p-3">
                             <h5 class="card-title m-0">{{listing.cityName}}</h5>
                             <h6 class="card-title"> {{listing.districtName}}</h6>
-
                         </div>
                     </div>
+    
 
+    
                     <!-- Role Button -->
                     <div class="col-auto d-flex align-items-center p-3">
-                        <button class="btn btn-warning" type="button" data-bs-toggle="modal"
-                            data-bs-target="#editUserRoleModal">
+                        <button class="btn btn-warning" type="button" data-bs-toggle="modal" data-bs-target="#editUserRoleModal">
                             <i class="fa-solid fa-listing-pen"></i> Rol Ver
                         </button>
                     </div>
-
+    
                     <!-- Register Date -->
                     <div class="col-auto d-flex align-items-center p-3">
                         <h5 class="card-title m-0">{{listing.date | date:'dd/MM/YYYY'}}</h5>
                     </div>
-
+    
                     <!-- Action Button -->
                     <!--     <div class="col-auto d-flex align-items-center p-3" style="max-width: 200px;" *ngIf="listing.status == true">
                         <button class="btn btn-danger " type="button"
@@ -229,6 +239,7 @@
             </div>
         </div>
     </div>
+    
 
 </div>
 

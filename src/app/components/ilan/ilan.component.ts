@@ -33,8 +33,11 @@ export class IlanComponent implements OnInit {
     minPrice: null,
     minSquareMeter: null,
     searchText: null,
-    listingStatus:true
-  }
+    listingStatus: null,
+    propertyTypeId: null, // Arsa, ev gibi türler için
+    date: null // İlanın eklenme tarihi
+}
+
 
   sorting: SortingObject = {
     sortBy: "date",
@@ -153,8 +156,11 @@ export class IlanComponent implements OnInit {
       minPrice: null,
       minSquareMeter: null,
       searchText: null,
-      listingStatus: true
-    }
+      listingStatus: null,
+      propertyTypeId: null, // Arsa, ev gibi türler için
+      date: null // İlanın eklenme tarihi
+  }
+  
     this.getListingByPage(this.currentPage, this.listingsPerPage)
   }
 
