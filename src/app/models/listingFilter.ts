@@ -6,6 +6,8 @@ export class ListingFilter {
     minPrice: number | null = null;
     minSquareMeter: number | null = null;
     maxSquareMeter: number | null = null;
-    listingTypeId: number | null = null 
-    listingStatus: boolean | null = null
+    listingTypeId: number | null = null;
+    listingStatus: boolean | null = null;
+    propertyTypeId: number | null = null; // Arsa, ev gibi türler için
+    date: Date | null = null; // İlanın eklenme tarihi
 }

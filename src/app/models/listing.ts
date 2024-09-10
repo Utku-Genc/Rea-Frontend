@@ -7,7 +7,8 @@ export interface Listing {
   listingTypeName: string;
   propertyTypeName: string;
   price: number;
-  date: string; 
+  date: string; // İlanın eklenme tarihi
   squareMeter: number;
   imagePath: string;
+  status: boolean;
 }
