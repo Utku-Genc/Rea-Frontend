@@ -22,73 +22,80 @@
         <form (ngSubmit)="onSubmit()" (reset)="reset()">
             <div class="form-group">
                 <input type="text" id="searchText" class="form-control mb-1" [(ngModel)]="filterObject.searchText"
-                    name="searchText" placeholder="Arama">
+                    name="searchText" placeholder="Arama" />
+            </div>
+            <div class="form-group">
+                <label for="status">Durum</label>
+                <select id="status" class="form-control" [(ngModel)]="filterObject.listingStatus" name="status">
+                    <option [ngValue]="null">Bütün İlanlar</option>
+                    <option [ngValue]="true">Aktif İlanlar</option>
+                    <option [ngValue]="false">İnaktif İlanlar</option>
+                </select>
+
+            </div>
+            <div class="form-group">
+                <label for="listingTypeName" class="form-label">İlan Tipi</label>
+                <select class="form-select" id="propertyType" name="propertyType"
+                    [(ngModel)]="filterObject.propertyTypeId">
+                    <option [ngValue]="null">Seçiniz</option>
+                    <option [ngValue]="1">Ev</option>
+                    <option [ngValue]="2">Arsa</option>
+                </select>
             </div>
 
             <div class="form-group">
-
-                <label for="listingTypeName" class="form-label">İlan Türü</label>
+                <label for="listingTypeName" class="form-label">İlan Durumu</label>
                 <select class="form-select" id="propertyType" name="propertyType"
                     [(ngModel)]="filterObject.listingTypeId">
                     <option [ngValue]="null">Seçiniz</option>
-                    <option *ngFor="let listingType of listingTypes" value="{{listingType.id}}">
-                        {{listingType.listingTypeName}}</option>
+                    <option *ngFor="let listingType of listingTypes" value="{{ listingType.id }}">
+                        {{ listingType.listingTypeName }}
+                    </option>
                 </select>
-
             </div>
 
             <div class="form-group">
-                <label for="cityName" class="form-label">Şehir</label>
-                <select class="form-select" id="city" name="city" (change)="onCityChange($event)"
+                <select class="form-select mt-2" id="city" name="city" (change)="onCityChange($event)"
                     [(ngModel)]="filterObject.cityId">
-                    <option [ngValue]="undefined">Şehir Seçin</option>
-                    <option *ngFor="let city of city" [value]="city.id">{{ city.cityName }}</option>
+                    <option [ngValue]="null">Şehir Seçin</option>
+                    <option *ngFor="let city of city" [value]="city.id">
+                        {{ city.cityName }}
+                    </option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label for="districtName" class="form-label">İlçe</label>
-                <select class="form-select" id="district" name="district" [(ngModel)]="filterObject.districtId">
-                    <option [ngValue]="undefined">İlçe Seçin</option>
-                    <option *ngFor="let district of districts" [value]="district.id">{{
-                        district.districtName }}</option>
+                <select class="form-select mt-2" id="district" name="district" [(ngModel)]="filterObject.districtId">
+                    <option [ngValue]="null">İlçe Seçin</option>
+                    <option *ngFor="let district of districts" [value]="district.id">
+                        {{ district.districtName }}
+                    </option>
                 </select>
             </div>
+            <div>
+                <div class="form-group">
+                    <input type="number" class="form-control mt-2" id="minPrice" name="minPrice" min="0"
+                        placeholder="Min. Fiyat" [(ngModel)]="filterObject.minPrice" />
 
-            <div class="form-group">
-                <label for="minPrice" class="form-label">Minimum Fiyat</label>
-                <input type="number" class="form-control" id="minPrice" name="minPrice" min="0"
-                    [(ngModel)]="filterObject.minPrice">
+                </div>
+
+                <div class="form-group">
+                    <input type="number" class="form-control mt-2" id="maxPrice" name="maxPrice" min="0"
+                        placeholder="Maks. Fiyat" [(ngModel)]="filterObject.maxPrice" />
+                </div>
             </div>
 
             <div class="form-group">
-                <label for="maxPrice" class="form-label">Maksimum Fiyat</label>
-                <input type="number" class="form-control" id="maxPrice" name="maxPrice" min="0"
-                    [(ngModel)]="filterObject.maxPrice">
+                <input type="number" class="form-control mt-2" id="minSquareMeter" name="minSquareMeter" min="0"
+                    placeholder="Min. Metrekare" [(ngModel)]="filterObject.minSquareMeter" />
             </div>
 
             <div class="form-group">
-                <label for="status">Durum</label>
-                <!--<select id="status" class="form-control" [(ngModel)]="filterObject.status" name="status">
-                    <option [ngValue]="null">Bütün Kullanıcılar</option>
-                    <option [ngValue]="true">Aktif Kullanıcılar</option>
-                    <option [ngValue]="false">İnaktif Kullanıcılar</option>
-                </select>
-                -->
-            </div>
-            <div class="form-group">
-                <label for="minSquareMeter" class="form-label">Minimum Metrekare</label>
-                <input type="number" class="form-control" id="minSquareMeter" name="minSquareMeter" min="0"
-                    [(ngModel)]="filterObject.minSquareMeter">
+                <input type="number" class="form-control mt-2" id="minSquareMeter" name="minSquareMeter" min="0"
+                    placeholder="Maks. Metrekare" [(ngModel)]="filterObject.maxSquareMeter" />
             </div>
 
-            <div class="form-group">
-                <label for="minSquareMeter" class="form-label">Maksimum Metrekare</label>
-                <input type="number" class="form-control" id="minSquareMeter" name="minSquareMeter" min="0"
-                    [(ngModel)]="filterObject.maxSquareMeter">
-            </div>
-
-            <div class="d-grid gap-2 mt-1 mx-auto">
+            <div class="d-grid gap-2 mt-2 mx-auto">
                 <button type="submit" class="btn btn-warning">Filtrele</button>
             </div>
             <div class="d-grid gap-2 mt-1 mx-auto">
@@ -99,18 +106,59 @@
 </div>
 
 <div class="content">
-
     <div class="container-fluid">
-
         <nav class="navbar bg-rea">
             <div class="container-fluid">
-                <h1 class="navbar-brand text-white"><i class="fa-solid fa-users"></i> Üye Yönetim Ekranı</h1>
+                <h1 class="navbar-brand text-white">
+                    <i class="fa-solid fa-mountain-city"></i> İlan Yönetim Ekranı
+                </h1>
                 <div>
-                    <h1 class="navbar-brand text-white">Tüm İlanlar ({{listingCount}} Adet)</h1>
+                    <h1 *ngIf="filterObject.propertyTypeId === null && filterObject.listingStatus === null"
+                        class="navbar-brand text-white">
+                        Tüm İlanlar ({{listingCount}} Adet)
+                    </h1>
+                    <h1 *ngIf="filterObject.propertyTypeId === 1 && filterObject.listingStatus === null"
+                        class="navbar-brand text-white">
+                        Ev İlanları ({{houseListingCount}} Adet)
+                    </h1>
+                    <h1 *ngIf="filterObject.propertyTypeId === 2 && filterObject.listingStatus === null"
+                        class="navbar-brand text-white">
+                        Arsa İlanları ({{landListingCount}} Adet)
+                    </h1>
+                    <h1 *ngIf="filterObject.propertyTypeId === null && filterObject.listingStatus === true"
+                        class="navbar-brand text-white">
+                        Aktif Tüm İlanlar ({{activeListingCount}} Adet)
+                    </h1>
+                    <h1 *ngIf="filterObject.propertyTypeId === null && filterObject.listingStatus === false"
+                        class="navbar-brand text-white">
+                        Pasif Tüm İlanlar ({{passiveListingCount}} Adet)
+                    </h1>
+                    <h1 *ngIf="filterObject.propertyTypeId === 1 && filterObject.listingStatus === true"
+                        class="navbar-brand text-white">
+                        Aktif Ev İlanları ({{activeHouseListingCount}} Adet)
+                    </h1>
+                    <h1 *ngIf="filterObject.propertyTypeId === 1 && filterObject.listingStatus === false"
+                        class="navbar-brand text-white">
+                        Pasif Ev İlanları ({{passiveHouseListingCount}} Adet)
+                    </h1>
+                    <h1 *ngIf="filterObject.propertyTypeId === 2 && filterObject.listingStatus === true"
+                        class="navbar-brand text-white">
+                        Aktif Arsa İlanları ({{activeLandListingCount}} Adet)
+                    </h1>
+                    <h1 *ngIf="filterObject.propertyTypeId === 2 && filterObject.listingStatus === false"
+                        class="navbar-brand text-white">
+                        Pasif Arsa İlanları ({{passiveLandListingCount}} Adet)
+                    </h1>
                 </div>
+
+
                 <div class="d-flex me-2">
-                    <button routerLink="/profile/ilanlarim" type="button" class="btn btn-warning me-2">Profilim</button>
-                    <button (click)="logout()" type="button" class="btn btn-danger">Çıkış</button>
+                    <button routerLink="/profile/ilanlarim" type="button" class="btn btn-warning me-2">
+                        Profilim
+                    </button>
+                    <button (click)="logout()" type="button" class="btn btn-danger">
+                        Çıkış
+                    </button>
                 </div>
             </div>
         </nav>
@@ -122,7 +170,8 @@
                     <h6 class="mt-2 me-2">Sıralama</h6>
                     <div class="row">
                         <div class="col">
-                            <select class="form-select" [(ngModel)]="selectedSorting" (change)="setSorting()">,
+                            <select class="form-select" [(ngModel)]="selectedSorting" (change)="setSorting()">
+                                ,
                                 <option value="date-1">Yeniden Eskiye</option>
                                 <option value="date-0">Eskiden Yeniye</option>
                                 <option value="price-0">Artan Fiyat</option>
@@ -130,129 +179,184 @@
                                 <option value="squareMeter-0">Artan Metrekare</option>
                                 <option value="squareMeter-1">Azalan Metrekare</option>
                             </select>
-
                         </div>
                     </div>
                 </div>
             </div>
         </nav>
-
     </div>
-
-
 
     <div class="row g-3 mb-2" *ngFor="let listing of listings">
         <div class="col-12">
-            <div class="card h-100"
-                [ngStyle]="{
-                    'background-color': listing.status === false ? 'rgb(248,215,218)' : (listing.listingTypeName === 'kiralık' ? '#f8d7da' : 'white')
-                }">
+            <div class="card h-100" [ngStyle]="{
+          'background-color':
+            listing.status === false
+              ? 'rgb(248,215,218)'
+              : listing.listingTypeName === 'kiralık'
+              ? '#f8d7da'
+              : 'white'
+        }">
                 <div class="row g-0 align-items-center">
                     <div class="col-auto d-flex align-items-center p-3">
                         <h4>
                             <i class="fa-solid" [ngClass]="{
-                                'fa-house': listing.propertyTypeName === 'Ev',
-                                'fa-mountain-sun': listing.propertyTypeName === 'Arsa'
-                            }"></i>
+                  'fa-house': listing.propertyTypeName === 'Ev',
+                  'fa-mountain-sun': listing.propertyTypeName === 'Arsa'
+                }"></i>
                         </h4>
                     </div>
-    
+
                     <!-- Icon -->
                     <div class="col-auto d-flex align-items-center p-3" routerLink="/listings/detail/{{ listing.id }}">
                         <h4><i class="fa-solid fa-eye"></i></h4>
                     </div>
-    
+
                     <!-- Image -->
                     <div class="col-auto d-flex align-items-center p-3">
                         <img [src]="getListingImagePath(listing)" class="img-fluid rounded-start"
-                            style="max-width: 75px; min-width: 75px; width: 75px;">
+                            style="max-width: 75px; min-width: 75px; width: 75px" />
                     </div>
-    
+
                     <!-- ID -->
                     <div class="col-auto d-flex align-items-center p-3">
-                        <h5 style="min-width: 50px;" class="card-title m-0">{{listing.id}}</h5>
+                        <h5 style="min-width: 50px" class="card-title m-0">
+                            {{ listing.id }}
+                        </h5>
                     </div>
-    
+
                     <!-- Listing Info -->
                     <div class="col d-flex align-items-center">
                         <div class="card-body p-3">
                             <h5 class="card-title">
-                                {{listing.title.charAt(0).toUpperCase() + listing.title.slice(1).toLowerCase() | summary:25}}
+                                {{
+                                listing.title.charAt(0).toUpperCase() +
+                                listing.title.slice(1).toLowerCase() | summary : 25
+                                }}
                             </h5>
-                            <h6 class="card-title"><i class="fa-solid fa-comment"></i> {{listing.description.charAt(0).toUpperCase() + listing.description.slice(1).toLowerCase() | summary:30}}</h6>
+                            <h6 class="card-title">
+                                <i class="fa-solid fa-comment"></i>
+                                {{
+                                listing.description.charAt(0).toUpperCase() +
+                                listing.description.slice(1).toLowerCase() | summary : 30
+                                }}
+                            </h6>
                         </div>
                     </div>
-    
+
                     <!-- Operation Claims -->
                     <div class="col d-flex align-items-center">
                         <div class="card-body p-3">
-                            <h5 class="card-title m-0">{{listing.price | priceFormat: 'TRY'}}</h5>
-                            <h6 class="card-title"> {{listing.squareMeter}}m²</h6>
+                            <h5 class="card-title m-0">
+                                {{ listing.price | priceFormat : "TRY" }}
+                            </h5>
+                            <h6 class="card-title">{{ listing.squareMeter }}m²</h6>
                         </div>
                     </div>
-    
-                    <div class="col d-flex align-items-center">
-                        <div class="card-body p-3">
-                            <h5 class="card-title m-0">{{listing.listingTypeName}}</h5>
-                            <h6 class="card-title"> Arsa, Ev</h6>
-                        </div>
-                    </div>
-    
-                    <div class="col d-flex align-items-center">
-                        <div class="card-body p-3">
-                            <h5 class="card-title m-0">{{listing.cityName}}</h5>
-                            <h6 class="card-title"> {{listing.districtName}}</h6>
-                        </div>
-                    </div>
-    
 
-    
-                    <!-- Role Button -->
-                    <div class="col-auto d-flex align-items-center p-3">
-                        <button class="btn btn-warning" type="button" data-bs-toggle="modal" data-bs-target="#editUserRoleModal">
-                            <i class="fa-solid fa-listing-pen"></i> Rol Ver
-                        </button>
+                    <div class="col d-flex align-items-center">
+                        <div class="card-body p-3">
+                            <h5 class="card-title m-0">{{ listing.listingTypeName }}</h5>
+                            <h6 class="card-title">Arsa, Ev</h6>
+                        </div>
                     </div>
-    
+
+                    <div class="col d-flex align-items-center">
+                        <div class="card-body p-3">
+                            <h5 class="card-title m-0">{{ listing.cityName }}</h5>
+                            <h6 class="card-title">{{ listing.districtName }}</h6>
+                        </div>
+                    </div>
+
                     <!-- Register Date -->
                     <div class="col-auto d-flex align-items-center p-3">
-                        <h5 class="card-title m-0">{{listing.date | date:'dd/MM/YYYY'}}</h5>
+                        <h5 class="card-title m-0">
+                            {{ listing.date | date : "dd/MM/YYYY" }}
+                        </h5>
                     </div>
-    
+
                     <!-- Action Button -->
-                    <!--     <div class="col-auto d-flex align-items-center p-3" style="max-width: 200px;" *ngIf="listing.status == true">
-                        <button class="btn btn-danger " type="button"
-                            (click)="setInactiveToUserId(listing.id)" data-bs-toggle="modal"
-                            data-bs-target="#blockUserModal">
-                            <i class="fa-solid fa-listing-xmark"></i> Kullanıcıyı Engelle
+                    <div class="col-auto d-flex align-items-center p-3" style="max-width: 200px"
+                        *ngIf="listing.status == true">
+                        <button class="btn btn-danger" type="button" (click)="setInactiveToListingId(listing.id)"
+                            data-bs-toggle="modal" data-bs-target="#blockListingModal">
+                            <i class="fa-solid fa-listing-xmark"></i> İlanı Pasif Et
                         </button>
                     </div>
-                    <div class="col-auto d-flex align-items-center p-3" style="max-width: 200px; width: 200px;"  *ngIf="listing.status == false">
-                        <button class="btn btn-success w-100" type="button"
-                            (click)="setActiveToUserId(listing.id)" data-bs-toggle="modal"
-                            data-bs-target="#unblockUserModal">
-                            <i class="fa-solid fa-listing-check"></i> Engeli Kaldır
+                    <div class="col-auto d-flex align-items-center p-3" style="max-width: 200px"
+                        *ngIf="listing.status == false">
+                        <button class="btn btn-success w-100" type="button" (click)="setActiveToListingId(listing.id)"
+                            data-bs-toggle="modal" data-bs-target="#unblockListingModal">
+                            <i class="fa-solid fa-listing-check"></i> İlanı Aktif Et
                         </button>
                     </div>
-                    -->
                 </div>
             </div>
         </div>
     </div>
-    
+    <div class="pagination justify-content-center">
+        <button class="btn page-btn ms-1" (click)="previousPage()">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <form class="ms-1" (ngSubmit)="setPageNumber(currentPage)">
+            <input type="number" class="form-control set-page" id="pageNum" name="pageNum" [(ngModel)]="currentPage" />
+        </form>
 
-</div>
+        <button class="btn page-btn ms-1" (click)="nextPage()">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+    </div>
 
-<div class="pagination justify-content-center ">
-    <button class="btn page-btn ms-1" (click)="previousPage()">
-        <i class="fa-solid fa-chevron-left"></i>
-    </button>
-    <form class="ms-1" (ngSubmit)="setPageNumber(currentPage)"><input type="number" class="form-control set-page"
-            id="pageNum" name="pageNum" [(ngModel)]="currentPage">
-    </form>
+    <!-- İlanı Pasif Et Modal -->
+    <div class="modal fade" id="blockListingModal" tabindex="-1" aria-labelledby="blockListingModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="blockListingModalLabel">
+                        İlanı Pasif Duruma Getir
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{ activeListingId }} id'li ilan pasif duruma getirilecektir.
+                    Onaylıyor musunuz?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Vazgeç
+                    </button>
+                    <button type="button" class="btn btn-danger" (click)="inactiveListing()">
+                        Onayla
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-
-    <button class="btn page-btn ms-1" (click)="nextPage()">
-        <i class="fa-solid fa-chevron-right"></i>
-    </button>
+    <!-- İlanı Aktif Et Modal -->
+    <div class="modal fade" id="unblockListingModal" tabindex="-1" aria-labelledby="unblockListingModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="unblockListingModalLabel">
+                        İlanı Aktif Duruma Getir
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{ activeListingId }} id'li ilan aktif duruma getirilecektir.
+                    Onaylıyor musunuz?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Vazgeç
+                    </button>
+                    <button type="button" class="btn btn-success" (click)="activeListing()">
+                        Onayla
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -68,5 +68,12 @@ export class ListingService {
     return this.httpClient.get<SingleResponseModel<boolean>>(this.apiUrl+"getlistingstatus?listingId="+listingId);
   }
   
+
+  setListingActive(listingId:number):Observable<ResponseModel>{
+    return this.httpClient.post<ResponseModel>(this.apiUrl+"setlistingactive?listingId="+listingId,{});
+  }
   
+  setListingInactive(listingId:number):Observable<ResponseModel>{
+    return this.httpClient.post<ResponseModel>(this.apiUrl+"setlistinginactive?listingId="+listingId,{});
+  }
 }

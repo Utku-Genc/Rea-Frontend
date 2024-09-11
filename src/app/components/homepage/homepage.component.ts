@@ -23,6 +23,20 @@ export class HomepageComponent {
   houseListings: HouseListing[] = [];
   landListings: LandListing[] = [];
 
+  filterObject: ListingFilter = {
+    cityId: null,
+    districtId: null,
+    listingTypeId: null,
+    maxPrice: null,
+    maxSquareMeter: null,
+    minPrice: null,
+    minSquareMeter: null,
+    searchText: null,
+    listingStatus: true,
+    propertyTypeId: null, // Arsa, ev gibi türler için
+    date: null // İlanın eklenme tarihi
+}
+
 
   constructor(
      private houseListingService: HouseListingService, 
@@ -38,9 +52,8 @@ export class HomepageComponent {
 
   }
   getListingByPage(page:number,pageSize:number){
-    let filter! : ListingFilter
     let sortingObject! : SortingObject
-    this.listingService.getPaginatedListings(filter,sortingObject,1,6).subscribe(response=>{
+    this.listingService.getPaginatedListings(this.filterObject,sortingObject,1,6).subscribe(response=>{
       this.listings = response.data;
     })
   }
