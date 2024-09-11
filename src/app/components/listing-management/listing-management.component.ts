@@ -226,9 +226,10 @@ setInactiveToListingId(listingId: number) {
 }
 
 inactiveListing() {
-  this.listingService.setListingInactive(this.activeListingId).subscribe(response => {
-    this.toastrService.info("İlan inaktif edildi", "İşlem Başarılı")
+  this.listingService.deleteListing(this.activeListingId).subscribe(response => {
+    this.toastrService.info("İlan Başarıyla Silindi", "İşlem Başarılı")
     window.location.reload();
+
 
   });
 }
