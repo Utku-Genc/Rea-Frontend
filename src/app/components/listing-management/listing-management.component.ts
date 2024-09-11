@@ -28,6 +28,7 @@ export class ListingManagementComponent {
   listingsPerPage = 10;
 
   selectedSorting: string = "date-1";
+  activeListingId!: number;
 
   listingCount!:number;
   activeListingCount !:number;
@@ -37,6 +38,8 @@ export class ListingManagementComponent {
   activeListingPageCount!: number;
   passiveListingPageCount!: number;
 
+  houseListingCount!:number;
+  landListingCount!:number;
   activeHouseListingCount!:number;
   passiveHouseListingCount!:number;
   activeLandListingCount!:number;
@@ -85,45 +88,43 @@ propertyTypes: any;
 
   ngOnInit(): void {
     this.getCity();
-    console.log(this.filterObject);
-    this.getListingTypes()
-    this.getListingByPage(this.currentPage,this.listingsPerPage)
-    this.getListingCount();
-    this.getActiveListingCount();
-    this.getPassiveListingCount();
+    this.getListingTypes();
+    this.updateListingCounts(); // Güncellenmiş yöntem
+    this.getHouseListingCount(); // Güncellenmiş yöntem
+    this.getLandListingCount(); // Güncellenmiş yöntem
 
+    
+    // Sayfa ID'sini al
     let pageId = this.route.snapshot.paramMap.get('pageId');
     if (pageId) {
-      this.currentPage = parseInt(pageId, 10);
-      this.getListingByPage(this.currentPage, this.listingsPerPage);
-    
-      const filterStatus = this.route.snapshot.paramMap.get('filterStatus');
-      console.log("cons " + filterStatus);
-    
-      if (filterStatus !== null) {
-        // 'active' ya da 'inactive' değerlerini boolean'a dönüştürün.
-        this.filterObject.listingStatus = filterStatus === 'active' ? true : filterStatus === 'inactive' ? false : null;
-        this.onSubmit();
-        console.log("Filtreli listing getirme");
-      } else {
-        this.getListingByPage(this.currentPage, this.listingsPerPage);
-        console.log("Filtresiz listing getirme");
+        this.currentPage = parseInt(pageId, 10);
         
-      }
-      return;
+        // Filtre durumunu al
+        const filterStatus = this.route.snapshot.paramMap.get('filterStatus');
+        console.log("cons " + filterStatus);
+        
+        if (filterStatus !== null) {
+            // 'active' ya da 'inactive' değerlerini boolean'a dönüştür
+            this.filterObject.listingStatus = filterStatus === 'active' ? true : filterStatus === 'inactive' ? false : null;
+            this.onSubmit(); // Filtreleme işlevini çağır
+            console.log("Filtreli listing getirme");
+        } else {
+            this.getListingByPage(this.currentPage, this.listingsPerPage);
+            console.log("Filtresiz listing getirme");
+        }
+        return;
     } else {
-      this.getListingByPage(this.currentPage, this.listingsPerPage);
+        this.getListingByPage(this.currentPage, this.listingsPerPage);
     }
-    
-
-
-  }
+}
 
 
 
-
-
-
+updateListingCounts() {
+  this.getListingCount();
+  this.getActiveListingCount();
+  this.getPassiveListingCount();
+}
 
 
 
@@ -137,8 +138,6 @@ propertyTypes: any;
 
 
 
-
-
   getListingTypes() {
     this.listingTypeService.getAll().subscribe(response => {
       this.listingTypes = response.data;
@@ -147,8 +146,8 @@ propertyTypes: any;
 
   onSubmit() {
 //cityId status ile değişecek
-    if (this.filterObject.cityId !== null && this.router.url.startsWith("/dashboard/listing-management/status/")) {
-      const filterStatus = this.filterObject.cityId;
+    if (this.filterObject.listingStatus !== null && this.router.url.startsWith("/dashboard/listing-management/status/")) {
+      const filterStatus = this.filterObject.listingStatus;
       this.router.navigateByUrl(`/dashboard/listing-management/status/${filterStatus}/page/.`);
       this.currentPage = 1
       this.router.navigateByUrl(`/dashboard/listing-management/status/${filterStatus}/page/${this.currentPage}`); // Sadece link kısmını güncelle
@@ -209,7 +208,30 @@ propertyTypes: any;
   }
 
 
+setActiveToListingId(listingId: number) {
+  this.activeListingId = listingId;
+  console.log("ActiveToUser" + this.setActiveToListingId)
+}
+activeListing() {
+  this.listingService.setListingActive(this.activeListingId).subscribe(response => {
+    this.toastrService.info("İlan aktif edildi", "İşlem Başarılı")
+    window.location.reload();
 
+  });
+}
+
+setInactiveToListingId(listingId: number) {
+  this.activeListingId = listingId;
+  console.log("InactiveToUser" + this.setInactiveToListingId)
+}
+
+inactiveListing() {
+  this.listingService.setListingInactive(this.activeListingId).subscribe(response => {
+    this.toastrService.info("İlan inaktif edildi", "İşlem Başarılı")
+    window.location.reload();
+
+  });
+}
 
   getDistrict(cityId: number) {
     if (cityId != null) {
@@ -229,51 +251,43 @@ propertyTypes: any;
   }
 
   //İlan Sayıları
-  getListingCount(){
-    this.listingService.getListingCount().subscribe(
-      response=>
-        this.listingCount = response.data
-    )
-  }
-  getActiveListingCount(){
-    this.listingService.getActiveListingCount().subscribe(
-      response=>
-        this.activeListingCount = response.data
-    )
-  }
-  getPassiveListingCount(){
-    this.listingService.getPassiveListingCount().subscribe(
-      response=>
-        this.passiveListingCount = response.data
-    )
-  }
-  getActiveHouseListingCount(){
-    this.houseListingService.getActiveHouseListingCount().subscribe(
-      response=>
-        this.activeHouseListingCount = response.data
-    )
-  }
-  getPassiveHouseListingCount(){
-    this.houseListingService.getPassiveHouseListingCount().subscribe(
-      response=>
-        this.passiveHouseListingCount = response.data
-    )
+  getHouseListingCount() {
+    this.houseListingService.getActiveHouseListingCount().subscribe(response => {
+      this.activeHouseListingCount = response.data;
+      this.houseListingCount = this.activeHouseListingCount + this.passiveHouseListingCount;
+    });
+    this.houseListingService.getPassiveHouseListingCount().subscribe(response => {
+      this.passiveHouseListingCount = response.data;
+    });
   }
 
-  getActiveLandListingCount(){
-    this.landListingService.getActiveLandListingCount().subscribe(
-      response=>
-        this.activeLandListingCount = response.data
-    )
-  }
-  getPassiveLandListingCount(){
-    this.landListingService.getPassiveLandListingCount().subscribe(
-      response=>
-        this.passiveLandListingCount = response.data
-    )
+  getLandListingCount() {
+    this.landListingService.getActiveLandListingCount().subscribe(response => {
+      this.activeLandListingCount = response.data;
+      this.landListingCount = this.activeLandListingCount + this.passiveLandListingCount;
+    });
+    this.landListingService.getPassiveLandListingCount().subscribe(response => {
+      this.passiveLandListingCount = response.data;
+    });
   }
 
+  getListingCount() {
+    this.listingService.getListingCount().subscribe(response => {
+      this.listingCount = response.data;
+    });
+  }
 
+  getActiveListingCount() {
+    this.listingService.getActiveListingCount().subscribe(response => {
+      this.activeListingCount = response.data;
+    });
+  }
+
+  getPassiveListingCount() {
+    this.listingService.getPassiveListingCount().subscribe(response => {
+      this.passiveListingCount = response.data;
+    });
+  }
   setSorting() {
     if (this.selectedSorting) {
       const [sortBy, sortDirection] = this.selectedSorting.split('-');
@@ -394,6 +408,8 @@ propertyTypes: any;
       queryParamsHandling: 'merge'
     });
   }
+  
+
   
   
 }

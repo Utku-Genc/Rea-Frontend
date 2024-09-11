@@ -104,7 +104,7 @@
             <div class="card-header">Aktif İlan Sayısı</div>
             <div class="card-body d-flex col">
               <h5 class="card-title col-9">{{this.activeListingCount}}</h5>
-              <button type="button" class="btn btn-outline-light col">Görüntüle</button>
+              <button type="button" routerLink="/dashboard/listing-management/status/active/page/1" class="btn btn-outline-light col">Görüntüle</button>
             </div>
           </div>
         </div>
@@ -113,7 +113,7 @@
             <div class="card-header">Deaktif İlan Sayısı</div>
             <div class="card-body d-flex col">
               <h5 class="card-title col-9">{{this.passiveListingCount}}</h5>
-              <button type="button" class="btn btn-outline-light col">Görüntüle</button>
+              <button type="button" routerLink="/dashboard/listing-management/status/inactive/page/1" class="btn btn-outline-light col">Görüntüle</button>
             </div>
           </div>
         </div>
@@ -125,7 +125,6 @@
             <div class="card-header">Toplam İlan Sayısı</div>
             <div class="card-body d-flex col">
               <h5 class="card-title col-9">{{this.activeHouseListingCount + passiveHouseListingCount}}</h5>
-              <button type="button" class="btn btn-outline-light col" >Görüntüle</button>
             </div>
           </div>
         </div>
@@ -134,7 +133,6 @@
             <div class="card-header">Aktif İlan Sayısı</div>
             <div class="card-body d-flex col">
               <h5 class="card-title col-9">{{this.activeHouseListingCount}}</h5>
-              <button type="button" class="btn btn-outline-light col">Görüntüle</button>
             </div>
           </div>
         </div>
@@ -143,7 +141,6 @@
             <div class="card-header">Deaktif İlan Sayısı</div>
             <div class="card-body d-flex col">
               <h5 class="card-title col-9">{{this.passiveHouseListingCount}}</h5>
-              <button type="button" class="btn btn-outline-light col">Görüntüle</button>
             </div>
           </div>
         </div>
@@ -155,7 +152,6 @@
             <div class="card-header">Toplam İlan Sayısı</div>
             <div class="card-body d-flex col">
               <h5 class="card-title col-9">{{this.activeLandListingCount + passiveLandListingCount}}</h5>
-              <button type="button" class="btn btn-outline-light col">Görüntüle</button>
             </div>
           </div>
         </div>
@@ -164,7 +160,6 @@
             <div class="card-header">Aktif İlan Sayısı</div>
             <div class="card-body d-flex col">
               <h5 class="card-title col-9">{{this.activeLandListingCount}}</h5>
-              <button type="button" class="btn btn-outline-light col">Görüntüle</button>
             </div>
           </div>
         </div>
@@ -173,7 +168,6 @@
             <div class="card-header">Deaktif İlan Sayısı</div>
             <div class="card-body d-flex col">
               <h5 class="card-title col-9">{{this.passiveLandListingCount}}</h5>
-              <button type="button" class="btn btn-outline-light col">Görüntüle</button>
             </div>
           </div>
         </div>

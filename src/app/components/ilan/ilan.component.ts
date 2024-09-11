@@ -33,7 +33,7 @@ export class IlanComponent implements OnInit {
     minPrice: null,
     minSquareMeter: null,
     searchText: null,
-    listingStatus: null,
+    listingStatus: true,
     propertyTypeId: null, // Arsa, ev gibi türler için
     date: null // İlanın eklenme tarihi
 }
@@ -156,7 +156,7 @@ export class IlanComponent implements OnInit {
       minPrice: null,
       minSquareMeter: null,
       searchText: null,
-      listingStatus: null,
+      listingStatus: true,
       propertyTypeId: null, // Arsa, ev gibi türler için
       date: null // İlanın eklenme tarihi
   }
